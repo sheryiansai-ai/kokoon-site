@@ -1,0 +1,760 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="icon" href="img/logo.png">
+<title>Kokoon Labs</title>
+<meta name="description" content="Kokoon Origin: a real robotics lab for teenagers. Our own Core board, three machines they build and keep, and a guided path from the first LED to a robot that thinks.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Instrument+Serif:ital@0;1&family=DM+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: editorial product page. Warm white ground, two dark chapters (Why now, The build). Indigo from the logo is the only accent.
+   Type: Instrument Sans tight for display and UI, Instrument Serif italic for the emotional half-line, DM Mono for small labels. */
+:root{
+  --bg:#F5F3EE; --bg2:#ECE9E1; --card:#FFFFFF; --ink:#101114; --ink2:#5C5F67; --ink3:#8A8D95; --line:#DDD9CF; --line2:#CFCABD;
+  --indigo:#4030F0; --indigo2:#2E21C9; --indigo-deep:#200070; --yellow:#F0C000;
+  --dark:#0F1013; --dark2:#17181D; --dark3:#1F2127; --dark-line:#2A2C34; --dark-ink:#F4F2EC; --dark-ink2:#A3A6B0;
+  --f-sans:"Instrument Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-serif:"Instrument Serif",Georgia,"Times New Roman",serif;
+  --f-mono:"DM Mono",ui-monospace,Menlo,monospace;
+  --gutter:clamp(20px,4.5vw,64px); --max:1280px; --r:22px; --r-s:14px;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--f-sans);font-size:17px;line-height:1.55;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+img{max-width:100%;display:block}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--indigo);outline-offset:3px;border-radius:4px}
+h1,h2,h3{margin:0;font-weight:600;letter-spacing:-0.03em;line-height:1.02;text-wrap:balance}
+h1{font-size:clamp(44px,7.2vw,104px);letter-spacing:-0.045em;line-height:.96}
+h2{font-size:clamp(36px,5.2vw,72px)}
+h3{font-size:clamp(22px,2.2vw,28px);letter-spacing:-0.02em;line-height:1.15}
+p{margin:0}
+em.s{font-family:var(--f-serif);font-style:italic;font-weight:400;letter-spacing:-0.01em}
+.mono{font-family:var(--f-mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;font-weight:500}
+.eyebrow{display:flex;align-items:center;gap:10px;color:var(--ink2);margin-bottom:26px}
+.eyebrow::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--indigo)}
+.lead{font-size:clamp(18px,1.55vw,21px);line-height:1.5;color:var(--ink2);max-width:58ch;letter-spacing:-0.005em}
+.wrap{max-width:var(--max);margin-inline:auto;padding-inline:var(--gutter)}
+.sec{padding-block:clamp(80px,11vw,152px)}
+.btn{display:inline-flex;align-items:center;gap:10px;height:54px;padding:0 26px;border-radius:999px;border:0;background:var(--ink);color:#fff;font:600 15.5px/1 var(--f-sans);letter-spacing:-0.005em;text-decoration:none;cursor:pointer;transition:transform .2s cubic-bezier(.2,.7,.2,1),background .2s;white-space:nowrap}
+.btn:hover{transform:translateY(-1px);background:#000}
+.btn svg{width:16px;height:16px;transition:transform .2s}
+.btn:hover svg{transform:translateX(3px)}
+.btn--indigo{background:var(--indigo)}.btn--indigo:hover{background:var(--indigo2)}
+.btn--ghost{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 1.5px var(--line2)}.btn--ghost:hover{background:rgba(0,0,0,.04);box-shadow:inset 0 0 0 1.5px var(--ink)}
+.btn--light{background:#fff;color:var(--ink)}.btn--light:hover{background:#fff}
+.btn--sm{height:44px;padding:0 20px;font-size:14.5px}
+.dark{background:var(--dark);color:var(--dark-ink)}
+.dark .lead{color:var(--dark-ink2)}
+.dark .eyebrow{color:var(--dark-ink2)}
+.dark .btn--ghost{color:var(--dark-ink);box-shadow:inset 0 0 0 1.5px var(--dark-line)}.dark .btn--ghost:hover{background:rgba(255,255,255,.06);box-shadow:inset 0 0 0 1.5px var(--dark-ink2)}
+.rv{transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1)}
+.js .rv{opacity:.02;transform:translateY(16px)}
+.js .rv.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.rv,.js .rv{opacity:1;transform:none;transition:none}}
+
+/* nav */
+.nav{position:fixed;inset:0 0 auto 0;z-index:50;padding-top:env(safe-area-inset-top,0px);transition:background .3s,box-shadow .3s}
+.nav.scrolled{background:rgba(245,243,238,.82);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:0 1px 0 rgba(16,17,20,.06)}
+.nav.ondark{color:var(--dark-ink)}
+.nav.ondark.scrolled{background:rgba(15,16,19,.72);box-shadow:0 1px 0 rgba(255,255,255,.06)}
+.nav .wrap{display:flex;align-items:center;gap:32px;height:72px}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;font-weight:600;font-size:18px;letter-spacing:-0.02em}
+.logo img{width:34px;height:auto}
+.nav nav{display:flex;gap:28px;margin-left:auto}
+.nav nav a{text-decoration:none;font-size:15px;font-weight:500;opacity:.72}
+.nav nav a:hover{opacity:1}
+.nav .btn{height:44px;padding:0 20px;font-size:14.5px}
+.nav.ondark .btn{background:#fff;color:var(--ink)}
+.menu{display:none;margin-left:auto;background:none;border:0;color:inherit;font:500 15px var(--f-sans);cursor:pointer;padding:8px}
+@media (max-width:900px){.nav nav{display:none}.menu{display:block}.nav .btn{margin-left:0}}
+
+/* hero */
+.hero{padding-top:calc(72px + clamp(48px,8vw,112px));padding-bottom:0}
+.hero h1{max-width:12ch}
+.hero .lead{margin-top:28px}
+.hero-cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:36px}
+.hero-meta{display:flex;gap:28px;flex-wrap:wrap;margin-top:40px;color:var(--ink3)}
+.hero-fig{position:relative;margin:clamp(48px,7vw,88px) 0 0;border-radius:var(--r);overflow:hidden;aspect-ratio:16/8.4;background:var(--bg2)}
+.hero-fig img{width:100%;height:100%;object-fit:cover}
+.hero-fig::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0) 55%,rgba(0,0,0,.28) 100%)}
+.cap{position:absolute;z-index:2;background:rgba(255,255,255,.92);backdrop-filter:blur(8px);border-radius:14px;padding:14px 16px;max-width:320px;display:grid;gap:4px;box-shadow:0 10px 30px rgba(0,0,0,.12)}
+.cap b{font-weight:600;font-size:15px;letter-spacing:-0.01em}
+.cap span{font-size:13.5px;color:var(--ink2);line-height:1.4}
+.cap.c1{left:24px;bottom:24px}
+.cap.c2{right:24px;top:24px}
+@media (max-width:640px){.hero-fig{aspect-ratio:4/5}.cap.c2{display:none}.cap.c1{left:12px;right:12px;bottom:12px;max-width:none}}
+.strip{display:flex;gap:40px;flex-wrap:wrap;justify-content:space-between;align-items:center;padding:28px 0;margin-top:28px;border-top:1px solid var(--line);color:var(--ink3)}
+.strip span{display:flex;align-items:center;gap:8px}
+
+/* why now (dark) */
+.why .top{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:clamp(32px,6vw,96px);align-items:end}
+.why h2{font-size:clamp(40px,6.4vw,92px);letter-spacing:-0.04em}
+.why h2 .dim{color:#6E717C}
+.why .lead{margin-top:0}
+.why-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:clamp(48px,7vw,88px)}
+.wcard{background:var(--dark2);border:1px solid var(--dark-line);border-radius:var(--r);padding:28px;display:grid;gap:14px;align-content:start;min-height:240px}
+.wcard .n{font-family:var(--f-serif);font-style:italic;font-size:44px;line-height:1;color:var(--dark-ink2)}
+.wcard h3{margin-top:auto}
+.wcard p{color:var(--dark-ink2);font-size:15.5px}
+.why-q{margin-top:clamp(48px,7vw,88px);padding-top:40px;border-top:1px solid var(--dark-line);display:grid;grid-template-columns:minmax(0,8fr) minmax(0,4fr);gap:32px;align-items:center}
+.why-q blockquote{margin:0;font-family:var(--f-serif);font-style:italic;font-size:clamp(26px,3vw,40px);line-height:1.15;letter-spacing:-0.01em}
+.why-q cite{display:block;font-style:normal;color:var(--dark-ink2);font-size:14px;margin-top:18px}
+@media (max-width:900px){.why .top,.why-q{grid-template-columns:1fr}.why-grid{grid-template-columns:1fr}}
+
+/* moments */
+.moments h2{max-width:16ch}
+.mgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:clamp(40px,6vw,72px)}
+.moment{display:grid;grid-template-rows:auto 1fr;background:var(--card);border-radius:var(--r);overflow:hidden;border:1px solid var(--line)}
+.moment figure{margin:0;aspect-ratio:4/3;overflow:hidden;background:var(--bg2)}
+.moment img{width:100%;height:100%;object-fit:cover;transition:transform .8s cubic-bezier(.2,.7,.2,1)}
+.moment:hover img{transform:scale(1.03)}
+.moment div{padding:24px 26px 28px;display:grid;gap:10px;align-content:start}
+.moment .mono{color:var(--ink3)}
+.moment p{color:var(--ink2);font-size:15.5px}
+@media (max-width:900px){.mgrid{grid-template-columns:1fr}}
+
+/* home timeline */
+.home{background:var(--bg2)}
+.tl{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;margin-top:clamp(40px,6vw,64px);border-top:1px solid var(--line2)}
+.tl div{padding:26px 24px 0 0;display:grid;gap:10px;align-content:start;position:relative}
+.tl div::before{content:"";position:absolute;top:-1px;left:0;width:40px;height:2px;background:var(--indigo)}
+.tl .mono{color:var(--ink3)}
+.tl p{font-size:clamp(19px,1.7vw,23px);line-height:1.3;letter-spacing:-0.015em;font-weight:500}
+@media (max-width:900px){.tl{grid-template-columns:1fr 1fr}.tl div{padding-bottom:24px}}
+@media (max-width:520px){.tl{grid-template-columns:1fr}}
+
+/* machines */
+.mach-head{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:32px;align-items:end}
+.mach{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:20px;margin-top:clamp(40px,6vw,64px)}
+.mlist{display:grid;gap:10px;align-content:start}
+.mitem{text-align:left;background:var(--card);border:1px solid var(--line);border-radius:var(--r-s);padding:20px 22px;cursor:pointer;font:inherit;color:inherit;display:grid;gap:6px;transition:border-color .2s,background .2s}
+.mitem[aria-selected="true"]{border-color:var(--ink);background:#fff}
+.mitem .mono{color:var(--ink3)}
+.mitem b{font-size:22px;font-weight:600;letter-spacing:-0.02em}
+.mitem p{color:var(--ink2);font-size:15px;line-height:1.45}
+.mitem .tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}
+.tag{font-family:var(--f-mono);font-size:11px;letter-spacing:.04em;text-transform:uppercase;padding:5px 9px;border-radius:999px;background:var(--bg2);color:var(--ink2)}
+.stage{position:relative;border-radius:var(--r);overflow:hidden;background:radial-gradient(120% 90% at 50% 100%,#E6E2D8 0%,#F1EEE6 60%,#F5F3EE 100%);min-height:420px;aspect-ratio:7/6;border:1px solid var(--line);cursor:grab;touch-action:pan-y}
+.stage:active{cursor:grabbing}
+.stage canvas,.stage img.r{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.stage .hint{position:absolute;left:18px;bottom:16px;color:var(--ink3)}
+.stage .ld{position:absolute;inset:0;display:grid;place-items:center;color:var(--ink3);font-size:14px}
+@media (max-width:900px){.mach{grid-template-columns:1fr}.stage{order:-1;aspect-ratio:1/1;min-height:0}.mach-head{grid-template-columns:1fr}}
+
+/* the build (dark, pinned) */
+#build{position:relative;height:620vh}
+.pin{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;background:var(--dark);color:var(--dark-ink)}
+.pin canvas{position:absolute;inset:0;width:100%;height:100%}
+#lines{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+#lines path{fill:none;stroke:rgba(244,242,236,.35);stroke-width:1}
+#lines circle{fill:var(--indigo);stroke:#fff;stroke-width:1.5}
+.labels{position:absolute;inset:0;pointer-events:none}
+.lbl{position:absolute;left:0;top:0;width:200px;opacity:0;transition:opacity .25s;display:grid;gap:3px}
+.lbl b{font:500 12px/1.2 var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--dark-ink)}
+.lbl span{font-size:13px;color:var(--dark-ink2);line-height:1.3}
+.lbl.r{text-align:right}
+.bcopy{position:absolute;left:var(--gutter);bottom:clamp(56px,9vh,96px);width:min(520px,calc(100% - 2*var(--gutter)));pointer-events:none}
+.ph{position:absolute;left:0;bottom:0;width:100%;opacity:0;transform:translateY(12px);transition:opacity .45s,transform .45s}
+.ph.on{opacity:1;transform:none;pointer-events:auto}
+.ph .eyebrow{margin-bottom:16px}
+.ph h2{font-size:clamp(34px,4.6vw,64px)}
+.ph p{margin-top:16px;color:var(--dark-ink2);font-size:clamp(15.5px,1.3vw,18px);max-width:44ch}
+.ph .cta{display:flex;gap:10px;flex-wrap:wrap;margin-top:24px}
+.prog{position:absolute;right:var(--gutter);bottom:28px;display:flex;align-items:center;gap:14px;color:var(--dark-ink2)}
+.prog .bar{width:160px;height:2px;background:var(--dark-line);border-radius:2px;overflow:hidden}
+.prog .bar i{display:block;height:100%;width:0;background:var(--dark-ink)}
+.bmeta{position:absolute;right:var(--gutter);top:calc(72px + 28px);text-align:right;color:var(--dark-ink2);display:grid;gap:4px}
+.bmeta b{font-size:28px;font-weight:600;letter-spacing:-0.03em;color:var(--dark-ink);font-variant-numeric:tabular-nums}
+.cue{position:absolute;left:50%;bottom:28px;transform:translateX(-50%);color:var(--dark-ink2);transition:opacity .3s;display:flex;flex-direction:column;align-items:center;gap:8px}
+.cue i{width:1px;height:34px;background:linear-gradient(var(--dark-ink2),transparent);animation:cue 1.8s ease-in-out infinite}
+@keyframes cue{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+@media (max-width:980px){.cue{display:none}}
+@media (max-width:700px){.lbl{width:120px}.lbl span{display:none}.lbl b{font-size:10.5px}.prog .bar{width:90px}.prog span{display:none}.bmeta b{font-size:22px}}
+
+/* core */
+.core-grid{display:grid;grid-template-columns:minmax(0,6fr) minmax(0,6fr);gap:clamp(32px,6vw,80px);align-items:center}
+.core-art{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:clamp(20px,3vw,40px)}
+.core-art svg{width:100%;height:auto;display:block}
+.specs{display:grid;grid-template-columns:1fr 1fr;gap:0;margin-top:32px;border-top:1px solid var(--line)}
+.specs div{padding:16px 16px 16px 0;border-bottom:1px solid var(--line);display:grid;gap:4px}
+.specs .mono{color:var(--ink3);font-size:11px}
+.specs b{font-weight:600;letter-spacing:-0.01em;font-size:17px}
+@media (max-width:900px){.core-grid{grid-template-columns:1fr}}
+
+/* offer */
+.offer{background:var(--bg2)}
+.ogrid{display:grid;grid-template-columns:minmax(0,6fr) minmax(0,5fr);gap:clamp(24px,5vw,72px);align-items:start}
+.inv{margin-top:32px;border-top:1px solid var(--line2)}
+.inv div{display:flex;justify-content:space-between;gap:16px;padding:16px 0;border-bottom:1px solid var(--line2);align-items:baseline}
+.inv span{color:var(--ink3);font-size:14px;text-align:right}
+.pcard{background:var(--card);border-radius:var(--r);padding:clamp(26px,3.5vw,44px);display:grid;gap:20px;border:1px solid var(--line);position:sticky;top:96px}
+.pcard .price{font-size:clamp(52px,5.6vw,76px);font-weight:600;letter-spacing:-0.045em;line-height:.95;font-variant-numeric:tabular-nums}
+.pcard .price small{display:block;font:500 12px/1.4 var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--ink3);margin-top:12px}
+.pcard .honest{color:var(--ink2);font-size:15.5px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:16px 0}
+.pcard .found{display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:start;font-size:15px;color:var(--ink2)}
+.pcard .num{font-family:var(--f-mono);font-size:12px;background:var(--indigo);color:#fff;padding:7px 10px;border-radius:8px;letter-spacing:.06em}
+.pcard .fine{font-size:13.5px;color:var(--ink3)}
+.pcard .btn{justify-self:start}
+@media (max-width:900px){.ogrid{grid-template-columns:1fr}.pcard{position:static}}
+
+/* fit */
+.fit h2{max-width:14ch}
+.fitg{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:clamp(36px,5vw,56px)}
+.fitc{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:28px}
+.fitc h3{margin-bottom:18px}
+.fitc ul{list-style:none;margin:0;padding:0;display:grid;gap:12px}
+.fitc li{display:grid;grid-template-columns:22px 1fr;gap:12px;color:var(--ink2);font-size:16px}
+.fitc li i{width:22px;height:22px;border-radius:50%;display:grid;place-items:center;font-style:normal;font-size:12px;font-weight:700}
+.fitc.yes li i{background:#E6F4EA;color:#1C7A3D}
+.fitc.no li i{background:var(--bg2);color:var(--ink3)}
+@media (max-width:800px){.fitg{grid-template-columns:1fr}}
+
+/* reserve */
+.resg{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:clamp(24px,5vw,72px);align-items:start}
+form{display:grid;grid-template-columns:1fr 1fr;gap:16px;background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:clamp(22px,3vw,36px)}
+.f{display:grid;gap:7px;min-width:0}
+.f.full{grid-column:1/-1}
+.f label{font-size:14px;font-weight:500;color:var(--ink2)}
+.f input,.f select{font:inherit;font-size:16px;color:var(--ink);background:var(--bg);border:1.5px solid var(--line2);border-radius:12px;padding:13px 14px;width:100%;min-width:0}
+.f input:focus,.f select:focus{outline:2px solid var(--indigo);outline-offset:1px;border-color:var(--indigo)}
+.f .err{color:#B42318;font-size:13px}
+.f.bad input{border-color:#B42318}
+.chk{display:flex;gap:10px;align-items:flex-start;font-size:14px;color:var(--ink2)}
+.chk input{width:18px;height:18px;margin-top:2px;accent-color:var(--indigo);flex:none}
+form .btn{justify-self:start}
+.done{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:clamp(26px,3vw,40px);display:grid;gap:14px}
+.done p{color:var(--ink2)}
+.faq{margin-top:48px}
+.faq details{border-top:1px solid var(--line)}
+.faq details:last-child{border-bottom:1px solid var(--line)}
+.faq summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;gap:16px;padding:18px 0;font-weight:500;font-size:17px;letter-spacing:-0.01em}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";color:var(--ink3);font-weight:400;font-size:20px;flex:none}
+.faq details[open] summary::after{content:"−"}
+.faq details p{padding:0 0 20px;color:var(--ink2);font-size:15.5px;max-width:62ch}
+@media (max-width:900px){.resg{grid-template-columns:1fr}}
+@media (max-width:560px){form{grid-template-columns:1fr}}
+
+/* closing + footer */
+.close{padding-block:clamp(72px,10vw,140px)}
+.close .row{display:flex;justify-content:space-between;align-items:flex-end;gap:32px;flex-wrap:wrap}
+.close h2{font-size:clamp(44px,7vw,104px);letter-spacing:-0.045em;max-width:12ch}
+.close p{margin-top:20px;color:var(--dark-ink2);max-width:40ch;font-size:18px}
+footer{background:var(--dark);color:var(--dark-ink2);border-top:1px solid var(--dark-line);padding-block:40px}
+footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:14px}
+</style>
+
+</head>
+<body>
+<header class="nav" id="nav">
+  <div class="wrap">
+    <a class="logo" href="#top"><img src="img/logo.png" alt="" width="34" height="13"><span>Kokoon Labs</span></a>
+    <nav aria-label="Main"><a href="#why">Why now</a><a href="#machines">Machines</a><a href="#build">The build</a><a href="#core">The Core</a><a href="#offer">Price</a></nav>
+    <button class="menu" id="menuBtn">Menu</button>
+    <a class="btn" href="#reserve">Reserve Series 01</a>
+  </div>
+</header>
+
+<main id="top">
+<section class="hero wrap" aria-labelledby="h1">
+  <div class="eyebrow mono rv">Kokoon Origin · Series 01 · Ages 14+</div>
+  <h1 id="h1" class="rv">The future won't be written. <em class="s">It will be built.</em></h1>
+  <p class="lead rv">A real robotics lab for teenagers. Our own Core board, three machines they build and keep, and a guided path from their first LED to a robot that thinks. For the generation growing up with AI.</p>
+  <div class="hero-cta rv">
+    <a class="btn btn--indigo" href="#reserve">Reserve Series 01 <svg viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+    <a class="btn btn--ghost" href="#machines">See what they build</a>
+  </div>
+  <figure class="hero-fig rv">
+    <img src="img/bench.jpg" alt="A teenager at a workbench wiring a circuit on a breadboard connected to a green Kokoon board." width="1400" height="763">
+    <div class="cap c1"><b>Week two. Wiring a distance sensor.</b><span>Nothing works yet. That's the part that teaches.</span></div>
+    <div class="cap c2"><b>Not a toy version of engineering.</b><span>The same board, the same faults, the same fix.</span></div>
+  </figure>
+  <div class="strip mono rv"><span>Designed in India</span><span>Our own ESP32-S3 Core board</span><span>3 machines they keep</span><span>50+ guided builds</span><span>No prior coding needed</span></div>
+</section>
+
+<section class="sec dark why" id="why" aria-labelledby="why-h">
+  <div class="wrap">
+    <div class="top">
+      <div>
+        <div class="eyebrow mono rv">Why now</div>
+        <h2 id="why-h" class="rv">AI already writes the code. <span class="dim">It still can't build the machine.</span></h2>
+      </div>
+      <p class="lead rv">Software is getting very good at writing software. It is not getting better at spotting a problem worth solving, or at making a thing that works in the real world. The next decade belongs to people who can make code touch metal, motors and sensors. That can't be prompted. It has to be built, by hand, with mistakes.</p>
+    </div>
+    <div class="why-grid">
+      <div class="wcard rv"><span class="n">01</span><h3>Judgement</h3><p>Deciding what is worth building. A model can give you a thousand answers; it can't tell you which problem matters.</p></div>
+      <div class="wcard rv"><span class="n">02</span><h3>Hands</h3><p>Making a thing that physically works. Wires, torque, voltage, friction. The world pushes back, and they learn to push back better.</p></div>
+      <div class="wcard rv"><span class="n">03</span><h3>Follow-through</h3><p>Interest runs out around week nine. Finishing a machine after that is most of what they learn, and it stays with them.</p></div>
+    </div>
+    <div class="why-q rv">
+      <blockquote>“Your child is bright. The report card says ‘has potential’. Nobody can tell you what they are actually good at. This produces something you can pick up.”<cite>From the Kokoon Labs parent guide</cite></blockquote>
+      <a class="btn btn--light" href="#reserve" style="justify-self:start">Give them a real tool</a>
+    </div>
+  </div>
+</section>
+
+<section class="sec moments" aria-labelledby="mo-h">
+  <div class="wrap">
+    <div class="eyebrow mono rv">What you're really buying</div>
+    <h2 id="mo-h" class="rv">Not a kit. <em class="s">The moment it works.</em></h2>
+    <p class="lead rv" style="margin-top:24px">It does not begin with a robot. It begins with one part, one question, and a chance to see what happens. They connect a part, test it, change one thing, and watch the machine respond.</p>
+    <div class="mgrid">
+      <article class="moment rv"><figure><img src="img/plant.jpg" alt="A small sensor board wired to a potted plant on a wooden table." loading="lazy"></figure><div><span class="mono">Moment 01</span><h3>The first LED, in their pocket</h3><p>No screens for the first weeks. They learn what current and resistance do by wiring things wrong and working out why. Most light an LED in the first session and take it home.</p></div></article>
+      <article class="moment rv"><figure><img src="img/boxbot.jpg" alt="A home-made robot with an ultrasonic sensor and wires, on a sunlit table." loading="lazy"></figure><div><span class="mono">Moment 02</span><h3>The first fault they fix alone</h3><p>A loose wire, a motor backwards, code that surprises them. Real hardware has real faults. Finding one and fixing it is the day they stop asking you to sit with them.</p></div></article>
+      <article class="moment rv"><figure><img src="img/rover.jpg" alt="A small wheeled robot following a black line drawn on a table." loading="lazy"></figure><div><span class="mono">Moment 03</span><h3>The first machine that listens</h3><p>A robot that does what they told it to. Not a video of one. One component becomes a response, a few responses become a build, and then the question changes: what else can I make it do?</p></div></article>
+    </div>
+  </div>
+</section>
+
+<section class="sec home" aria-labelledby="home-h">
+  <div class="wrap">
+    <div class="eyebrow mono rv">What you'll notice</div>
+    <h2 id="home-h" class="rv">What changes at home.</h2>
+    <p class="lead rv" style="margin-top:24px">The building is their problem. This is what you see across the kitchen table.</p>
+    <div class="tl">
+      <div class="rv"><span class="mono">Month 1</span><p>They start explaining things to you at dinner.</p></div>
+      <div class="rv"><span class="mono">Month 2</span><p>They stop asking you to sit with them while they work.</p></div>
+      <div class="rv"><span class="mono">Months 3 to 4</span><p>They take criticism about their work without falling apart.</p></div>
+      <div class="rv"><span class="mono">Months 5 to 6</span><p>They start talking about what things cost to make.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="machines" aria-labelledby="ma-h">
+  <div class="wrap">
+    <div class="mach-head">
+      <div><div class="eyebrow mono rv">What they finish with</div><h2 id="ma-h" class="rv">Three machines they build, <em class="s">and keep.</em></h2></div>
+      <p class="lead rv">3D-printed, motorised, and wired by hand. Every student finishes all three. None of them had wired a circuit before week one.</p>
+    </div>
+    <div class="mach">
+      <div class="mlist" role="tablist" aria-label="Choose a machine">
+        <button class="mitem rv" role="tab" aria-selected="true" data-k="sentry"><span class="mono">Capstone 01 · 3D-printed build</span><b>Sentry X1</b><p>A full pan-and-tilt aiming mechanism that fires foam darts. Two servos for the axes, a sensor to find the target, and code that has to hit something moving.</p><span class="tags"><i class="tag">Pan + tilt</i><i class="tag">Sensing</i><i class="tag">Timing</i></span></button>
+        <button class="mitem rv" role="tab" aria-selected="false" data-k="rover"><span class="mono">Capstone 02 · 3D-printed build</span><b>Rover Tank</b><p>A configurable 4×4 rover. Wheel drive or tank tracks, swapped by the student. Mounts for extra sensors, so the same chassis becomes a different experiment each time.</p><span class="tags"><i class="tag">Drive</i><i class="tag">Traction</i><i class="tag">Attachments</i></span></button>
+        <button class="mitem rv" role="tab" aria-selected="false" data-k="arm"><span class="mono">Capstone 03 · 3D-printed build</span><b>Shadow Arm</b><p>Move the small control arm and the large one mirrors it. Four servos held to an exact angle, which is the hardest control problem in the kit.</p><span class="tags"><i class="tag">4 servos</i><i class="tag">Precision</i><i class="tag">Mirroring</i></span></button>
+      </div>
+      <div class="stage rv" id="stage" role="img" aria-label="3D model of the selected machine. Drag to rotate.">
+        <canvas id="cv"></canvas>
+        <img class="r" id="roverImg" src="img/hauler.jpg" alt="" hidden>
+        <div class="ld" id="ld">Loading model…</div>
+        <span class="hint mono" id="hint">Drag to rotate · built from the real print files</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="build" aria-label="Sentry X1, taken apart and rebuilt as you scroll">
+  <div class="pin" id="pin">
+    <canvas id="c3d" aria-hidden="true"></canvas>
+    <svg id="lines" aria-hidden="true"></svg>
+    <div class="labels" id="labels" aria-hidden="true"></div>
+    <div class="bmeta" aria-hidden="true"><span class="mono" id="bmLbl">Parts in place</span><b id="bmVal">14 / 14</b></div>
+    <div class="bcopy">
+      <div class="ph on" data-from="0" data-to="0.14"><div class="eyebrow mono">Sentry X1 · Capstone 01</div><h2>Every machine is a set of ideas.</h2><p>This is the real print file, not an illustration. Scroll to take it apart.</p></div>
+      <div class="ph" data-from="0.14" data-to="0.42"><div class="eyebrow mono">Fourteen printed parts · two servos · one sensor</div><h2>Take it apart and you find a brain, power, motion and senses.</h2><p>Your child learns each one on its own, then puts them back together.</p></div>
+      <div class="ph" data-from="0.42" data-to="0.6"><div class="eyebrow mono">Stage 1 · The base</div><h2>First, it learns to stand.</h2><p>The chassis and the turntable. Loads, balance and the servo that turns the whole machine.</p></div>
+      <div class="ph" data-from="0.6" data-to="0.76"><div class="eyebrow mono">Stage 2 · Motion</div><h2>Then it learns to aim.</h2><p>The yoke, the tilt servo and the shaft. They work out how a machine turns exactly as far as it's told.</p></div>
+      <div class="ph" data-from="0.76" data-to="0.9"><div class="eyebrow mono">Stage 3 · Purpose</div><h2>Then it does what they designed.</h2><p>Flywheels, barrel and magazine. Sensing, timing and the code that has to hit something moving.</p></div>
+      <div class="ph" data-from="0.9" data-to="1.01"><div class="eyebrow mono">Built by them</div><h2>It's watching you.</h2><p>Move your cursor. The finished machine tracks it, on code they wrote.</p><div class="cta"><a class="btn btn--light" href="#reserve">Reserve Series 01</a><a class="btn btn--ghost" href="#core">Meet the Core</a></div></div>
+    </div>
+    <div class="cue" id="cue"><span class="mono">Scroll</span><i></i></div>
+    <div class="prog" aria-hidden="true"><span class="mono" id="pnow">Assembled</span><div class="bar"><i id="pbar"></i></div></div>
+  </div>
+</section>
+
+<section class="sec" id="core" aria-labelledby="core-h">
+  <div class="wrap core-grid">
+    <div class="core-art rv">
+      <svg viewBox="0 0 600 560" role="img" aria-label="Illustration of the Kokoon Core board: a green circuit board in a clear case with a lime frame, an ESP32-S3 module, connectors on three sides and a colour-coded pin header.">
+        <defs>
+          <linearGradient id="gl" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#D7F04A"/><stop offset="1" stop-color="#B8D92A"/></linearGradient>
+          <linearGradient id="gp" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1A8A5F"/><stop offset="1" stop-color="#0E6B49"/></linearGradient>
+          <linearGradient id="gm" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#E9EBEE"/><stop offset="1" stop-color="#B9BEC6"/></linearGradient>
+          <filter id="sh" x="-10%" y="-10%" width="120%" height="130%"><feDropShadow dx="0" dy="10" stdDeviation="10" flood-color="#101114" flood-opacity=".16"/></filter>
+          <pattern id="dots" width="22" height="22" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r="1" fill="#D9D5CB"/></pattern>
+        </defs>
+        <rect width="600" height="560" fill="url(#dots)"/>
+        <!-- lime frame -->
+        <rect x="70" y="40" width="460" height="460" rx="34" fill="url(#gl)" filter="url(#sh)"/>
+        <rect x="88" y="58" width="424" height="424" rx="22" fill="#F4F7E0" opacity=".55"/>
+        <!-- pcb -->
+        <rect x="96" y="66" width="408" height="408" rx="16" fill="url(#gp)"/>
+        <rect x="96" y="66" width="408" height="408" rx="16" fill="none" stroke="#0A5338" stroke-width="2"/>
+        <!-- traces -->
+        <g stroke="#2FAE7D" stroke-width="1.4" fill="none" opacity=".7">
+          <path d="M130 300 h70 v-60 h60"/><path d="M130 320 h90 v40 h120"/><path d="M400 120 v60 h-40"/><path d="M460 300 h-60 v60"/><path d="M300 430 v-50 h40"/><path d="M180 150 h40 v30"/>
+        </g>
+        <!-- mounting holes -->
+        <g fill="#E8ECE4" stroke="#0A5338" stroke-width="2"><circle cx="118" cy="88" r="7"/><circle cx="482" cy="88" r="7"/><circle cx="118" cy="452" r="7"/><circle cx="482" cy="452" r="7"/></g>
+        <!-- ESP32-S3 module -->
+        <rect x="118" y="150" width="112" height="148" rx="4" fill="url(#gm)" stroke="#8E949C"/>
+        <rect x="118" y="150" width="112" height="34" rx="4" fill="#F7F8FA" stroke="#8E949C"/>
+        <g stroke="#9AA0A8" stroke-width="2"><path d="M128 166 h92"/><path d="M128 174 h92"/></g>
+        <text x="174" y="246" text-anchor="middle" font-family="DM Mono, monospace" font-size="11" fill="#3B4047" letter-spacing="1">ESP32-S3</text>
+        <text x="174" y="262" text-anchor="middle" font-family="DM Mono, monospace" font-size="8.5" fill="#6B7178">WIFI · BT · ESP-NOW</text>
+        <!-- capacitors -->
+        <g><circle cx="300" cy="128" r="26" fill="#2A2D33"/><circle cx="300" cy="128" r="22" fill="#3C4047"/><circle cx="300" cy="128" r="9" fill="#B9BEC6"/><text x="300" y="131" text-anchor="middle" font-size="7" fill="#DDE1E6" font-family="DM Mono">1000</text></g>
+        <g><circle cx="360" cy="128" r="26" fill="#2A2D33"/><circle cx="360" cy="128" r="22" fill="#3C4047"/><circle cx="360" cy="128" r="9" fill="#B9BEC6"/><text x="360" y="131" text-anchor="middle" font-size="7" fill="#DDE1E6" font-family="DM Mono">1000</text></g>
+        <!-- motor driver chips -->
+        <rect x="270" y="190" width="56" height="56" rx="3" fill="#15171B"/><rect x="340" y="190" width="56" height="56" rx="3" fill="#15171B"/>
+        <g fill="#C9CDD3"><rect x="262" y="198" width="8" height="40"/><rect x="326" y="198" width="8" height="40"/><rect x="332" y="198" width="8" height="40"/><rect x="396" y="198" width="8" height="40"/></g>
+        <!-- JST ports top -->
+        <g fill="#F2F1EA" stroke="#B9B6AA">
+          <rect x="250" y="70" width="40" height="26" rx="3"/><rect x="300" y="70" width="40" height="26" rx="3"/><rect x="350" y="70" width="40" height="26" rx="3"/><rect x="400" y="70" width="40" height="26" rx="3"/>
+        </g>
+        <g fill="#B9B6AA"><rect x="258" y="78" width="4" height="12"/><rect x="268" y="78" width="4" height="12"/><rect x="278" y="78" width="4" height="12"/><rect x="308" y="78" width="4" height="12"/><rect x="318" y="78" width="4" height="12"/><rect x="328" y="78" width="4" height="12"/><rect x="358" y="78" width="4" height="12"/><rect x="368" y="78" width="4" height="12"/><rect x="378" y="78" width="4" height="12"/><rect x="408" y="78" width="4" height="12"/><rect x="418" y="78" width="4" height="12"/><rect x="428" y="78" width="4" height="12"/></g>
+        <!-- JST ports right -->
+        <g fill="#F2F1EA" stroke="#B9B6AA"><rect x="470" y="170" width="28" height="44" rx="3"/><rect x="470" y="226" width="28" height="44" rx="3"/><rect x="470" y="282" width="28" height="44" rx="3"/><rect x="470" y="338" width="28" height="44" rx="3"/></g>
+        <!-- buttons -->
+        <rect x="150" y="330" width="26" height="26" rx="4" fill="#F0661A"/><rect x="190" y="330" width="26" height="26" rx="4" fill="#F0661A"/>
+        <rect x="150" y="376" width="22" height="12" rx="2" fill="#1C1F24"/><rect x="152" y="378" width="8" height="8" fill="#B9BEC6"/>
+        <!-- GPIO header colour coded -->
+        <g>
+          <rect x="246" y="392" width="196" height="56" rx="3" fill="#15171B"/>
+          <g id="hdr-y" fill="#F2C318"></g>
+        </g>
+        <g fill="#F2C318"><rect x="254" y="398" width="10" height="10"/><rect x="270" y="398" width="10" height="10"/><rect x="286" y="398" width="10" height="10"/><rect x="302" y="398" width="10" height="10"/><rect x="318" y="398" width="10" height="10"/><rect x="334" y="398" width="10" height="10"/><rect x="350" y="398" width="10" height="10"/><rect x="366" y="398" width="10" height="10"/><rect x="382" y="398" width="10" height="10"/><rect x="398" y="398" width="10" height="10"/><rect x="414" y="398" width="10" height="10"/><rect x="430" y="398" width="8" height="10"/></g>
+        <g fill="#2467C9"><rect x="254" y="415" width="10" height="10"/><rect x="270" y="415" width="10" height="10"/><rect x="286" y="415" width="10" height="10"/><rect x="302" y="415" width="10" height="10"/><rect x="318" y="415" width="10" height="10"/><rect x="334" y="415" width="10" height="10"/><rect x="350" y="415" width="10" height="10"/><rect x="366" y="415" width="10" height="10"/><rect x="382" y="415" width="10" height="10"/><rect x="398" y="415" width="10" height="10"/><rect x="414" y="415" width="10" height="10"/><rect x="430" y="415" width="8" height="10"/></g>
+        <g fill="#3A3D44"><rect x="254" y="432" width="10" height="10"/><rect x="270" y="432" width="10" height="10"/><rect x="286" y="432" width="10" height="10"/><rect x="302" y="432" width="10" height="10"/><rect x="318" y="432" width="10" height="10"/><rect x="334" y="432" width="10" height="10"/><rect x="350" y="432" width="10" height="10"/><rect x="366" y="432" width="10" height="10"/><rect x="382" y="432" width="10" height="10"/><rect x="398" y="432" width="10" height="10"/><rect x="414" y="432" width="10" height="10"/><rect x="430" y="432" width="8" height="10"/></g>
+        <!-- usb-c -->
+        <rect x="118" y="452" width="56" height="22" rx="8" fill="#B9BEC6" stroke="#8E949C"/><rect x="126" y="458" width="40" height="10" rx="5" fill="#2A2D33"/>
+        <!-- logo mark silkscreen -->
+        <g transform="translate(206 300) scale(.9)" fill="none" stroke="#E6F0E8" stroke-width="3"><path d="M20 0 L40 11.5 V34.5 L20 46 L0 34.5 V11.5 Z"/><circle cx="20" cy="23" r="7"/></g>
+        <text x="240" y="326" font-family="DM Mono, monospace" font-size="9" fill="#E6F0E8" letter-spacing="1">KOKOON CORE</text>
+        <!-- leader labels -->
+        <g font-family="DM Mono, monospace" font-size="10.5" fill="#5C5F67" letter-spacing=".8">
+          <path d="M174 150 V110 H40" stroke="#B4B0A5" fill="none"/><text x="20" y="104">ESP32-S3 · WIFI · BT</text>
+          <path d="M498 192 H560" stroke="#B4B0A5" fill="none"/><text x="520" y="186">SENSOR PORTS</text>
+          <path d="M344 448 V520 H420" stroke="#B4B0A5" fill="none"/><text x="340" y="536">GPIO · SIGNAL / 5V / GND</text>
+          <path d="M146 474 V520 H40" stroke="#B4B0A5" fill="none"/><text x="20" y="536">USB-C</text>
+          <path d="M330 96 V30 H420" stroke="#B4B0A5" fill="none"/><text x="330" y="24">MOTOR + SERVO PORTS</text>
+        </g>
+      </svg>
+    </div>
+    <div>
+      <div class="eyebrow mono rv">The brain · Designed in India</div>
+      <h2 class="rv">Our own board, <em class="s">not a teaching toy.</em></h2>
+      <p class="lead rv" style="margin-top:24px">The Kokoon Core runs the code and tells the rest of the machine what to do. Same chip family that sits inside real IoT products. A college student could pick up this exact board. We made it approachable for a fourteen-year-old, not simpler.</p>
+      <div class="specs rv">
+        <div><span class="mono">Processor</span><b>ESP32-S3, dual-core</b></div>
+        <div><span class="mono">Wireless</span><b>Wi-Fi · Bluetooth · ESP-NOW</b></div>
+        <div><span class="mono">Built in</span><b>Motion sensor (IMU)</b></div>
+        <div><span class="mono">Pins</span><b>13 GPIO · I2C · SPI</b></div>
+        <div><span class="mono">Motors</span><b>2 drivers, 4 motors at once</b></div>
+        <div><span class="mono">Light</span><b>Onboard LED · LED matrix port</b></div>
+        <div><span class="mono">Coding</span><b>Blocks first, then MicroPython</b></div>
+        <div><span class="mono">Power</span><b>USB-C · protected battery pack</b></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec offer" id="offer" aria-labelledby="of-h">
+  <div class="wrap ogrid">
+    <div>
+      <div class="eyebrow mono rv">What's in the box</div>
+      <h2 id="of-h" class="rv">Real components. <em class="s">Nothing to buy later.</em></h2>
+      <p class="lead rv" style="margin-top:24px">Everything for all three machines and fifty-odd smaller builds, in one box. If a part goes missing, ask us and we will post another.</p>
+      <div class="inv rv">
+        <div><b>Kokoon Core board</b><span>ESP32-S3, our own PCB</span></div>
+        <div><b>Motor and servo drive</b><span>4× motor channels, servo ports</span></div>
+        <div><b>Sensors</b><span>Distance, light, motion, sound and more</span></div>
+        <div><b>3D-printed parts</b><span>Every part for Sentry X1, Rover Tank, Shadow Arm</span></div>
+        <div><b>Power</b><span>Protected battery pack, safe voltages, USB-C</span></div>
+        <div><b>Kokoon Learn + Code Lab</b><span>Video lessons, blocks to MicroPython</span></div>
+        <div><b>Help when they're stuck</b><span>Doubt sessions and chat with a mentor</span></div>
+        <div><b>Replacement parts</b><span>Free. No explanation needed</span></div>
+      </div>
+    </div>
+    <div class="pcard rv">
+      <span class="mono" style="color:var(--ink3)">Kokoon Origin · Series 01</span>
+      <div class="price">₹59,000<small>Including GST · one payment · nothing later</small></div>
+      <p class="honest">That is a mid-range phone, or about ten months of coaching. We could break it into a monthly number to make it look smaller. We would rather write the number down.</p>
+      <div class="found"><span class="num">No. 001</span><p><b style="color:var(--ink)">Founding Builders.</b> Series 01 is a limited first batch. Every kit is numbered, and Founding Builders get first access to new machines and challenges.</p></div>
+      <a class="btn btn--indigo" href="#reserve">Reserve a kit</a>
+      <p class="fine">Designed for ages 14 and up. Younger makers can build alongside an adult.</p>
+    </div>
+  </div>
+</section>
+
+<section class="sec fit" aria-labelledby="fit-h">
+  <div class="wrap">
+    <div class="eyebrow mono rv">Before you decide</div>
+    <h2 id="fit-h" class="rv">Is this right for your child?</h2>
+    <p class="lead rv" style="margin-top:24px">We would rather have an empty seat than a kit that sits in a cupboard from week three. Honest answers below.</p>
+    <div class="fitg">
+      <div class="fitc yes rv"><h3>This suits your child if they</h3><ul>
+        <li><i>✓</i>Take things apart to see inside</li><li><i>✓</i>Get frustrated but come back to it</li><li><i>✓</i>Ask how things work more than why</li><li><i>✓</i>Are somewhere in the middle at school, not at the top</li><li><i>✓</i>Have never been given a real tool</li></ul></div>
+      <div class="fitc no rv"><h3>Wait a year if your child</h3><ul>
+        <li><i>–</i>Has board exams this year</li><li><i>–</i>Needs a maths or science grade fixed right now</li><li><i>–</i>Has never finished a long project and isn't ready to try</li><li><i>–</i>Would rather be doing something else on a Saturday</li></ul></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="reserve" aria-labelledby="res-h">
+  <div class="wrap resg">
+    <div>
+      <div class="eyebrow mono rv">Reserve · Series 01</div>
+      <h2 id="res-h" class="rv">Reserve your <em class="s">Founding Builder</em> kit.</h2>
+      <p class="lead rv" style="margin-top:24px">Series 01 is built in small batches. Reserve now and we'll message you on WhatsApp within two hours with payment and delivery details. Nothing is charged until you confirm.</p>
+      <div class="faq rv">
+        <details open><summary>Does my child need any experience?</summary><p>No. The first weeks have no screens, only circuits. They learn what the code controls before they write any. Most of our students had never wired a circuit before week one.</p></details>
+        <details><summary>What age is Origin for?</summary><p>Designed for ages 14 and up. Younger makers can build alongside an adult. There is no upper age: college students and hobbyists use it too.</p></details>
+        <details><summary>Will my child be left stuck on a problem?</summary><p>Real hardware has real faults. Your child gets a mentor to ask in doubt sessions and chat, so they stay with the cause and keep the project moving without you troubleshooting after work.</p></details>
+        <details><summary>Is it safe?</summary><p>Low voltages everywhere. The battery pack has its own protection circuit and charges over standard USB-C.</p></details>
+        <details><summary>What do they have at the end?</summary><p>Three working machines on the table, fifty-odd smaller builds behind them, the code they wrote, and a child who can tell you how each one works.</p></details>
+      </div>
+    </div>
+    <div>
+      <form id="resForm" novalidate class="rv">
+        <div class="f full"><label for="r-name">Your name</label><input id="r-name" name="name" autocomplete="name" required placeholder="Parent or guardian"><span class="err" id="e-name"></span></div>
+        <div class="f"><label for="r-phone">WhatsApp number</label><input id="r-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" required placeholder="+91"><span class="err" id="e-phone"></span></div>
+        <div class="f"><label for="r-email">Email</label><input id="r-email" name="email" type="email" autocomplete="email" required placeholder="name@example.com"><span class="err" id="e-email"></span></div>
+        <div class="f"><label for="r-city">City</label><input id="r-city" name="city" autocomplete="address-level2" placeholder="City"></div>
+        <div class="f"><label for="r-age">Builder's age</label><select id="r-age" name="age"><option>14 to 15</option><option>16 to 17</option><option>18 or older</option><option>Younger than 14 (building with an adult)</option></select></div>
+        <div class="f full"><label for="r-q">Anything you want to ask first? <span style="color:var(--ink3);font-weight:400">Optional</span></label><input id="r-q" name="q" placeholder="Most parents ask about boards."></div>
+        <label class="chk full f" for="r-ok"><input type="checkbox" id="r-ok" required><span>Message me on WhatsApp or email about my reservation. We will not cold call you.</span></label>
+        <span class="err full" id="e-ok" style="color:#B42318;font-size:13px"></span>
+        <button class="btn btn--indigo full" type="submit">Reserve my kit <svg viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      </form>
+      <div class="done" id="done" hidden aria-live="polite"><span class="mono" style="color:var(--ink3)">Reservation received</span><h3>You're on the Series 01 list.</h3><p id="doneMsg">We'll message you within two hours.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="dark close" aria-labelledby="cl-h">
+  <div class="wrap row">
+    <div><h2 id="cl-h">Don't just use it. <em class="s">Build it.</em></h2><p>Give their curiosity something real to build.</p></div>
+    <a class="btn btn--light" href="#reserve">Reserve Series 01</a>
+  </div>
+</section>
+</main>
+<footer><div class="wrap"><span>© 2026 Kokoon Labs · A Sheryians company</span><span class="mono">Designed in India</span></div></footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+(function(){
+'use strict';
+document.documentElement.classList.add('js');
+var clamp=function(v,a,b){return Math.max(a,Math.min(b,v));}, seg=function(p,a,b){return clamp((p-a)/(b-a),0,1);};
+var ease=function(t){return t*t*(3-2*t);}, easeIO=function(t){return t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;}, lerp=function(a,b,t){return a+(b-a)*t;};
+var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* reveal + nav */
+var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{rootMargin:'0px 0px -8% 0px'});
+document.querySelectorAll('.rv').forEach(function(el){io.observe(el);});
+var nav=document.getElementById('nav'), darks=[].slice.call(document.querySelectorAll('.dark,#build'));
+function navState(){nav.classList.toggle('scrolled',scrollY>24);var y=72;var on=darks.some(function(d){var r=d.getBoundingClientRect();return r.top<=y&&r.bottom>y;});nav.classList.toggle('ondark',on);}
+addEventListener('scroll',navState,{passive:true}); navState();
+document.getElementById('menuBtn').addEventListener('click',function(){document.getElementById('reserve').scrollIntoView();});
+
+/* form */
+var f=document.getElementById('resForm');
+f.addEventListener('submit',function(ev){ev.preventDefault();var $=function(i){return document.getElementById(i)};var bad=false,first=null;
+  function chk(c,id,msg,el){var e=$('e-'+id);e.textContent=c?'':msg;var w=e.closest('.f');if(w)w.classList.toggle('bad',!c);if(!c){bad=true;first=first||el;}}
+  var name=$('r-name').value.trim(),phone=$('r-phone').value.replace(/[\s-]/g,''),email=$('r-email').value.trim();
+  chk(name.length>1,'name','Enter your name so we know who to message.',$('r-name'));
+  chk(/^(\+?91)?[6-9]\d{9}$/.test(phone),'phone','Enter a 10-digit Indian mobile number.',$('r-phone'));
+  chk(/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email),'email','Enter an email like name@example.com.',$('r-email'));
+  chk($('r-ok').checked,'ok','Tick the box so we can contact you.',$('r-ok'));
+  if(bad){first.focus();return;}
+  /* Connect to your backend here (POST + Razorpay). */
+  f.hidden=true;var d=$('done');d.hidden=false;$('doneMsg').textContent='Thanks, '+name.split(' ')[0]+'. We’ll message you on WhatsApp within two hours with payment and delivery details.';d.querySelector('h3').setAttribute('tabindex','-1');d.querySelector('h3').focus();
+});
+
+if(!window.THREE){document.getElementById('ld').textContent='3D needs a newer browser.';return;}
+var T=THREE;
+
+/* ---------- KKM loader ---------- */
+function parseKKM(buf){
+  var u8=new Uint8Array(buf); var magic=String.fromCharCode(u8[0],u8[1],u8[2],u8[3]); if(magic!=='KKM2')throw new Error('bad mesh');
+  var jl=new DataView(buf,4,4).getUint32(0,true); var meta=JSON.parse(new TextDecoder().decode(u8.subarray(8,8+jl))); var off=8+jl; var parts=[];
+  meta.forEach(function(m){
+    var pos=new Uint16Array(buf.slice(off,off+m.v*6)); off+=m.v*6;
+    var nrm=new Int8Array(buf.slice(off,off+m.v*3)); off+=m.v*3; if(m.v%2)off+=1;
+    var ib=m.i32?4:2; var idx=m.i32?new Uint32Array(buf.slice(off,off+m.f*3*4)):new Uint16Array(buf.slice(off,off+m.f*3*2)); off+=m.f*3*ib;
+    var p=new Float32Array(m.v*3), n=new Float32Array(m.v*3), mn=m.min, mx=m.max;
+    for(var i=0;i<m.v;i++){for(var k=0;k<3;k++){p[i*3+k]=mn[k]+(pos[i*3+k]/65535)*(mx[k]-mn[k]);n[i*3+k]=nrm[i*3+k]/127;}}
+    var g=new T.BufferGeometry(); g.setAttribute('position',new T.BufferAttribute(p,3)); g.setAttribute('normal',new T.BufferAttribute(n,3)); g.setIndex(new T.BufferAttribute(idx,1));
+    parts.push({geo:g,min:new T.Vector3().fromArray(mn),max:new T.Vector3().fromArray(mx),center:new T.Vector3((mn[0]+mx[0])/2,(mn[1]+mx[1])/2,(mn[2]+mx[2])/2)});
+  });
+  return parts;
+}
+function loadKKM(name){
+  var inline=(window.__KKM&&window.__KKM[name])||(function(){try{return sessionStorage.getItem('kkm_'+name);}catch(e){return null;}})();
+  if(inline){var bin=Uint8Array.from(atob(inline),function(c){return c.charCodeAt(0);});
+    return new Response(new Blob([bin]).stream().pipeThrough(new DecompressionStream('gzip'))).arrayBuffer().then(parseKKM);}
+  return fetch('mesh/'+name+'.wasm').then(function(r){if(!r.ok)throw new Error('fetch');return r.arrayBuffer();}).then(parseKKM);
+}
+
+/* ---------- studio ---------- */
+var PAL={ivory:0xE9E4D6,charcoal:0x24262B,orange:0xF0661A,red:0xC8203A,sage:0x6A8C45,grey:0x8E939B,steel:0xB9BEC6};
+function mat(hex,o){var m=new T.MeshPhysicalMaterial(Object.assign({color:new T.Color(hex).convertSRGBToLinear(),roughness:.52,metalness:0,clearcoat:.18,clearcoatRoughness:.5,envMapIntensity:.9},o||{}));return m;}
+function makeEnv(renderer){
+  var s=new T.Scene(); s.background=new T.Color(0x2a2c31);
+  var sky=new T.Mesh(new T.SphereGeometry(50,32,16),new T.MeshBasicMaterial({color:0x3a3d44,side:T.BackSide})); s.add(sky);
+  function box(w,h,c,x,y,z,ry){var m=new T.Mesh(new T.PlaneGeometry(w,h),new T.MeshBasicMaterial({color:c,side:T.DoubleSide}));m.position.set(x,y,z);m.lookAt(0,0,0);s.add(m);}
+  box(18,10,0xffffff,-12,14,8); box(14,8,0xdfe6ff,14,10,-6); box(30,6,0xfff1dd,0,-8,16); box(10,10,0xffffff,6,16,-14);
+  var pm=new T.PMREMGenerator(renderer); pm.compileEquirectangularShader(); var env=pm.fromScene(s,0.03).texture; pm.dispose(); return env;
+}
+function Studio(canvas,o){
+  var r=new T.WebGLRenderer({canvas:canvas,antialias:true,alpha:!!o.alpha,powerPreference:'high-performance'});
+  r.setPixelRatio(Math.min(devicePixelRatio||1,o.dpr||1.75)); r.outputEncoding=T.sRGBEncoding; r.toneMapping=T.ACESFilmicToneMapping; r.toneMappingExposure=o.exposure||1.0;
+  r.shadowMap.enabled=true; r.shadowMap.type=T.PCFSoftShadowMap; r.physicallyCorrectLights=false;
+  var scene=new T.Scene(); scene.environment=makeEnv(r);
+  var cam=new T.PerspectiveCamera(28,1,.5,5000);
+  scene.add(new T.HemisphereLight(0xffffff,0x33363c,.35));
+  var key=new T.DirectionalLight(0xffffff,1.35); key.position.set(-1.2,2.2,1.6); key.castShadow=true; key.shadow.mapSize.set(2048,2048); key.shadow.radius=4; key.shadow.bias=-0.0004; scene.add(key);
+  var fill=new T.DirectionalLight(0xdfe6ff,.35); fill.position.set(1.8,.8,-1.2); scene.add(fill);
+  var ground=new T.Mesh(new T.PlaneGeometry(40,40),new T.ShadowMaterial({opacity:o.shadow||.28})); ground.rotation.x=-Math.PI/2; ground.receiveShadow=true; scene.add(ground);
+  function size(){var w=canvas.clientWidth,h=canvas.clientHeight;if(!w||!h)return;r.setSize(w,h,false);cam.aspect=w/h;if(o.offset){if(w/h>1.1)cam.setViewOffset(w,h,-w*.14,0,w,h);else cam.setViewOffset(w,h,0,h*.09,w,h);}cam.updateProjectionMatrix();}
+  size(); addEventListener('resize',size);
+  return {r:r,scene:scene,cam:cam,key:key,ground:ground,size:size};
+}
+/* assemble parts into a normalised y-up model; returns {root, parts, radius} */
+function assemble(parts,colors,targetH){
+  var mn=new T.Vector3(Infinity,Infinity,Infinity),mx=new T.Vector3(-Infinity,-Infinity,-Infinity);
+  parts.forEach(function(p){mn.min(p.min);mx.max(p.max);});
+  var ext=new T.Vector3().subVectors(mx,mn), s=targetH/ext.z, c=new T.Vector3().addVectors(mn,mx).multiplyScalar(.5);
+  var root=new T.Group(); var inner=new T.Group(); inner.rotation.x=-Math.PI/2; inner.scale.setScalar(s); inner.position.y=-mn.z*s; root.add(inner);
+  var out=[];
+  parts.forEach(function(p,i){
+    var g=new T.Group(); g.position.set(-c.x,-c.y,0); // keep in model space inside inner (which is scaled)
+    var m=new T.Mesh(p.geo,mat(colors[i]!==undefined?colors[i]:PAL.grey)); m.castShadow=true; m.receiveShadow=true; g.add(m); inner.add(g);
+    var rel=new T.Vector3().subVectors(p.center,c); // model space, z up
+    out.push({g:g,mesh:m,home:g.position.clone(),center:p.center.clone(),rel:rel,ex:new T.Vector3(),stage:1,label:null});
+  });
+  return {root:root,inner:inner,parts:out,scale:s,center:c,ext:ext,radius:ext.length()*s*.5,height:ext.z*s};
+}
+
+/* ---------- part knowledge (from the print files) ---------- */
+var SENTRY={colors:[PAL.ivory,PAL.charcoal,PAL.ivory,PAL.charcoal,PAL.ivory,PAL.charcoal,PAL.steel,PAL.steel,PAL.orange,PAL.ivory,PAL.charcoal,PAL.charcoal,PAL.orange,PAL.orange],
+  info:{0:['Turntable','Learns: load and rotation',1],3:['Base chassis','Learns: structure and balance',1],10:['Pan servo','Learns: angles and torque',1],
+        5:['Yoke','Learns: mechanism design',2],11:['Tilt servo','Learns: precise control',2],6:['Pivot shaft','Learns: axes of motion',2],7:['Support post','Learns: alignment',2],9:['Tilt cradle','Learns: linkages',2],
+        2:['Receiver body','Learns: assembly',3],1:['Flywheel housing','Learns: speed and spin',3],4:['Top cover','Learns: fit and tolerance',3],8:['Magazine','Learns: feeding and timing',3],12:['Barrel','Learns: trajectory',3],13:['Side bracket','Learns: rigidity',3]},
+  pan:function(i){return i!==3&&i!==10;}, tilt:function(i){return [1,2,4,8,9,12,13].indexOf(i)>=0;}};
+var ARM={colors:[PAL.red,PAL.ivory,PAL.charcoal,PAL.red,PAL.red,PAL.charcoal,PAL.charcoal,PAL.steel,PAL.ivory,PAL.red,PAL.red,PAL.charcoal,PAL.charcoal,PAL.charcoal,PAL.charcoal,PAL.charcoal,PAL.charcoal,PAL.red,PAL.red,PAL.steel]};
+
+/* ---------- viewer (machines) ---------- */
+var stageEl=document.getElementById('stage'), V=null, VR={}, active='sentry', vVisible=false, rotY=-.6, dragV=0, dragging=false, lastX=0, time=0;
+try{ V=Studio(document.getElementById('cv'),{alpha:true,dpr:1.5,exposure:1.05,shadow:.22}); V.r.setClearColor(0,0); }catch(e){ document.getElementById('ld').textContent='3D is not available on this device.'; }
+function showViewer(k){
+  active=k; document.querySelectorAll('.mitem').forEach(function(t){t.setAttribute('aria-selected',t.dataset.k===k);});
+  var img=document.getElementById('roverImg'), cv=document.getElementById('cv'), hint=document.getElementById('hint');
+  if(k==='rover'){img.hidden=false;cv.style.visibility='hidden';hint.textContent='Render · real print files coming';return;}
+  img.hidden=true; cv.style.visibility='visible'; hint.textContent='Drag to rotate · built from the real print files';
+  Object.keys(VR).forEach(function(n){VR[n].root.visible=n===k;VR[n].t=0;});
+  if(!VR[k]&&V){document.getElementById('ld').hidden=false; loadKKM(k==='arm'?'arm':'sentry').then(function(parts){
+      var A=assemble(parts,k==='arm'?ARM.colors:SENTRY.colors,3.2); A.t=0; A.root.position.y=0; V.scene.add(A.root); VR[k]=A; A.root.visible=active===k;
+      A.parts.forEach(function(p){p.ex.copy(p.rel).multiplyScalar(.9); p.ex.z=p.rel.z*1.5;});
+      fit(V,A); document.getElementById('ld').hidden=true;
+    }).catch(function(){document.getElementById('ld').textContent='Model could not be loaded.';});}
+  else if(VR[k]) fit(V,VR[k]);
+}
+function fit(S,A){var asp=S.cam.aspect||1; var d=A.radius/Math.sin(S.cam.fov*Math.PI/360)*1.18/Math.min(1,asp); S.cam.position.set(d*.74,A.height*.5+d*.22,d*.74); S.cam.lookAt(0,A.height*.5,0); S.key.position.set(-d*.6,d*.9,d*.5); S.key.shadow.camera.left=S.key.shadow.camera.bottom=-A.radius*1.6; S.key.shadow.camera.right=S.key.shadow.camera.top=A.radius*1.6; S.key.shadow.camera.near=.1; S.key.shadow.camera.far=d*3; S.key.shadow.camera.updateProjectionMatrix();}
+document.querySelectorAll('.mitem').forEach(function(t){t.addEventListener('click',function(){showViewer(t.dataset.k);});});
+stageEl.addEventListener('pointerdown',function(e){dragging=true;lastX=e.clientX;stageEl.setPointerCapture(e.pointerId);});
+stageEl.addEventListener('pointermove',function(e){if(!dragging)return;var dx=e.clientX-lastX;lastX=e.clientX;rotY+=dx*.01;dragV=dx*.01;});
+['pointerup','pointercancel'].forEach(function(n){stageEl.addEventListener(n,function(){dragging=false;});});
+new IntersectionObserver(function(e){vVisible=e[0].isIntersecting;if(vVisible&&!VR.sentry&&V)showViewer(active);},{threshold:.15}).observe(stageEl);
+function frameViewer(dt){
+  var A=VR[active]; if(!A||!V)return; A.t=Math.min(A.t+dt,3);
+  A.parts.forEach(function(p,i){var t=reduce?1:clamp((A.t-.1-i*.05)/.8,0,1);var e=1-easeIO(t);p.g.position.copy(p.home).addScaledVector(p.ex,e*.5);});
+  if(!dragging){dragV*=.94;rotY+=dragV+(reduce?0:dt*.22);} A.root.rotation.y=rotY;
+  V.r.render(V.scene,V.cam);
+}
+
+/* ---------- the build (pinned) ---------- */
+var build=document.getElementById('build'), pin=document.getElementById('pin'), B=null, BA=null, bVisible=true, target=0, cur=0, mouse={x:0,y:0}, mx={x:0,y:0};
+try{ B=Studio(document.getElementById('c3d'),{offset:true,dpr:1.6,exposure:1.0,shadow:.42}); B.r.setClearColor(0x0F1013,1); B.scene.fog=new T.Fog(0x0F1013,24,70); }catch(e){}
+var labelsEl=document.getElementById('labels'), linesEl=document.getElementById('lines'), phases=[].slice.call(document.querySelectorAll('.ph'));
+var pnow=document.getElementById('pnow'), pbar=document.getElementById('pbar'), bmVal=document.getElementById('bmVal'), bmLbl=document.getElementById('bmLbl'), cue=document.getElementById('cue');
+var panG,tiltG;
+if(B) loadKKM('sentry').then(function(parts){
+  BA=assemble(parts,SENTRY.colors,3.6); B.scene.add(BA.root); BA.root.rotation.y=2.3;
+  // explode vectors (model space, z up), staged
+  BA.parts.forEach(function(p,i){var inf=SENTRY.info[i]; p.stage=inf?inf[2]:3; if(inf){p.label=inf[0];p.learn=inf[1];}
+    var d=p.rel.clone(); var L=Math.max(1,Math.hypot(d.x,d.y)); p.ex.set(d.x/L*(60+Math.abs(d.x)*.6), d.y/L*(60+Math.abs(d.y)*.6), (p.rel.z)*1.1+ (p.stage-2)*40);
+    if(i===3)p.ex.set(0,0,-90); if(i===0)p.ex.set(0,0,-40); if(i===8)p.ex.set(0,0,170); if(i===12)p.ex.set(-150,0,30);
+    var el=document.createElement('div'); el.className='lbl'; el.innerHTML='<b>'+(p.label||'')+'</b><span>'+(p.learn||'')+'</span>'; labelsEl.appendChild(el); p.el=el;
+    var path=document.createElementNS('http://www.w3.org/2000/svg','path'), dot=document.createElementNS('http://www.w3.org/2000/svg','circle'); dot.setAttribute('r','0'); linesEl.appendChild(path); linesEl.appendChild(dot); p.path=path; p.dot=dot;
+  });
+  // pan / tilt groups: re-parent for the powered-on phase
+  panG=new T.Group(); tiltG=new T.Group(); BA.inner.add(panG); panG.add(tiltG);
+  var r0=BA.parts[0].rel, r6=BA.parts[6].rel, c6z=BA.parts[6].center.z; // turntable axis, shaft axis
+  panG.position.set(r0.x,r0.y,0); tiltG.position.set(r6.x-r0.x,r6.y-r0.y,c6z);
+  BA.parts.forEach(function(p,i){ if(!SENTRY.pan(i))return; var P=SENTRY.tilt(i)?new T.Vector3(r6.x,r6.y,c6z):new T.Vector3(r0.x,r0.y,0); (SENTRY.tilt(i)?tiltG:panG).add(p.g); p.g.position.set(-BA.center.x-P.x,-BA.center.y-P.y,-P.z); p.home.copy(p.g.position); });
+  fit(B,BA);
+}).catch(function(e){console.error(e);});
+function readScroll(){var r=build.getBoundingClientRect();var tot=build.offsetHeight-innerHeight;target=clamp(-r.top/tot,0,1);}
+addEventListener('scroll',readScroll,{passive:true}); readScroll();
+addEventListener('pointermove',function(e){mouse.x=e.clientX/innerWidth*2-1;mouse.y=e.clientY/innerHeight*2-1;},{passive:true});
+new IntersectionObserver(function(e){bVisible=e[0].isIntersecting;},{rootMargin:'120px'}).observe(pin);
+var WIN=[[.42,.6],[.6,.76],[.76,.9]];
+var proj=new T.Vector3();
+function partE(p,part){ if(p<WIN[0][0]) return easeIO(seg(p,.14,.4)); var w=WIN[part.stage-1]; return 1-easeIO(seg(p,w[0],w[1])); }
+function frameBuild(dt){
+  if(!B||!BA)return;
+  cur+=(target-cur)*(reduce?1:Math.min(1,dt*6.5)); var p=cur;
+  var PW=ease(seg(p,.9,.97));
+  var sum=0, inplace=0;
+  BA.parts.forEach(function(part){var e=partE(p,part);sum+=e;if(e<.03)inplace++;part.g.position.copy(part.home).addScaledVector(part.ex,e);part._e=e;});
+  var E=sum/BA.parts.length;
+  var d=BA.radius/Math.sin(B.cam.fov*Math.PI/360)*(1.22+E*.9)*(B.cam.aspect<1?1.25:1)/Math.min(1,B.cam.aspect*1.1);
+  var ang=.78+p*1.3+(reduce?0:Math.sin(time*.2)*.05*(1-PW));
+  B.cam.position.set(Math.cos(ang)*d, BA.height*.5+d*.2, Math.sin(ang)*d); B.cam.lookAt(0,BA.height*(.5+E*.18),0);
+  B.key.position.set(Math.cos(ang-1.1)*d, d*.9, Math.sin(ang-1.1)*d);
+  mx.x=lerp(mx.x,mouse.x,.06); mx.y=lerp(mx.y,mouse.y,.06);
+  if(panG){panG.rotation.z=PW*(-mx.x*.8); tiltG.rotation.y=PW*(mx.y*.3);}
+  phases.forEach(function(ph){var a=+ph.dataset.from,b=+ph.dataset.to;ph.classList.toggle('on',p>=a&&p<b);});
+  var names=[[.14,'Assembled'],[.42,'Taking apart'],[.6,'Stage 1 · Base'],[.76,'Stage 2 · Motion'],[.9,'Stage 3 · Purpose'],[1.01,'Powered on']];
+  for(var q=0;q<names.length;q++){if(p<names[q][0]){pnow.textContent=names[q][1];break;}}
+  pbar.style.width=(p*100).toFixed(1)+'%'; cue.style.opacity=p<.03?1:0;
+  bmLbl.textContent=PW>.5?'Status':'Parts in place'; bmVal.textContent=PW>.5?'Tracking':(inplace+' / '+BA.parts.length);
+  B.r.render(B.scene,B.cam);
+  drawLabels(p);
+}
+function drawLabels(p){
+  var w=pin.clientWidth,h=pin.clientHeight,small=w<700; linesEl.setAttribute('viewBox','0 0 '+w+' '+h);
+  var cs=-1; if(p>=WIN[0][0]&&p<WIN[2][1]+.02){cs=p<WIN[0][1]?1:p<WIN[1][1]?2:3;}
+  var pts=[];
+  BA.parts.forEach(function(part){ if(!part.label)return;
+    var show=p>=.3&&p<WIN[2][1] && (p<WIN[0][0] ? true : part.stage===cs);
+    var o=show?(p<WIN[0][0]?ease(seg(p,.3,.36)):1):0;
+    if(o<.01){part.el.style.opacity=0;part.path.setAttribute('d','');part.dot.setAttribute('r','0');return;}
+    var c=part.center.clone(); part.g.localToWorld(c); c.project(B.cam);
+    pts.push({part:part,x:(c.x*.5+.5)*w,y:(-c.y*.5+.5)*h,o:o});
+  });
+  var cx=w*(w>1100?.56:.5), L=pts.filter(function(q){return q.x<cx;}).sort(function(a,b){return a.y-b.y;}), R=pts.filter(function(q){return q.x>=cx;}).sort(function(a,b){return a.y-b.y;});
+  var lw=small?120:200, gap=small?32:48, top=small?150:150, bottomAll=h-(small?230:110);
+  var ap=document.querySelector('.ph.on'), copyTop=ap?ap.getBoundingClientRect().top-pin.getBoundingClientRect().top-28:bottomAll;
+  if(!small){var room=Math.min(bottomAll,copyTop)-top; while(L.length&&L.length*gap>room){R.push(L.pop());} R.sort(function(a,b){return a.y-b.y;});}
+  function place(list,side){
+    var bottom=side==='l'&&!small?Math.min(bottomAll,copyTop):bottomAll;
+    var ys=list.map(function(q){return clamp(q.y,top,bottom);});
+    for(var i=1;i<ys.length;i++)if(ys[i]-ys[i-1]<gap)ys[i]=ys[i-1]+gap;
+    var over=ys.length?ys[ys.length-1]-bottom:0; if(over>0)ys=ys.map(function(y){return y-over;});
+    list.forEach(function(q,i){var lx=side==='l'?(small?12:Math.max(24,w*.05)):w-(small?12:Math.max(24,w*.05))-lw, ly=ys[i], el=q.part.el;
+      el.classList.toggle('r',side==='r'); el.style.transform='translate('+lx.toFixed(1)+'px,'+(ly-10).toFixed(1)+'px)'; el.style.opacity=q.o.toFixed(2);
+      var sx=side==='l'?lx+lw+8:lx-8, kx=side==='l'?sx+24:sx-24;
+      q.part.path.setAttribute('d','M'+sx+' '+ly+' L'+kx+' '+ly+' L'+q.x.toFixed(1)+' '+q.y.toFixed(1)); q.part.path.style.opacity=q.o.toFixed(2);
+      q.part.dot.setAttribute('cx',q.x.toFixed(1)); q.part.dot.setAttribute('cy',q.y.toFixed(1)); q.part.dot.setAttribute('r','3.5'); q.part.dot.style.opacity=q.o.toFixed(2);});
+  }
+  place(L,'l'); place(R,'r');
+}
+
+/* ---------- loop ---------- */
+var last=performance.now();
+function loop(now){var dt=Math.min(.05,(now-last)/1000);last=now;time+=dt; if(bVisible)frameBuild(dt); if(vVisible)frameViewer(dt); requestAnimationFrame(loop);}
+requestAnimationFrame(loop);
+if(document.fonts&&document.fonts.ready)document.fonts.ready.then(function(){if(V)V.size();if(B)B.size();});
+})();
+</script>
+
+</body>
+</html>
