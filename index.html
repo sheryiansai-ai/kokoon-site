@@ -14,7 +14,7 @@
    Type: Instrument Sans tight for display and UI, Instrument Serif italic for the emotional half-line, DM Mono for small labels. */
 :root{
   --bg:#F7F6FC; --bg2:#EEEBFB; --card:#FFFFFF; --ink:#120E2E; --ink2:#5A567A; --ink3:#8B88A6; --line:#DEDBF0; --line2:#CBC6EA;
-  --indigo:#4030F0; --indigo2:#2E21C9; --indigo-deep:#200070; --yellow:#F5C400; --yellow2:#FFE566; --yellow-soft:#FFF0A6;
+  --indigo:#3324C4; --indigo2:#271B9E; --indigo-deep:#200070; --yellow:#F5C400; --yellow2:#FFE566; --yellow-soft:#FFF0A6;
   --dark:#1A1140; --dark2:#241A55; --dark3:#2E2366; --dark-line:#3B2F78; --dark-ink:#F8F6FF; --dark-ink2:#BDB6E3;
   --f-sans:"Instrument Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
   --f-display:"Unbounded","Instrument Sans",system-ui,sans-serif;
@@ -78,7 +78,7 @@ em.s{font-family:var(--f-display);font-style:normal;font-weight:700;font-size:.7
 
 /* hero */
 .hero{position:relative;padding-top:calc(72px + clamp(48px,8vw,112px));padding-bottom:0}
-.hero::before{content:"";position:absolute;top:-120px;right:-160px;width:620px;height:620px;border-radius:50%;background:radial-gradient(circle,rgba(64,48,240,.16) 0%,rgba(64,48,240,0) 65%);pointer-events:none}
+.hero::before{content:"";position:absolute;top:-120px;right:-160px;width:620px;height:620px;border-radius:50%;background:radial-gradient(circle,rgba(51,36,196,.16) 0%,rgba(51,36,196,0) 65%);pointer-events:none}
 .hero::after{content:"";position:absolute;top:360px;left:-220px;width:520px;height:520px;border-radius:50%;background:radial-gradient(circle,rgba(245,196,0,.22) 0%,rgba(245,196,0,0) 65%);pointer-events:none;z-index:-1}
 .hero h1{max-width:13ch}
 .hero .lead{margin-top:28px}
@@ -139,7 +139,7 @@ em.s{font-family:var(--f-display);font-style:normal;font-weight:700;font-size:.7
 .mach{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:20px;margin-top:clamp(40px,6vw,64px)}
 .mlist{display:grid;gap:10px;align-content:start}
 .mitem{text-align:left;background:var(--card);border:1px solid var(--line);border-radius:var(--r-s);padding:20px 22px;cursor:pointer;font:inherit;color:inherit;display:grid;gap:6px;transition:border-color .2s,background .2s}
-.mitem[aria-selected="true"]{border-color:var(--indigo);background:#fff;box-shadow:0 0 0 3px rgba(64,48,240,.12)}
+.mitem[aria-selected="true"]{border-color:var(--indigo);background:#fff;box-shadow:0 0 0 3px rgba(51,36,196,.12)}
 .mitem .mono{color:var(--indigo)}
 .mitem b{font-size:22px;font-weight:600;letter-spacing:-0.02em}
 .mitem p{color:var(--ink2);font-size:15px;line-height:1.45}
@@ -198,7 +198,7 @@ em.s{font-family:var(--f-display);font-style:normal;font-weight:700;font-size:.7
 .inv{margin-top:32px;border-top:1px solid var(--line2)}
 .inv div{display:flex;justify-content:space-between;gap:16px;padding:16px 0;border-bottom:1px solid var(--line2);align-items:baseline}
 .inv span{color:var(--ink2);font-size:14px;text-align:right}
-.pcard{background:var(--card);border-radius:var(--r);padding:clamp(26px,3.5vw,44px);display:grid;gap:20px;border:1px solid var(--line);position:sticky;top:96px;box-shadow:0 24px 60px rgba(64,48,240,.12)}
+.pcard{background:var(--card);border-radius:var(--r);padding:clamp(26px,3.5vw,44px);display:grid;gap:20px;border:1px solid var(--line);position:sticky;top:96px;box-shadow:0 24px 60px rgba(51,36,196,.12)}
 .pcard .price{font-family:var(--f-display);font-size:clamp(40px,4.4vw,60px);font-weight:700;letter-spacing:-0.03em;line-height:1;font-variant-numeric:tabular-nums;color:var(--indigo)}
 .pcard .price small{display:block;font:500 12px/1.4 var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--ink3);margin-top:12px}
 .pcard .honest{color:var(--ink2);font-size:15.5px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:16px 0}
