@@ -1,0 +1,602 @@
+<title>Kokoon Origin</title>
+<meta name="description" content="Kokoon Origin: a complete robotics lab in one box. Our own Core board, three robots to build, 20+ sensor modules, video lessons and a block-coding lab.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Hanken+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one long product page on the studio-grey bench; sections separated by surface steps, chamfered panels, silkscreen labels as captions.
+   Tokens mirror the Kokoon Labs Brand System (tokens.json). */
+:root{
+  --ground:#E3E5E7; --surface:#F3F4F5; --surface-sunk:#D6D9DC;
+  --ink:#14171A; --ink-muted:#4C535A; --line:#BFC4C9; --line-strong:#7A8189;
+  --lime:#C6EC2E; --on-lime:#14171A; --lime-text:#3D5600;
+  --carbon:#14171A; --bone:#ECE7DA; --solder:#0D6B48;
+  --reach:#C8203A; --sentry:#F0661A; --hauler:#6A8C45;
+  --wire-signal:#F2C318; --wire-power:#2467C9;
+  --focus:#1F5FD0; --danger:#B42318; --success:#1F6F8B;
+  --lab-bg:#111315; --lab-panel:#1A1D20; --lab-ink:#ECEEF0; --lab-muted:#A1A8AF; --lab-line:#30353A;
+  --shadow-lift:0 1px 0 rgba(20,23,26,.06),0 8px 24px rgba(20,23,26,.08);
+  --font-display:"Chakra Petch","Arial Narrow",system-ui,sans-serif;
+  --font-sans:"Hanken Grotesk",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --font-mono:"JetBrains Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+  --cut-sm:8px; --cut-md:16px; --cut-lg:32px;
+  --gutter:clamp(16px,4vw,48px); --max:1200px;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --ground:#111315; --surface:#1A1D20; --surface-sunk:#0B0D0E;
+  --ink:#ECEEF0; --ink-muted:#A1A8AF; --line:#30353A; --line-strong:#6A7179;
+  --lime-text:#C6EC2E; --focus:#8AB6FF; --danger:#FF8A7A; --success:#7CC7E0;
+  --lab-bg:#0B0D0E; --lab-panel:#15181B;
+  --shadow-lift:0 1px 0 rgba(0,0,0,.4),0 8px 24px rgba(0,0,0,.45);
+  color-scheme:dark}}
+:root[data-theme="dark"]{
+  --ground:#111315; --surface:#1A1D20; --surface-sunk:#0B0D0E;
+  --ink:#ECEEF0; --ink-muted:#A1A8AF; --line:#30353A; --line-strong:#6A7179;
+  --lime-text:#C6EC2E; --focus:#8AB6FF; --danger:#FF8A7A; --success:#7CC7E0;
+  --lab-bg:#0B0D0E; --lab-panel:#15181B;
+  --shadow-lift:0 1px 0 rgba(0,0,0,.4),0 8px 24px rgba(0,0,0,.45);
+  color-scheme:dark}
+
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{scroll-behavior:smooth;scroll-padding-top:72px}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}
+body{background:var(--ground);color:var(--ink);font-family:var(--font-sans);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.wrap{max-width:var(--max);margin-inline:auto;padding-inline:var(--gutter)}
+h1,h2,h3{font-family:var(--font-display);font-weight:700;line-height:1.02;margin:0;text-wrap:balance;letter-spacing:-.005em}
+p{margin:0}
+.label{font-family:var(--font-mono);font-size:12px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-muted);line-height:1.35}
+.lead{font-size:clamp(17px,1.6vw,19px);line-height:1.55;color:var(--ink-muted);max-width:60ch}
+.h-sec{font-size:clamp(34px,4.6vw,52px)}
+.sec{padding-block:clamp(56px,8vw,104px)}
+.sec-head{display:grid;gap:16px;margin-bottom:clamp(32px,5vw,56px);max-width:760px}
+.dotgrid{background-image:radial-gradient(var(--line) 1.2px,transparent 1.4px);background-size:24px 24px}
+
+/* buttons & tags */
+.btn{--cut:var(--cut-sm);display:inline-flex;align-items:center;gap:10px;font-family:var(--font-sans);font-size:16px;font-weight:600;line-height:1;padding:15px 24px;border:0;cursor:pointer;text-decoration:none;color:var(--on-lime);background:var(--lime);clip-path:polygon(0 0,calc(100% - var(--cut)) 0,100% var(--cut),100% 100%,0 100%);transition:filter .16s ease-out,transform .16s ease-out;white-space:nowrap}
+.btn:hover{filter:brightness(1.06)}
+.btn:active{transform:translateY(1px)}
+.btn .arr{font-family:var(--font-mono);font-weight:500}
+.btn--sec{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 1.5px var(--line-strong);clip-path:none}
+.btn--sec:hover{box-shadow:inset 0 0 0 1.5px var(--ink);filter:none}
+.btn--sm{padding:11px 16px;font-size:15px}
+.tag{display:inline-flex;align-items:center;gap:6px;font-family:var(--font-mono);font-size:12px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;line-height:1;padding:5px 8px;color:var(--ink-muted);box-shadow:inset 0 0 0 1px var(--line-strong);border-radius:2px;white-space:nowrap}
+.tag--sig{color:var(--on-lime);background:var(--wire-signal);box-shadow:none}
+.tag--pwr{color:#fff;background:var(--wire-power);box-shadow:none}
+.tag--gnd{color:#fff;background:var(--carbon);box-shadow:inset 0 0 0 1px var(--line-strong)}
+
+/* header */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:color-mix(in srgb,var(--ground) 88%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.top .wrap{display:flex;align-items:center;gap:24px;height:64px}
+.brand{font-family:var(--font-display);font-weight:700;font-size:22px;letter-spacing:.01em;text-decoration:none;line-height:1;display:flex;flex-direction:column}
+.brand small{font-family:var(--font-mono);font-size:10px;font-weight:500;letter-spacing:.12em;color:var(--ink-muted);margin-top:3px}
+.nav{display:flex;gap:24px;margin-left:auto}
+.nav a{text-decoration:none;font-size:15px;color:var(--ink-muted);font-weight:500}
+.nav a:hover{color:var(--ink)}
+.top .btn{margin-left:8px}
+.menu-btn{display:none;margin-left:auto;background:none;border:0;color:var(--ink);font-family:var(--font-mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;padding:10px 4px;cursor:pointer}
+@media (max-width:900px){
+  .nav{display:none;position:absolute;top:64px;left:0;right:0;flex-direction:column;gap:0;background:var(--surface);border-bottom:1px solid var(--line);padding:8px var(--gutter) 16px;box-shadow:var(--shadow-lift)}
+  .nav.open{display:flex}
+  .nav a{padding:12px 0;border-bottom:1px solid var(--line);font-size:17px;color:var(--ink)}
+  .menu-btn{display:block}
+  .top .btn{display:none}
+}
+
+/* hero */
+.hero{position:relative;overflow:hidden;border-bottom:1px solid var(--line)}
+.hero .wrap{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:clamp(24px,4vw,56px);align-items:center;padding-block:clamp(40px,7vw,88px) clamp(40px,6vw,72px)}
+.hero h1{font-size:clamp(46px,7.4vw,92px);line-height:.93;margin-top:20px}
+.hero h1 .hl{display:inline-block;background:var(--lime);color:var(--on-lime);padding:0 .12em .04em;clip-path:polygon(0 0,calc(100% - 18px) 0,100% 18px,100% 100%,0 100%)}
+.hero .lead{margin-top:24px}
+.hero-cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:32px;align-items:center}
+.price{display:flex;align-items:baseline;gap:12px;margin-top:28px;flex-wrap:wrap}
+.price strong{font-family:var(--font-display);font-size:30px;font-weight:700;font-variant-numeric:tabular-nums}
+.hero-fig{position:relative;margin:0;min-width:0}
+.hero-fig img{width:100%;height:auto;mix-blend-mode:multiply}
+:root[data-theme="dark"] .hero-fig img{mix-blend-mode:normal}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .hero-fig img{mix-blend-mode:normal}}
+.callout{position:absolute;display:flex;align-items:center;gap:8px}
+.callout::before{content:"";width:28px;height:1px;background:var(--ink-muted)}
+.callout.l{flex-direction:row-reverse}
+.c1{top:4%;left:2%}.c2{top:0;left:40%}.c3{top:8%;right:0}
+@media (max-width:900px){.hero .wrap{grid-template-columns:1fr}.c2{display:none}}
+@media (max-width:480px){.callout{display:none}}
+.facts{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-top:1px solid var(--line);background:var(--surface)}
+.facts div{padding:20px var(--gutter);border-right:1px solid var(--line);display:grid;gap:4px}
+.facts div:last-child{border-right:0}
+.facts b{font-family:var(--font-display);font-size:clamp(28px,3.4vw,40px);line-height:1;font-variant-numeric:tabular-nums}
+@media (max-width:720px){.facts{grid-template-columns:repeat(2,minmax(0,1fr))}.facts div:nth-child(2){border-right:0}.facts div:nth-child(-n+2){border-bottom:1px solid var(--line)}}
+
+/* box */
+.tray{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));grid-auto-rows:minmax(132px,auto);gap:8px;padding:8px;background:var(--carbon);clip-path:polygon(0 0,calc(100% - var(--cut-lg)) 0,100% var(--cut-lg),100% 100%,var(--cut-lg) 100%,0 calc(100% - var(--cut-lg)))}
+.cell{position:relative;background:var(--bone);color:#14171A;padding:18px;display:flex;flex-direction:column;justify-content:space-between;gap:12px;min-width:0}
+.cell .label{color:#4C535A}
+.cell h3{font-size:clamp(22px,2.4vw,28px)}
+.cell p{font-size:14px;line-height:1.45;color:#4C535A}
+.cell.start{grid-column:span 2;grid-row:span 2;background:var(--lime)}
+.cell.start .label,.cell.start p{color:#2a3300}
+.cell.k{border-top:6px solid var(--k)}
+.cell.reach{--k:var(--reach)}.cell.sentry{--k:var(--sentry)}.cell.hauler{--k:var(--hauler)}
+.cell.k{grid-column:span 2}
+.cell.mods{grid-column:span 4}
+.cell.parts{grid-column:span 2}
+.cell.merch{grid-column:span 2}
+.cell.digital{grid-column:span 6;background:#1A1D20;color:#ECEEF0;flex-direction:row;align-items:center;flex-wrap:wrap}
+.cell.digital .label,.cell.digital p{color:#A1A8AF}
+.modgrid{display:grid;grid-template-columns:repeat(13,1fr);gap:3px;max-width:340px}
+.modgrid i{aspect-ratio:1;background:#C9C4B6;display:block}
+.modgrid i:nth-child(5n+1){background:var(--wire-signal)}
+@media (max-width:860px){.tray{grid-template-columns:repeat(2,minmax(0,1fr))}.cell.start,.cell.k,.cell.mods,.cell.parts,.cell.digital{grid-column:span 2}.cell.start{grid-row:auto}.cell.merch{grid-column:span 2}}
+.tray-note{margin-top:16px}
+
+/* core */
+.core{background:var(--surface);border-block:1px solid var(--line)}
+.core-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(24px,5vw,72px);align-items:start}
+.core-photo{position:relative;margin:0;background:var(--surface-sunk);clip-path:polygon(0 0,calc(100% - var(--cut-lg)) 0,100% var(--cut-lg),100% 100%,0 100%)}
+.core-photo img{width:100%;aspect-ratio:1;object-fit:cover}
+.core-photo figcaption{position:absolute;left:12px;bottom:12px;background:var(--surface);padding:6px 10px}
+.spec{width:100%;border-collapse:collapse;margin-top:28px}
+.spec th,.spec td{text-align:left;padding:13px 0;border-top:1px solid var(--line);vertical-align:top}
+.spec th{font-family:var(--font-mono);font-weight:500;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-muted);width:38%;padding-right:16px;padding-top:15px}
+.spec td{font-family:var(--font-mono);font-size:14px;font-variant-numeric:tabular-nums}
+.pins{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
+@media (max-width:860px){.core-grid{grid-template-columns:1fr}}
+
+/* builds */
+.kits{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+.kit{--cut:var(--cut-md);background:var(--surface);display:grid;grid-template-rows:auto 1fr;clip-path:polygon(0 0,calc(100% - var(--cut)) 0,100% var(--cut),100% 100%,var(--cut) 100%,0 calc(100% - var(--cut)));min-width:0}
+.kit.reach{--k:var(--reach)}.kit.sentry{--k:var(--sentry)}.kit.hauler{--k:var(--hauler)}
+.kit-media{aspect-ratio:1;background:#D9DCDF;overflow:hidden}
+.kit-media img{width:100%;height:100%;object-fit:cover}
+.kit-body{border-top:5px solid var(--k);padding:24px;display:grid;gap:10px;align-content:start}
+.kit h3{font-size:34px;letter-spacing:.02em}
+.kit p{color:var(--ink-muted);font-size:15px;line-height:1.55}
+.kit ul{list-style:none;margin:6px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:6px}
+@media (max-width:900px){.kits{grid-template-columns:1fr}.kit{grid-template-columns:minmax(0,2fr) minmax(0,3fr);grid-template-rows:auto}.kit-media{aspect-ratio:auto;height:100%}.kit-body{border-top:0;border-left:5px solid var(--k)}}
+@media (max-width:560px){.kit{grid-template-columns:1fr}.kit-media{aspect-ratio:4/3}.kit-body{border-left:0;border-top:5px solid var(--k)}}
+.cellband{margin-top:20px;display:grid;grid-template-columns:minmax(0,2fr) minmax(0,3fr);background:var(--surface);align-items:stretch;min-width:0}
+.cellband img{width:100%;height:100%;object-fit:cover;min-height:240px;aspect-ratio:4/3}
+.cellband div{padding:clamp(20px,3vw,36px);display:grid;gap:12px;align-content:center}
+.cellband h3{font-size:clamp(26px,3vw,34px)}
+.cellband p{color:var(--ink-muted)}
+@media (max-width:720px){.cellband{grid-template-columns:1fr}}
+
+/* path */
+.path{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));border-top:2px solid var(--ink)}
+.step{padding:20px 20px 24px 0;display:grid;gap:10px;align-content:start;position:relative;min-width:0}
+.step::before{content:"";position:absolute;top:-7px;left:0;width:12px;height:12px;background:var(--ground);border:2px solid var(--ink)}
+.step.on::before{background:var(--lime)}
+.step h3{font-size:22px;line-height:1.15}
+.step p{font-size:15px;color:var(--ink-muted);line-height:1.5}
+.step .wk{font-family:var(--font-display);font-size:15px;font-weight:600;color:var(--lime-text)}
+@media (max-width:960px){.path{grid-template-columns:1fr;border-top:0;border-left:2px solid var(--ink);margin-left:6px}.step{padding:0 0 32px 28px}.step::before{top:4px;left:-7px}}
+
+/* lab */
+.lab{background:var(--lab-bg);color:var(--lab-ink)}
+.lab .label{color:var(--lab-muted)}
+.lab .lead{color:var(--lab-muted)}
+.lab-grid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(24px,5vw,64px);align-items:center}
+@media (max-width:900px){.lab-grid{grid-template-columns:1fr}}
+.lab-list{list-style:none;padding:0;margin:28px 0 0;display:grid;gap:18px}
+.lab-list li{display:grid;grid-template-columns:28px 1fr;gap:12px}
+.lab-list b{display:block;font-weight:600;color:var(--lab-ink)}
+.lab-list span{color:var(--lab-muted);font-size:15px}
+.lab-list .ix{font-family:var(--font-mono);font-size:12px;color:#C6EC2E;padding-top:4px}
+.win{background:var(--lab-panel);border:1px solid var(--lab-line);min-width:0;overflow:hidden}
+.win-bar{display:flex;align-items:center;gap:10px;padding:10px 14px;border-bottom:1px solid var(--lab-line);font-family:var(--font-mono);font-size:12px;color:var(--lab-muted);letter-spacing:.06em}
+.win-bar .live{margin-left:auto;display:flex;align-items:center;gap:6px;color:#C6EC2E}
+.win-bar .live i{width:7px;height:7px;border-radius:999px;background:#C6EC2E}
+.win-body{display:grid;grid-template-columns:150px minmax(0,1fr)}
+.palette{border-right:1px solid var(--lab-line);padding:14px;display:grid;gap:8px;align-content:start}
+.palette span{font-family:var(--font-mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--lab-muted);display:flex;align-items:center;gap:8px}
+.palette span i{width:10px;height:10px;display:block}
+.canvas{padding:22px;display:grid;gap:6px;align-content:start;background-image:radial-gradient(#2a2f34 1px,transparent 1.2px);background-size:20px 20px;min-width:0;overflow-x:auto}
+.blk{display:inline-flex;align-items:center;gap:8px;flex-wrap:wrap;padding:9px 12px;font-size:14px;font-weight:600;color:#14171A;width:max-content;max-width:100%;clip-path:polygon(0 0,calc(100% - 6px) 0,100% 6px,100% 100%,0 100%)}
+.blk .in{background:rgba(255,255,255,.75);color:#14171A;padding:2px 8px;font-family:var(--font-mono);font-size:12px;font-weight:500}
+.blk.ctl{background:#5B8EE0}
+.blk.sen{background:#F2C318}
+.blk.mot{background:#F0661A}
+.blk.out{background:#C6EC2E}
+.ind{margin-left:22px}
+@media (max-width:560px){.win-body{grid-template-columns:1fr}.palette{grid-template-columns:repeat(3,1fr);border-right:0;border-bottom:1px solid var(--lab-line)}}
+
+/* parents */
+.par-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line)}
+.par{background:var(--surface);padding:clamp(20px,3vw,32px);display:grid;gap:10px;align-content:start}
+.par h3{font-size:22px;line-height:1.15}
+.par p{color:var(--ink-muted);font-size:15px;line-height:1.55}
+@media (max-width:860px){.par-grid{grid-template-columns:1fr}}
+.age{margin-top:24px;display:flex;gap:16px;align-items:center;flex-wrap:wrap;padding:20px 24px;background:var(--surface);border:1px solid var(--line)}
+.age strong{font-family:var(--font-display);font-size:28px;line-height:1}
+
+/* faq */
+.faq{max-width:860px}
+.faq details{border-top:1px solid var(--line)}
+.faq details:last-child{border-bottom:1px solid var(--line)}
+.faq summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;gap:16px;padding:20px 0;font-weight:600;font-size:18px;line-height:1.35}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";font-family:var(--font-mono);font-weight:400;font-size:20px;color:var(--ink-muted);flex:none}
+.faq details[open] summary::after{content:"−"}
+.faq details p{padding:0 0 22px;color:var(--ink-muted);max-width:68ch}
+
+/* reserve */
+.reserve{background:var(--surface);border-top:1px solid var(--line)}
+.res-grid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:clamp(24px,5vw,72px);align-items:start}
+@media (max-width:900px){.res-grid{grid-template-columns:1fr}}
+.summary{display:grid;gap:0;margin-top:28px;border-top:2px solid var(--ink)}
+.summary div{display:flex;justify-content:space-between;gap:16px;padding:12px 0;border-bottom:1px solid var(--line);font-size:15px}
+.summary div span:last-child{font-family:var(--font-mono);font-size:13px;color:var(--ink-muted);text-align:right}
+.summary .tot{font-weight:600;font-size:17px}
+.summary .tot span:last-child{font-family:var(--font-display);font-size:24px;color:var(--ink);font-weight:700}
+form{display:grid;grid-template-columns:1fr 1fr;gap:18px 16px;background:var(--ground);padding:clamp(20px,3vw,32px);clip-path:polygon(0 0,calc(100% - var(--cut-md)) 0,100% var(--cut-md),100% 100%,0 100%)}
+.f{display:grid;gap:6px;min-width:0}
+.f.full{grid-column:1/-1}
+.f label{font-size:14px;font-weight:600}
+.f input,.f select{font:inherit;font-size:16px;color:var(--ink);background:var(--surface);border:1.5px solid var(--line-strong);border-radius:2px;padding:12px 12px;width:100%;min-width:0}
+.f input:focus,.f select:focus{outline:2px solid var(--focus);outline-offset:1px;border-color:var(--ink)}
+.f .err{color:var(--danger);font-size:13px;min-height:0}
+.f.bad input,.f.bad select{border-color:var(--danger)}
+.chk{display:flex;gap:10px;align-items:flex-start;font-size:14px;color:var(--ink-muted)}
+.chk input{width:18px;height:18px;margin-top:2px;accent-color:var(--ink);flex:none}
+form .btn{justify-self:start}
+@media (max-width:560px){form{grid-template-columns:1fr}}
+.done{padding:clamp(24px,4vw,40px);background:var(--ground);display:grid;gap:14px;border-top:5px solid var(--lime)}
+.done h3{font-size:30px}
+.done p{color:var(--ink-muted)}
+
+/* footer */
+footer{background:var(--carbon);color:#ECEEF0;padding-block:56px 32px}
+.foot{display:grid;grid-template-columns:minmax(0,2fr) repeat(3,minmax(0,1fr));gap:32px}
+.foot h4{font-family:var(--font-mono);font-size:12px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:#A1A8AF;margin:0 0 12px}
+.foot ul{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.foot a{text-decoration:none;color:#ECEEF0;font-size:15px}
+.foot a:hover{color:#C6EC2E}
+.foot .big{font-family:var(--font-display);font-size:clamp(30px,4vw,44px);font-weight:700;line-height:1}
+.foot p{color:#A1A8AF;font-size:15px;margin-top:12px;max-width:40ch}
+.legal{margin-top:48px;padding-top:20px;border-top:1px solid #30353A;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-family:var(--font-mono);font-size:12px;letter-spacing:.06em;color:#A1A8AF}
+@media (max-width:760px){.foot{grid-template-columns:1fr 1fr}.foot>div:first-child{grid-column:1/-1}}
+
+/* sticky buy bar */
+.buybar{position:fixed;left:0;right:0;bottom:0;z-index:30;background:var(--surface);border-top:1px solid var(--line);box-shadow:var(--shadow-lift);padding:10px var(--gutter) calc(10px + env(safe-area-inset-bottom,0px));display:flex;align-items:center;gap:16px;transform:translateY(110%);transition:transform .22s ease-out}
+.buybar.show{transform:none}
+.buybar .t{display:grid;line-height:1.2;min-width:0}
+.buybar .t b{font-family:var(--font-display);font-size:18px}
+.buybar .t span{font-family:var(--font-mono);font-size:12px;color:var(--ink-muted)}
+.buybar .btn{margin-left:auto}
+</style>
+
+<header class="top">
+  <div class="wrap">
+    <!-- Swap this text for the registered Kokoon Labs logo SVG (mark + wordmark). Do not redraw the mark. -->
+    <a class="brand" href="#top" aria-label="Kokoon Labs home">Kokoon Labs<small>ORIGIN · SERIES 01</small></a>
+    <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="nav">Menu</button>
+    <nav class="nav" id="nav" aria-label="Main">
+      <a href="#box">In the box</a>
+      <a href="#core">Core</a>
+      <a href="#builds">Robots</a>
+      <a href="#path">Learning path</a>
+      <a href="#parents">For parents</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    <a class="btn btn--sm" href="#reserve">Reserve</a>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero dotgrid" aria-labelledby="hero-h">
+    <div class="wrap">
+      <div>
+        <span class="label">Kokoon Origin · Series 01</span>
+        <h1 id="hero-h">Don't just use it. <span class="hl">Build it.</span></h1>
+        <p class="lead">A complete robotics lab in one box. You get our own Core board, three robots to build, 20+ sensor modules, video lessons and a drag-and-drop coding lab. You can go from your first circuit to a robot that does what you designed.</p>
+        <div class="price"><strong>₹50,000</strong><span class="label">One-time · hardware + learning</span></div>
+        <div class="hero-cta">
+          <a class="btn" href="#reserve">Reserve your Origin <span class="arr">→</span></a>
+          <a class="btn btn--sec" href="#box">See what's inside</a>
+        </div>
+      </div>
+      <figure class="hero-fig">
+        <img src="img/lineup.jpg" alt="The three Kokoon Origin robots: REACH, a red and black articulated arm; SENTRY, an orange and ivory pan-tilt launcher; and HAULER, a green tracked forklift." width="1448" height="745">
+        <span class="callout c1 label">REACH · KX-01</span>
+        <span class="callout c2 label">SENTRY · KX-02</span>
+        <span class="callout c3 label l">HAULER · KX-03</span>
+      </figure>
+    </div>
+    <div class="facts" aria-label="Origin at a glance">
+      <div><b>3</b><span class="label">Robots to build</span></div>
+      <div><b>20+</b><span class="label">Sensor modules</span></div>
+      <div><b>1</b><span class="label">Kokoon Core board</span></div>
+      <div><b>3–4</b><span class="label">Months, guided</span></div>
+    </div>
+  </section>
+
+  <section class="sec" id="box" aria-labelledby="box-h">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="label">What's in the box</span>
+        <h2 class="h-sec" id="box-h">One box. A full bench of hardware.</h2>
+        <p class="lead">Every part has its own place, so you always know what to pick up next. Start with the lime compartment.</p>
+      </div>
+      <div class="tray" role="list">
+        <div class="cell start" role="listitem">
+          <span class="label">Start here</span>
+          <div>
+            <h3>Kokoon Core + Cell</h3>
+            <p>The brain board that runs every project, and the rechargeable USB-C battery pack that powers it.</p>
+          </div>
+          <span class="label">CORE · S3 &nbsp;/&nbsp; CELL · 2S</span>
+        </div>
+        <div class="cell k reach" role="listitem"><span class="label">KX-01</span><div><h3>REACH</h3><p>Articulated arm kit, in its own printed case.</p></div></div>
+        <div class="cell k sentry" role="listitem"><span class="label">KX-02</span><div><h3>SENTRY</h3><p>Pan-tilt launcher kit, in its own printed case.</p></div></div>
+        <div class="cell k hauler" role="listitem"><span class="label">KX-03</span><div><h3>HAULER</h3><p>Tracked forklift kit, in its own printed case.</p></div></div>
+        <div class="cell parts" role="listitem"><span class="label">Spares + extras</span><div><h3>Builder parts</h3><p>Extra 3D-printed parts, cables and hardware for your own experiments.</p></div></div>
+        <div class="cell mods" role="listitem">
+          <span class="label">M-01 to M-25</span>
+          <div><h3>20+ sensor modules</h3><p>Distance, motion, light, sound and more. Each module plugs straight into the Core.</p></div>
+          <div class="modgrid" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+        </div>
+        <div class="cell merch" role="listitem"><span class="label">Crew</span><div><h3>Merch</h3><p>Badges, keychain and more.</p></div></div>
+        <div class="cell digital" role="listitem">
+          <div style="display:grid;gap:6px;flex:1 1 280px"><span class="label">Unlocked with your box</span><h3>Kokoon Learn + Code Lab</h3></div>
+          <p style="flex:1 1 320px">Video lessons, step-by-step builds and a drag-and-drop coding lab that talks to the Core over USB. No installs and no prior experience needed.</p>
+        </div>
+      </div>
+      <p class="label tray-note">Final quantities are confirmed in the shipping inventory.</p>
+    </div>
+  </section>
+
+  <section class="sec core" id="core" aria-labelledby="core-h">
+    <div class="wrap core-grid">
+      <figure class="core-photo">
+        <img src="img/core.jpg" alt="The Kokoon Core board in its clear case with a lime frame, held in a hand. Colour-coded GPIO pins and labelled connectors are visible." loading="lazy" width="750" height="750">
+        <figcaption class="label">Kokoon Core · actual hardware</figcaption>
+      </figure>
+      <div>
+        <span class="label">The brain · CORE · S3</span>
+        <h2 class="h-sec" id="core-h" style="margin-top:14px">Our own board. Designed in India.</h2>
+        <p class="lead" style="margin-top:18px">We designed the Core ourselves because no off-the-shelf board did everything a learner needs. It has a motion sensor built in, four motor channels and ports labelled for what they do. Start in blocks and keep going in code when you're ready.</p>
+        <table class="spec" aria-label="Kokoon Core specifications">
+          <tr><th scope="row">Processor</th><td>ESP32-S3</td></tr>
+          <tr><th scope="row">Wireless</th><td>Wi-Fi · Bluetooth · ESP-NOW</td></tr>
+          <tr><th scope="row">Built-in sensor</th><td>IMU · motion + orientation</td></tr>
+          <tr><th scope="row">Pins</th><td>13 × GPIO · dedicated I2C · dedicated SPI</td></tr>
+          <tr><th scope="row">Motors</th><td>2 drivers · 4 motors at once</td></tr>
+          <tr><th scope="row">Light</th><td>Onboard LED · NeoPixel matrix port</td></tr>
+          <tr><th scope="row">Coding</th><td>Plug-and-play with Kokoon Code Lab</td></tr>
+        </table>
+        <div class="pins" aria-label="Pin colour code"><span class="tag tag--sig">SIG · yellow</span><span class="tag tag--pwr">5V · blue</span><span class="tag tag--gnd">GND · black</span><span class="tag">Same colours on screen and on the board</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="builds" aria-labelledby="builds-h">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="label">Three robots · built in order</span>
+        <h2 class="h-sec" id="builds-h">Each build teaches the next one.</h2>
+        <p class="lead">These are real machines with real motors and sensors. Every robot adds new skills on top of the last, and you can take each one apart and rebuild it into something of your own.</p>
+      </div>
+      <div class="kits">
+        <article class="kit reach">
+          <div class="kit-media"><img src="img/reach.jpg" alt="REACH, a red, black and ivory articulated robot arm with a gripper." loading="lazy"></div>
+          <div class="kit-body">
+            <span class="label">KX-01 · Build 1</span>
+            <h3>REACH</h3>
+            <p>A multi-joint robotic arm. Learn how servos hold an angle, how joints add up to a position, and how to pick something up exactly where you want.</p>
+            <ul><li class="tag">Servos</li><li class="tag">Angles</li><li class="tag">Sequences</li></ul>
+          </div>
+        </article>
+        <article class="kit sentry">
+          <div class="kit-media"><img src="img/sentry.jpg" alt="SENTRY, an orange, ivory and black pan-tilt launcher on a round base." loading="lazy"></div>
+          <div class="kit-body">
+            <span class="label">KX-02 · Build 2</span>
+            <h3>SENTRY</h3>
+            <p>A pan-tilt launcher that tracks a target and launches on your command. Learn sensors, feedback and timing, then tune its aim.</p>
+            <ul><li class="tag">Sensors</li><li class="tag">Tracking</li><li class="tag">Feedback</li></ul>
+          </div>
+        </article>
+        <article class="kit hauler">
+          <div class="kit-media"><img src="img/hauler.jpg" alt="HAULER, a green and ivory tracked robot with a forklift mast." loading="lazy"></div>
+          <div class="kit-body">
+            <span class="label">KX-03 · Build 3</span>
+            <h3>HAULER</h3>
+            <p>A tracked forklift. Learn drive motors, steering and lifting loads, then drive it wirelessly from another Core.</p>
+            <ul><li class="tag">Drive motors</li><li class="tag">Lift</li><li class="tag">ESP-NOW</li></ul>
+          </div>
+        </article>
+      </div>
+      <div class="cellband">
+        <img src="img/cell.jpg" alt="Three Kokoon Cell battery packs charging over USB-C, with maroon and black shells and white end caps." width="1100" height="935">
+        <div>
+          <span class="label">Power · CELL · 2S</span>
+          <h3>Kokoon Cell</h3>
+          <p>A rechargeable battery pack with our own protected charging board. Charge it over USB-C, check the level with one button, and plug it into any build.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="path" aria-labelledby="path-h" style="padding-top:0">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="label">The learning path · 3–4 months</span>
+        <h2 class="h-sec" id="path-h">From first circuit to your own idea.</h2>
+        <p class="lead">A guided course, one concept at a time. Every lesson ends with something you can build, test or watch move.</p>
+      </div>
+      <ol class="path" style="list-style:none;margin:0;padding:0">
+        <li class="step on"><span class="wk">Stage 1</span><h3>Electronics basics</h3><p>Circuits, LEDs, sensors and your first Code Lab program running on the Core.</p></li>
+        <li class="step"><span class="wk">Stage 2</span><h3>Build REACH</h3><p>Servos, angles and movement sequences. Program the arm to sort and stack.</p></li>
+        <li class="step"><span class="wk">Stage 3</span><h3>Build SENTRY</h3><p>Combine multiple sensors to detect, track and respond.</p></li>
+        <li class="step"><span class="wk">Stage 4</span><h3>Build HAULER</h3><p>Drive motors, lifting and wireless control between boards.</p></li>
+        <li class="step"><span class="wk">Then</span><h3>Your own build</h3><p>New challenges and projects keep arriving. Use the same hardware to build what you imagine.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="sec lab" aria-labelledby="lab-h">
+    <div class="wrap lab-grid">
+      <div>
+        <span class="label">Kokoon Learn + Code Lab</span>
+        <h2 class="h-sec" id="lab-h" style="margin-top:14px">Watch it. Snap it. Run it.</h2>
+        <p class="lead" style="margin-top:18px">Lessons and coding live side by side. Drag blocks, plug in the Core and see your robot respond straight away.</p>
+        <ul class="lab-list">
+          <li><span class="ix">01</span><div><b>Video lessons</b><span>Short, build-along videos for every concept and every robot.</span></div></li>
+          <li><span class="ix">02</span><div><b>Drag-and-drop Code Lab</b><span>Blocks made for the Core and its sensors, so there's no setup and no driver hunting.</span></div></li>
+          <li><span class="ix">03</span><div><b>New challenges after the course</b><span>Fresh projects that reuse the hardware you already own.</span></div></li>
+        </ul>
+      </div>
+      <div class="win" role="img" aria-label="Illustration of a Code Lab program: when the distance sensor reads under 20 centimetres, SENTRY turns to the target, sets the matrix to a target icon and launches.">
+        <div class="win-bar">CODE LAB · sentry_track.klab <span class="live"><i></i>Core connected</span></div>
+        <div class="win-body">
+          <div class="palette" aria-hidden="true">
+            <span><i style="background:#5B8EE0"></i>Control</span>
+            <span><i style="background:#F2C318"></i>Sensors</span>
+            <span><i style="background:#F0661A"></i>SENTRY</span>
+            <span><i style="background:#C6EC2E"></i>Lights</span>
+            <span><i style="background:#6A8C45"></i>Motors</span>
+            <span><i style="background:#C8203A"></i>REACH</span>
+          </div>
+          <div class="canvas" aria-hidden="true">
+            <span class="blk ctl">forever</span>
+            <span class="blk ctl ind">if <span class="blk sen" style="padding:4px 8px">distance M-04 <span class="in">&lt; 20 cm</span></span></span>
+            <span class="blk mot ind" style="margin-left:44px">turn to target</span>
+            <span class="blk out ind" style="margin-left:44px">matrix show <span class="in">◎ target</span></span>
+            <span class="blk mot ind" style="margin-left:44px">launch</span>
+            <span class="blk ctl ind">else</span>
+            <span class="blk mot ind" style="margin-left:44px">scan <span class="in">−60° … 60°</span></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="parents" aria-labelledby="par-h">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="label">For parents</span>
+        <h2 class="h-sec" id="par-h">Give their curiosity something real to build.</h2>
+        <p class="lead">Origin is a long-term learning tool, not a gadget that ends up in a drawer. Here's what you're investing in.</p>
+      </div>
+      <div class="par-grid">
+        <div class="par"><span class="label">Structured</span><h3>A clear path, start to finish</h3><p>A guided 3–4 month course that builds one skill on the next. No prior experience needed.</p></div>
+        <div class="par"><span class="label">Hands-on</span><h3>Screen time becomes build time</h3><p>Lessons happen on screen, but the work happens on the desk with real wires, motors and sensors.</p></div>
+        <div class="par"><span class="label">Real skills</span><h3>Electronics, coding, problem-solving</h3><p>They learn how circuits, sensors and motors work together, and how to debug when something doesn't.</p></div>
+        <div class="par"><span class="label">Built to last</span><h3>Reusable hardware</h3><p>Every part works again in new projects. New challenges keep the kit useful well after the course ends.</p></div>
+        <div class="par"><span class="label">Safe by design</span><h3>Low voltage, protected power</h3><p>The Kokoon Cell has a protected charging circuit and charges over standard USB-C.</p></div>
+        <div class="par"><span class="label">Supported</span><h3>Help when they're stuck</h3><p>Our team supports every Origin owner, and we'll help if a part arrives faulty.</p></div>
+      </div>
+      <div class="age"><strong>14+</strong><p>Designed for ages 14 and up. Younger makers can build alongside an adult. There's no upper age: college students and hobbyists use Origin too.</p></div>
+    </div>
+  </section>
+
+  <section class="sec" id="faq" aria-labelledby="faq-h" style="padding-top:0">
+    <div class="wrap">
+      <div class="sec-head"><span class="label">Questions</span><h2 class="h-sec" id="faq-h">Before you reserve</h2></div>
+      <div class="faq">
+        <details open><summary>Does my child need any experience?</summary><p>No. Stage 1 starts from what a circuit is. By the time they reach the robots, they've already wired and coded the Core.</p></details>
+        <details><summary>What age is Origin for?</summary><p>It's designed for ages 14 and up. Younger makers can build alongside an adult. There's no upper age limit.</p></details>
+        <details><summary>Do we need to buy anything else?</summary><p>You'll need a laptop or computer with a browser for Kokoon Learn and Code Lab. The box has the hardware, the battery pack and its cables.</p></details>
+        <details><summary>Is it a toy?</summary><p>No. The Core is a real ESP32-S3 development board, the sensors are the same kind engineers use, and the robots are built from motors, gears and printed parts. It's made to be learned from and built on.</p></details>
+        <details><summary>What happens after the 3–4 month course?</summary><p>The hardware stays yours and we keep adding challenges and projects. Many builders start combining parts into their own designs.</p></details>
+        <details><summary>What if a part doesn't work?</summary><p>Contact us and we'll help you diagnose it and replace faulty parts. Full warranty terms come with your order confirmation.</p></details>
+        <details><summary>Can schools buy Origin?</summary><p>Yes. Use the form below and choose "A school or institute" and we'll contact you about classroom sets.</p></details>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec reserve" id="reserve" aria-labelledby="res-h">
+    <div class="wrap res-grid">
+      <div>
+        <span class="label">Reserve · Series 01</span>
+        <h2 class="h-sec" id="res-h" style="margin-top:14px">Reserve your Origin.</h2>
+        <p class="lead" style="margin-top:18px">Series 01 is built in limited batches. Reserve now and we'll contact you with payment and delivery details before your kit ships.</p>
+        <div class="summary" aria-label="Order summary">
+          <div><span>Kokoon Core + Kokoon Cell</span><span>Included</span></div>
+          <div><span>REACH, SENTRY, HAULER kits</span><span>Included</span></div>
+          <div><span>20+ sensor modules + extras</span><span>Included</span></div>
+          <div><span>Kokoon Learn + Code Lab</span><span>Included</span></div>
+          <div class="tot"><span>Kokoon Origin</span><span>₹50,000</span></div>
+        </div>
+      </div>
+      <div>
+        <form id="resForm" novalidate>
+          <div class="f full"><label for="r-name">Your name</label><input id="r-name" name="name" autocomplete="name" required placeholder="Priya Sharma"><span class="err" id="e-name"></span></div>
+          <div class="f"><label for="r-phone">Phone</label><input id="r-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" required placeholder="+91 98765 43210"><span class="err" id="e-phone"></span></div>
+          <div class="f"><label for="r-email">Email</label><input id="r-email" name="email" type="email" autocomplete="email" required placeholder="priya@example.com"><span class="err" id="e-email"></span></div>
+          <div class="f"><label for="r-city">City</label><input id="r-city" name="city" autocomplete="address-level2" placeholder="Bhopal"></div>
+          <div class="f"><label for="r-for">Who is it for?</label>
+            <select id="r-for" name="for">
+              <option>My child</option><option>Myself</option><option>A gift</option><option>A school or institute</option>
+            </select></div>
+          <div class="f full"><label for="r-age">Builder's age</label>
+            <select id="r-age" name="age">
+              <option>14–15</option><option>16–17</option><option>18 or older</option><option>Younger than 14 (building with an adult)</option>
+            </select></div>
+          <label class="chk full f" for="r-ok"><input type="checkbox" id="r-ok" required><span>Contact me about my reservation by phone, WhatsApp or email.</span></label>
+          <span class="err full" id="e-ok" style="color:var(--danger);font-size:13px"></span>
+          <button class="btn full" type="submit">Reserve your Origin <span class="arr">→</span></button>
+        </form>
+        <div class="done" id="done" hidden aria-live="polite">
+          <span class="label">Reservation received</span>
+          <h3>You're on the Series 01 list.</h3>
+          <p id="doneMsg">We'll contact you with payment and delivery details.</p>
+          <a class="btn btn--sec" href="#builds" style="justify-self:start">Explore the robots</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <div><div class="big">Kokoon Labs</div><p>Don't just use it. Build it. A robotics and hardware company, designed and engineered in India.</p></div>
+      <div><h4>Origin</h4><ul><li><a href="#box">In the box</a></li><li><a href="#core">Kokoon Core</a></li><li><a href="#builds">Robots</a></li><li><a href="#reserve">Reserve</a></li></ul></div>
+      <div><h4>Learn</h4><ul><li><a href="#path">Learning path</a></li><li><a href="#parents">For parents</a></li><li><a href="#faq">FAQ</a></li></ul></div>
+      <div><h4>Company</h4><ul><li><a href="#top">About</a></li><li><a href="#reserve">Schools</a></li><li><a href="#top">Support</a></li></ul></div>
+    </div>
+    <div class="legal"><span>© 2026 Kokoon Labs · A Sheryians company</span><span>DESIGNED IN INDIA</span></div>
+  </div>
+</footer>
+
+<div class="buybar" id="buybar" aria-hidden="true">
+  <div class="t"><b>Kokoon Origin</b><span>₹50,000 · Series 01</span></div>
+  <a class="btn btn--sm" href="#reserve" tabindex="-1">Reserve</a>
+</div>
+
+<script>
+(function(){
+  var mb=document.getElementById('menuBtn'),nav=document.getElementById('nav');
+  mb.addEventListener('click',function(){var o=nav.classList.toggle('open');mb.setAttribute('aria-expanded',o);mb.textContent=o?'Close':'Menu';});
+  nav.addEventListener('click',function(e){if(e.target.tagName==='A'){nav.classList.remove('open');mb.setAttribute('aria-expanded','false');mb.textContent='Menu';}});
+
+  var bar=document.getElementById('buybar'),hero=document.querySelector('.hero'),res=document.getElementById('reserve');
+  var heroOut=false,resIn=false;
+  function upd(){var s=heroOut&&!resIn;bar.classList.toggle('show',s);bar.setAttribute('aria-hidden',!s);bar.querySelector('a').tabIndex=s?0:-1;}
+  if('IntersectionObserver' in window){
+    new IntersectionObserver(function(e){heroOut=!e[0].isIntersecting;upd();}).observe(hero);
+    new IntersectionObserver(function(e){resIn=e[0].isIntersecting;upd();},{threshold:.05}).observe(res);
+  }
+
+  var f=document.getElementById('resForm');
+  function setErr(id,msg){var el=document.getElementById('e-'+id);if(el)el.textContent=msg;var w=el&&el.closest('.f');if(w)w.classList.toggle('bad',!!msg);}
+  f.addEventListener('submit',function(ev){
+    ev.preventDefault();
+    var $=function(i){return document.getElementById(i)};var name=$('r-name').value.trim(),phone=$('r-phone').value.replace(/[\s-]/g,''),email=$('r-email').value.trim(),ok=document.getElementById('r-ok').checked,bad=false,first=null;
+    function chk(c,id,msg,el){setErr(id,c?'':msg);if(!c){bad=true;first=first||el;}}
+    chk(name.length>1,'name','Enter your name so we know who to contact.',$('r-name'));
+    chk(/^(\+?91)?[6-9]\d{9}$/.test(phone),'phone','Enter a 10-digit Indian mobile number, for example 98765 43210.',$('r-phone'));
+    chk(/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email),'email','Enter an email address like name@example.com.',$('r-email'));
+    chk(ok,'ok','Tick the box so we can contact you about your reservation.',document.getElementById('r-ok'));
+    if(bad){first.focus();return;}
+    /* Connect to your backend / payment gateway here (e.g. POST to your API, then Razorpay checkout). */
+    f.hidden=true;var d=document.getElementById('done');d.hidden=false;
+    document.getElementById('doneMsg').textContent='Thanks, '+name.split(' ')[0]+'. We’ll contact you at '+email+' with payment and delivery details.';
+    d.querySelector('h3').setAttribute('tabindex','-1');d.querySelector('h3').focus();
+  });
+})();
+</script>

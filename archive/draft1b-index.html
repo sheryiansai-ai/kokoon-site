@@ -1,0 +1,801 @@
+<title>Kokoon Origin</title>
+<meta name="description" content="Kokoon Origin. Three real robots, our own Core board and a guided course. For the generation that builds what's next.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Hanken+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a pinned 3D stage that tells the SENTRY build as one scroll story (dark studio → blueprint → assembled → powered on),
+   followed by editorial sections on carbon and bone. Committed single look: every colour set explicitly. */
+:root{
+  --carbon:#0D0F11; --carbon-2:#16191C; --carbon-3:#1F2327; --hair-d:#2C3136;
+  --bone:#E4E1D8; --bone-2:#EFECE4; --hair-l:#C9C5BA;
+  --ink:#14171A; --ink-2:#4A5056; --paper:#ECEEF0; --paper-2:#A3AAB1;
+  --lime:#C6EC2E; --lime-ink:#3D5600;
+  --reach:#C8203A; --sentry:#F0661A; --hauler:#6A8C45;
+  --font-display:"Chakra Petch","Arial Narrow",system-ui,sans-serif;
+  --font-sans:"Hanken Grotesk",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --font-mono:"JetBrains Mono",ui-monospace,Menlo,monospace;
+  --gutter:clamp(16px,4vw,56px);
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{scroll-behavior:smooth}
+body{background:var(--carbon);color:var(--paper);font-family:var(--font-sans);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--lime);outline-offset:3px}
+h1,h2,h3{font-family:var(--font-display);font-weight:700;margin:0;line-height:.98;letter-spacing:-.01em;text-wrap:balance}
+p{margin:0}
+.mono{font-family:var(--font-mono);font-size:12px;font-weight:500;letter-spacing:.1em;text-transform:uppercase}
+.wrap{max-width:1280px;margin-inline:auto;padding-inline:var(--gutter)}
+.btn{--cut:9px;display:inline-flex;align-items:center;gap:10px;font-family:var(--font-sans);font-weight:600;font-size:16px;line-height:1;padding:16px 24px;border:0;cursor:pointer;text-decoration:none;color:var(--ink);background:var(--lime);clip-path:polygon(0 0,calc(100% - var(--cut)) 0,100% var(--cut),100% 100%,0 100%);transition:filter .18s ease-out;white-space:nowrap}
+.btn:hover{filter:brightness(1.07)}
+.btn .arr{font-family:var(--font-mono)}
+.btn--ghost{background:transparent;color:inherit;box-shadow:inset 0 0 0 1.5px currentColor;clip-path:none;opacity:.9}
+
+/* top bar */
+.bar{position:fixed;inset:0 0 auto 0;z-index:40;padding-top:env(safe-area-inset-top,0px);transition:background .3s,color .3s;color:var(--paper)}
+.bar .wrap{display:flex;align-items:center;gap:28px;height:68px}
+.bar.light{color:var(--ink)}
+.bar.solid{background:rgba(13,15,17,.82);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+.bar.solid.light{background:rgba(228,225,216,.85)}
+.wm{font-family:var(--font-display);font-weight:700;font-size:21px;text-decoration:none;letter-spacing:.01em}
+.bar nav{display:flex;gap:26px;margin-left:auto}
+.bar nav a{text-decoration:none;font-size:14px;font-weight:500;opacity:.75}
+.bar nav a:hover{opacity:1}
+.bar .btn{padding:12px 18px;font-size:14px}
+@media (max-width:860px){.bar nav{display:none}.bar .btn{margin-left:auto}}
+
+/* ---------- THE BUILD (pinned stage) ---------- */
+#build{position:relative;height:900vh}
+.stage{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;background:var(--carbon);transition:color .4s}
+.stage canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+.grid{position:absolute;inset:0;opacity:0;background-image:radial-gradient(rgba(20,23,26,.22) 1.1px,transparent 1.3px);background-size:24px 24px;pointer-events:none}
+.vignette{position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse at 60% 55%,transparent 40%,rgba(0,0,0,.55) 100%);transition:opacity .4s}
+.stage.light{color:var(--ink)}
+.stage.light .vignette{opacity:0}
+#lines{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;overflow:visible}
+#lines path{fill:none;stroke:currentColor;stroke-width:1;opacity:.55}
+#lines circle{fill:var(--lime);stroke:var(--ink);stroke-width:1}
+.labels{position:absolute;inset:0;pointer-events:none}
+.lbl{position:absolute;top:0;left:0;display:grid;gap:3px;width:210px;opacity:0;transition:opacity .25s;will-change:transform}
+.lbl b{font-family:var(--font-mono);font-size:11.5px;font-weight:500;letter-spacing:.09em;text-transform:uppercase}
+.lbl span{font-size:13px;line-height:1.3;color:var(--ink-2)}
+.lbl.r{text-align:right}
+.copy{position:absolute;left:var(--gutter);bottom:clamp(88px,14vh,140px);width:min(540px,calc(100% - 2*var(--gutter)));pointer-events:none}
+.phase{position:absolute;left:0;bottom:0;width:100%;opacity:0;transform:translateY(14px);transition:opacity .45s ease-out,transform .45s ease-out}
+.phase.on{opacity:1;transform:none;pointer-events:auto}
+.phase .mono{color:var(--lime);display:block;margin-bottom:16px}
+.stage.light .phase .mono{color:var(--lime-ink)}
+.phase h1{font-size:clamp(40px,6vw,84px);line-height:.92}
+.phase h2{font-size:clamp(36px,5vw,68px);line-height:.95}
+.phase p{margin-top:18px;font-size:clamp(16px,1.5vw,19px);line-height:1.55;color:var(--paper-2);max-width:46ch}
+.stage.light .phase p{color:var(--ink-2)}
+.phase .cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}
+.hl{display:inline-block;color:var(--ink);background:var(--lime);padding:0 .1em;clip-path:polygon(0 0,calc(100% - 16px) 0,100% 16px,100% 100%,0 100%)}
+.cue{position:absolute;left:50%;bottom:28px;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:10px;color:var(--paper-2);transition:opacity .3s}
+.cue i{width:1px;height:42px;background:linear-gradient(var(--paper-2),transparent);animation:cue 1.8s ease-in-out infinite}
+@keyframes cue{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+.ruler{position:absolute;right:var(--gutter);bottom:28px;display:flex;align-items:flex-end;gap:14px;pointer-events:auto}
+.ruler .ticks{position:relative;display:flex;gap:5px;align-items:flex-end;height:22px}
+.ruler .ticks i{width:2px;height:8px;background:currentColor;opacity:.3}
+.ruler .ticks i.maj{height:16px;opacity:.55}
+.ruler .ticks i.on{background:var(--lime);opacity:1}
+.stage.light .ruler .ticks i.on{background:var(--ink)}
+.ruler .now{font-family:var(--font-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;min-width:150px;text-align:right;opacity:.8}
+.meter{position:absolute;right:var(--gutter);top:96px;font-family:var(--font-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;text-align:right;opacity:.7;display:grid;gap:4px}
+.meter b{font-family:var(--font-display);font-size:34px;letter-spacing:0;font-weight:600;opacity:1;font-variant-numeric:tabular-nums}
+.fallback{position:absolute;inset:0;display:grid;place-items:center}
+.fallback img{max-height:70vh;width:auto}
+@media (max-width:700px){
+  .lbl{width:128px}.lbl span{display:none}.lbl b{font-size:10px}
+  .ruler .now{display:none}.meter{top:80px}.meter b{font-size:26px}
+  .copy{bottom:84px}
+  .cue{display:none}
+}
+@media (prefers-reduced-motion:reduce){.cue i{animation:none}.phase{transition:none}}
+
+/* ---------- sections ---------- */
+section.s{padding-block:clamp(72px,11vw,150px)}
+.eyebrow{color:var(--lime);display:block;margin-bottom:22px}
+.big{font-size:clamp(40px,6.4vw,92px);line-height:.94}
+.lede{font-size:clamp(17px,1.6vw,20px);line-height:1.6;color:var(--paper-2);max-width:56ch}
+
+/* manifesto */
+.mani{background:var(--carbon);border-top:1px solid var(--hair-d)}
+.mani .big .dim{color:#596067}
+.mani-grid{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:clamp(32px,6vw,96px);align-items:end}
+.outcomes{margin-top:clamp(56px,8vw,96px);display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-top:1px solid var(--hair-d)}
+.outcomes div{padding:28px 28px 0 0;display:grid;gap:10px;align-content:start}
+.outcomes .mono{color:var(--paper-2)}
+.outcomes h3{font-size:clamp(24px,2.4vw,30px);line-height:1.08}
+.outcomes p{color:var(--paper-2);font-size:15.5px;max-width:34ch}
+@media (max-width:860px){.mani-grid,.outcomes{grid-template-columns:1fr}.outcomes div{padding:24px 0;border-bottom:1px solid var(--hair-d)}}
+
+/* machines viewer */
+.machines{background:var(--carbon-2);border-block:1px solid var(--hair-d)}
+.mach-grid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(24px,5vw,72px);align-items:center}
+.tabs{display:flex;gap:8px;margin-top:36px;flex-wrap:wrap}
+.tab{font-family:var(--font-display);font-size:18px;font-weight:600;letter-spacing:.04em;color:var(--paper-2);background:transparent;border:0;box-shadow:inset 0 0 0 1px var(--hair-d);padding:12px 18px;cursor:pointer;display:flex;gap:10px;align-items:center}
+.tab i{width:10px;height:10px;display:block;background:var(--k)}
+.tab[aria-selected="true"]{color:var(--paper);box-shadow:inset 0 0 0 1.5px var(--paper)}
+.mach-info{margin-top:28px;min-height:210px}
+.mach-info .mono{color:var(--paper-2)}
+.mach-info h3{font-size:clamp(40px,4.6vw,60px);margin:10px 0 14px;letter-spacing:.02em}
+.mach-info p{color:var(--paper-2);max-width:44ch}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:18px}
+.chip{font-family:var(--font-mono);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;padding:6px 9px;box-shadow:inset 0 0 0 1px var(--hair-d);color:var(--paper)}
+.viewer{position:relative;aspect-ratio:1/1;max-width:100%;background:radial-gradient(circle at 50% 60%,#23282c 0%,var(--carbon-2) 62%);cursor:grab;touch-action:pan-y}
+.viewer:active{cursor:grabbing}
+.viewer canvas{position:absolute;inset:0;width:100%;height:100%}
+.viewer .hint{position:absolute;left:0;right:0;bottom:12px;text-align:center;color:var(--paper-2)}
+@media (max-width:900px){.mach-grid{grid-template-columns:1fr}.viewer{order:-1}}
+
+/* real hardware */
+.real{background:var(--bone);color:var(--ink)}
+.real .eyebrow{color:var(--lime-ink)}
+.real .lede{color:var(--ink-2)}
+.real-grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:16px;margin-top:clamp(40px,6vw,72px)}
+.ph{position:relative;margin:0;overflow:hidden;background:#cfcbc0;min-width:0}
+.ph img{width:100%;height:100%;object-fit:cover}
+.ph figcaption{position:absolute;left:12px;bottom:12px;background:var(--bone-2);color:var(--ink);padding:6px 10px}
+.ph.a{grid-column:span 7;aspect-ratio:1/1;clip-path:polygon(0 0,calc(100% - 36px) 0,100% 36px,100% 100%,0 100%)}
+.ph.b{grid-column:span 5;aspect-ratio:4/5}
+.ph.c{grid-column:span 5;aspect-ratio:5/4}
+.specs{grid-column:span 7;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));border-top:2px solid var(--ink);align-content:start}
+.specs div{padding:16px 16px 16px 0;border-bottom:1px solid var(--hair-l);display:grid;gap:4px}
+.specs .mono{color:var(--ink-2);font-size:11px}
+.specs b{font-family:var(--font-display);font-size:22px;font-weight:600;line-height:1.1}
+@media (max-width:860px){.ph.a,.ph.b,.ph.c,.specs{grid-column:span 12}.ph.b{aspect-ratio:4/3}}
+
+/* box + price */
+.offer{background:var(--carbon);}
+.offer-grid{display:grid;grid-template-columns:minmax(0,6fr) minmax(0,5fr);gap:clamp(32px,6vw,96px);align-items:start}
+.inv{margin-top:36px;border-top:1px solid var(--hair-d)}
+.inv div{display:flex;justify-content:space-between;gap:16px;padding:15px 0;border-bottom:1px solid var(--hair-d);align-items:baseline}
+.inv b{font-weight:500}
+.inv span{font-family:var(--font-mono);font-size:12px;letter-spacing:.06em;color:var(--paper-2);text-align:right}
+.price-card{background:var(--bone);color:var(--ink);padding:clamp(24px,3.5vw,44px);clip-path:polygon(0 0,calc(100% - 32px) 0,100% 32px,100% 100%,32px 100%,0 calc(100% - 32px));display:grid;gap:18px}
+.price-card .mono{color:var(--ink-2)}
+.price{font-family:var(--font-display);font-weight:700;font-size:clamp(56px,6vw,84px);line-height:.9;font-variant-numeric:tabular-nums}
+.price small{display:block;font-family:var(--font-mono);font-size:12px;font-weight:500;letter-spacing:.08em;margin-top:10px;color:var(--ink-2)}
+.per{border-top:1px solid var(--hair-l);border-bottom:1px solid var(--hair-l);padding:14px 0;display:flex;justify-content:space-between;gap:12px;font-size:15px}
+.per b{font-family:var(--font-mono);font-weight:500}
+.founding{display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:start}
+.founding .num{font-family:var(--font-mono);font-size:12px;background:var(--ink);color:var(--lime);padding:8px 10px;letter-spacing:.08em}
+.founding p{font-size:15px;color:var(--ink-2)}
+.price-card .btn{justify-self:start}
+.fine{font-size:13px;color:var(--ink-2)}
+@media (max-width:900px){.offer-grid{grid-template-columns:1fr}}
+
+/* trust */
+.trust{background:var(--carbon-2);border-top:1px solid var(--hair-d)}
+.trust-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;background:var(--hair-d);border:1px solid var(--hair-d)}
+.trust-grid div{background:var(--carbon-2);padding:28px;display:grid;gap:10px;align-content:start}
+.trust-grid h3{font-size:22px;line-height:1.1}
+.trust-grid p{color:var(--paper-2);font-size:15px}
+.trust-grid .mono{color:var(--lime)}
+@media (max-width:900px){.trust-grid{grid-template-columns:1fr 1fr}}
+@media (max-width:520px){.trust-grid{grid-template-columns:1fr}}
+
+/* closing */
+.closing{background:var(--lime);color:var(--ink);padding-block:clamp(72px,10vw,140px)}
+.closing h2{font-size:clamp(44px,7.5vw,112px);line-height:.9;max-width:14ch}
+.closing .row{display:flex;justify-content:space-between;align-items:flex-end;gap:32px;flex-wrap:wrap}
+.closing .btn{background:var(--ink);color:var(--lime)}
+.closing p{max-width:40ch;font-size:18px;margin-top:20px}
+footer{background:var(--carbon);color:var(--paper-2);padding-block:36px;border-top:1px solid var(--hair-d)}
+footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+</style>
+
+<header class="bar" id="bar">
+  <div class="wrap">
+    <!-- Replace with the registered Kokoon Labs logo SVG. -->
+    <a class="wm" href="#top">Kokoon Labs</a>
+    <nav aria-label="Main"><a href="#build">The build</a><a href="#machines">Machines</a><a href="#real">Hardware</a><a href="#offer">Price</a></nav>
+    <a class="btn" href="#offer">Reserve</a>
+  </div>
+</header>
+
+<main id="top">
+<section id="build" aria-label="SENTRY, built as you scroll">
+  <div class="stage" id="stage">
+    <canvas id="c3d" aria-hidden="true"></canvas>
+    <div class="grid" id="grid"></div>
+    <div class="vignette"></div>
+    <svg id="lines" aria-hidden="true"></svg>
+    <div class="labels" id="labels" aria-hidden="true"></div>
+    <div class="fallback" id="fallback" hidden><img src="img/core.jpg" alt="Kokoon Core board"></div>
+
+    <div class="meter" id="meter" aria-hidden="true"><span id="meterLbl">Parts installed</span><b id="meterVal">14 / 14</b></div>
+
+    <div class="copy">
+      <div class="phase on" data-from="0" data-to="0.105">
+        <span class="mono">Kokoon Origin · Series 01</span>
+        <h1>They won't just use what's next. <span class="hl">They'll build it.</span></h1>
+        <p>Real robots, our own Core board and a guided course. A robotics lab for the generation growing up with AI.</p>
+      </div>
+      <div class="phase" data-from="0.12" data-to="0.28">
+        <span class="mono">SENTRY · KX-02</span>
+        <h2>Every machine is a set of ideas.</h2>
+        <p>Take one apart and you'll find a brain, power, motion and senses. Your child learns each one, then puts it back together.</p>
+      </div>
+      <div class="phase" data-from="0.30" data-to="0.455">
+        <span class="mono">The blueprint</span>
+        <h2>Every part teaches something.</h2>
+        <p>Nothing in the box is a black box. Every component is explained, wired and coded by hand.</p>
+      </div>
+      <div class="phase" data-from="0.46" data-to="0.55">
+        <span class="mono">Stage 1 of 4 · Power and a brain</span>
+        <h2>First, it learns to think.</h2>
+        <p>Circuits, current and the Kokoon Core. The first program they write lights an LED, and everything after builds on it.</p>
+      </div>
+      <div class="phase" data-from="0.55" data-to="0.64">
+        <span class="mono">Stage 2 of 4 · Motion</span>
+        <h2>Then it learns to move.</h2>
+        <p>Servos, gears and angles. They work out how a machine turns exactly as far as it's told.</p>
+      </div>
+      <div class="phase" data-from="0.64" data-to="0.73">
+        <span class="mono">Stage 3 of 4 · Senses</span>
+        <h2>Then it learns to see.</h2>
+        <p>Distance sensors and light. The robot starts reacting to the world, and they decide how.</p>
+      </div>
+      <div class="phase" data-from="0.73" data-to="0.85">
+        <span class="mono">Stage 4 of 4 · Purpose</span>
+        <h2>Then it does what they designed.</h2>
+        <p>Everything comes together. It tracks, decides and launches, all running on code they wrote.</p>
+      </div>
+      <div class="phase" data-from="0.86" data-to="1.01">
+        <span class="mono">Build complete</span>
+        <h2>Built by them.</h2>
+        <p>A box of parts became a machine that senses and responds. Move your cursor. It's watching.</p>
+        <div class="cta"><a class="btn" href="#offer">Reserve Kokoon Origin <span class="arr">→</span></a><a class="btn btn--ghost" href="#machines">Meet all three</a></div>
+      </div>
+    </div>
+
+    <div class="cue" id="cue"><span class="mono">Scroll to take it apart</span><i></i></div>
+    <div class="ruler" aria-hidden="true"><span class="now" id="now">Assembled</span><div class="ticks" id="ticks"></div></div>
+  </div>
+</section>
+
+<section class="s mani" aria-labelledby="mani-h">
+  <div class="wrap">
+    <div class="mani-grid">
+      <div>
+        <span class="mono eyebrow">For parents</span>
+        <h2 class="big" id="mani-h">AI will write more of the world's code. <span class="dim">Your child will understand the machines it runs.</span></h2>
+      </div>
+      <p class="lede">The next decade belongs to people who can make software touch the physical world. Kokoon Origin gives them that early: real motors, real sensors, real code, and the confidence that comes from making something work with their own hands.</p>
+    </div>
+    <div class="outcomes">
+      <div><span class="mono">01 · Systems</span><h3>They think in systems</h3><p>How a sensor, a decision and a motor connect is how every robot, car and smart device works.</p></div>
+      <div><span class="mono">02 · Resilience</span><h3>They fix what breaks</h3><p>Debugging teaches patience. When something doesn't work, they learn to find out why.</p></div>
+      <div><span class="mono">03 · Agency</span><h3>They make ideas real</h3><p>After the course, the same hardware becomes whatever they imagine next.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="s machines" id="machines" aria-labelledby="mach-h">
+  <div class="wrap mach-grid">
+    <div>
+      <span class="mono eyebrow">Three machines · one brain</span>
+      <h2 class="big" id="mach-h" style="font-size:clamp(40px,5vw,72px)">Three robots. Each one a step up.</h2>
+      <div class="tabs" role="tablist" aria-label="Choose a robot">
+        <button class="tab" role="tab" id="t-reach" aria-selected="false" data-k="reach" style="--k:var(--reach)"><i></i>REACH</button>
+        <button class="tab" role="tab" id="t-sentry" aria-selected="true" data-k="sentry" style="--k:var(--sentry)"><i></i>SENTRY</button>
+        <button class="tab" role="tab" id="t-hauler" aria-selected="false" data-k="hauler" style="--k:var(--hauler)"><i></i>HAULER</button>
+      </div>
+      <div class="mach-info" id="machInfo" aria-live="polite"></div>
+    </div>
+    <div class="viewer" id="viewer" role="img" aria-label="3D model of the selected robot. Drag to rotate.">
+      <canvas id="cv"></canvas>
+      <span class="hint mono">Drag to rotate</span>
+    </div>
+  </div>
+</section>
+
+<section class="s real" id="real" aria-labelledby="real-h">
+  <div class="wrap">
+    <span class="mono eyebrow">Real hardware · designed in India</span>
+    <h2 class="big" id="real-h" style="max-width:16ch">Not a simulation. Not a toy.</h2>
+    <p class="lede" style="margin-top:24px">We designed our own board and battery because nothing off the shelf was right for learners. Everything they touch is real electronics, the same kind engineers use.</p>
+    <div class="real-grid">
+      <figure class="ph a"><img src="img/core.jpg" alt="The Kokoon Core board in its clear case with a lime frame, held in a hand." loading="lazy"><figcaption class="mono">Kokoon Core · CORE · S3</figcaption></figure>
+      <figure class="ph b"><img src="img/cell-boards.jpg" alt="Two Kokoon Cell battery boards and a Kokoon Labs branded PCB in a hand." loading="lazy"><figcaption class="mono">Cell power boards</figcaption></figure>
+      <figure class="ph c"><img src="img/cell.jpg" alt="Three Kokoon Cell battery packs charging over USB-C." loading="lazy"><figcaption class="mono">Kokoon Cell · CELL · 2S</figcaption></figure>
+      <div class="specs">
+        <div><span class="mono">Processor</span><b>ESP32-S3</b></div>
+        <div><span class="mono">Wireless</span><b>Wi-Fi · BT · ESP-NOW</b></div>
+        <div><span class="mono">Built-in sensor</span><b>IMU motion</b></div>
+        <div><span class="mono">Pins</span><b>13 GPIO · I2C · SPI</b></div>
+        <div><span class="mono">Motors</span><b>4 at once</b></div>
+        <div><span class="mono">Coding</span><b>Plug-and-play blocks</b></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="s offer" id="offer" aria-labelledby="offer-h">
+  <div class="wrap offer-grid">
+    <div>
+      <span class="mono eyebrow">Everything in the box</span>
+      <h2 class="big" id="offer-h" style="font-size:clamp(40px,5vw,72px)">One box. A complete lab.</h2>
+      <div class="inv">
+        <div><b>Kokoon Core board</b><span>CORE · S3</span></div>
+        <div><b>Kokoon Cell battery pack</b><span>CELL · 2S · USB-C</span></div>
+        <div><b>REACH, SENTRY and HAULER kits</b><span>3 robots</span></div>
+        <div><b>Sensor modules</b><span>20+</span></div>
+        <div><b>Guided video course</b><span>3–4 months</span></div>
+        <div><b>Code Lab, drag-and-drop</b><span>Included</span></div>
+        <div><b>New challenges after the course</b><span>Ongoing</span></div>
+        <div><b>Spare printed parts + merch</b><span>Included</span></div>
+      </div>
+    </div>
+    <div class="price-card">
+      <span class="mono">Kokoon Origin · Series 01</span>
+      <div class="price">₹59,000<small>Including GST · one-time</small></div>
+      <div class="per"><span>Across the 4-month guided course</span><b>≈ ₹14,750 / month</b></div>
+      <div class="founding"><span class="num">No. 001</span><p><strong style="color:var(--ink)">Founding Builders.</strong> Series 01 is made in a limited first batch. Every kit is numbered, and Founding Builders get first access to new robots and challenges.</p></div>
+      <a class="btn" href="#offer">Reserve your kit <span class="arr">→</span></a>
+      <p class="fine">Designed for ages 14 and up. Younger makers can build alongside an adult.</p>
+    </div>
+  </div>
+</section>
+
+<section class="s trust" aria-label="Why parents trust Kokoon Origin">
+  <div class="wrap">
+    <div class="trust-grid">
+      <div><span class="mono">Guided</span><h3>No experience needed</h3><p>Stage 1 starts from what a circuit is. Every step is shown on video.</p></div>
+      <div><span class="mono">Safe</span><h3>Low voltage, protected power</h3><p>The Cell has its own protection circuit and charges over USB-C.</p></div>
+      <div><span class="mono">Supported</span><h3>Help when they're stuck</h3><p>Our team supports every Origin owner, and we'll replace faulty parts.</p></div>
+      <div><span class="mono">Lasting</span><h3>Built to be rebuilt</h3><p>Every part works again in new projects long after the course ends.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="closing" aria-labelledby="close-h">
+  <div class="wrap row">
+    <div><h2 id="close-h">Don't just use it. Build it.</h2><p>Give their curiosity something real to build.</p></div>
+    <a class="btn" href="#offer">Reserve Kokoon Origin <span class="arr">→</span></a>
+  </div>
+</section>
+</main>
+<footer><div class="wrap"><span>© 2026 Kokoon Labs · A Sheryians company</span><span class="mono">Designed in India</span></div></footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+(function(){
+'use strict';
+var clamp=function(v,a,b){return Math.max(a,Math.min(b,v));};
+var seg=function(p,a,b){return clamp((p-a)/(b-a),0,1);};
+var ease=function(t){return t*t*(3-2*t);};
+var easeIO=function(t){return t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;};
+var lerp=function(a,b,t){return a+(b-a)*t;};
+var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+if(!window.THREE){document.getElementById('fallback').hidden=false;return;}
+var V=function(x,y,z){return new THREE.Vector3(x,y,z);};
+
+/* ---------- materials ---------- */
+function Mats(){
+  var m={}, all=[];
+  function std(c,o){var x=new THREE.MeshStandardMaterial(Object.assign({color:c,roughness:.62,metalness:.05},o||{}));x.color.convertSRGBToLinear();if(x.emissive)x.emissive.convertSRGBToLinear();all.push(x);return x;}
+  m.ivory=std(0xDDD7C7); m.black=std(0x1C1F22,{roughness:.5}); m.gun=std(0x50565C,{roughness:.45,metalness:.3});
+  m.orange=std(0xF0661A); m.red=std(0xC8203A); m.sage=std(0x6A8C45); m.silver=std(0xB9BEC3,{metalness:.6,roughness:.3});
+  m.pcb=std(0x0D6B48,{roughness:.4}); m.lime=std(0xC6EC2E,{emissive:0xC6EC2E,emissiveIntensity:.0});
+  m.maroon=std(0x6B1E2A); m.blue=std(0x2467C9); m.white=std(0xF2F2EE); m.track=std(0x3A3F44,{roughness:.8});
+  m.ledOff=std(0x22262A); m.ledOn=std(0xC6EC2E,{emissive:0xC6EC2E,emissiveIntensity:1.2});
+  m.line=new THREE.LineBasicMaterial({color:0x1A1E22,transparent:true,opacity:0}); m.line.color.convertSRGBToLinear();
+  m.all=all; return m;
+}
+
+/* ---------- robot builder ---------- */
+function Robot(M){
+  this.M=M; this.parts=[]; this.root=new THREE.Group();
+}
+Robot.prototype.mesh=function(g,geo,mat,x,y,z,rx,ry,rz){
+  var m=new THREE.Mesh(geo,mat); m.position.set(x||0,y||0,z||0); m.rotation.set(rx||0,ry||0,rz||0);
+  var e=new THREE.LineSegments(new THREE.EdgesGeometry(geo,25),this.M.line); m.add(e); g.add(m); return m;
+};
+Robot.prototype.part=function(parent,o){
+  var g=new THREE.Group(); g.position.copy(o.pos||V(0,0,0)); if(o.rot)g.rotation.set(o.rot[0],o.rot[1],o.rot[2]);
+  (parent||this.root).add(g);
+  var p={g:g,home:g.position.clone(),homeRot:g.rotation.clone(),ex:o.ex||V(0,0,0),stage:o.stage||1,label:o.label,learn:o.learn,anchor:o.anchor||V(0,0,0),mats:[],lines:[]};
+  this.parts.push(p); return p;
+};
+/* give each part its own material clones so it can turn solid on its own */
+Robot.prototype.finalize=function(){
+  this.parts.forEach(function(p){
+    var cache=new Map();
+    p.g.children.forEach(function walk(o){
+      if(o.isLineSegments){ if(!cache.has(o.material)){var c=o.material.clone();cache.set(o.material,c);p.lines.push(c);} o.material=cache.get(o.material); }
+      else if(o.isMesh){ if(!cache.has(o.material)){var c2=o.material.clone();cache.set(o.material,c2);p.mats.push(c2);} o.material=cache.get(o.material); }
+      // don't descend into child parts' groups (they finalize themselves)
+      if(o.children&&!o.userData.isPart) o.children.forEach(walk);
+    });
+  });
+};
+function markParts(r){r.parts.forEach(function(p){p.g.userData.isPart=true;});}
+var B=function(w,h,d){return new THREE.BoxGeometry(w,h,d);};
+var C=function(r1,r2,h,s,ts,tl){return new THREE.CylinderGeometry(r1,r2,h,s||40,1,false,ts||0,tl||Math.PI*2);};
+
+/* SENTRY · KX-02 */
+function buildSentry(M){
+  var R=new Robot(M), m=M, k;
+  // base
+  var base=R.part(null,{pos:V(0,0,0),ex:V(0,-3.4,0),stage:1,label:'Printed chassis',learn:'Learns: mechanical design',anchor:V(-2.4,.9,1.8)});
+  R.mesh(base.g,C(3.35,3.45,.36),m.black,0,.18,0);
+  R.mesh(base.g,C(3.2,3.25,1.25),m.ivory,0,.98,0);
+  R.mesh(base.g,C(3.0,3.15,.36),m.black,0,1.78,0);
+  for(k=0;k<4;k++){var a=Math.PI/4+k*Math.PI/2,ca=Math.cos(a),sa=Math.sin(a);
+    R.mesh(base.g,B(1.0,.42,1.7),m.orange,ca*3.55,.21,sa*3.55,0,-a,0);
+    R.mesh(base.g,B(.34,1.5,1.2),m.black,ca*3.25,.95,sa*3.25,0,-a+Math.PI/2,0);}
+  for(k=0;k<10;k++){R.mesh(base.g,B(.5,.08,.04),m.black,-1.4+k*.32,1.0,3.24,0,0,0);}
+  // Core
+  var core=R.part(null,{pos:V(0,1.15,0),ex:V(-6.2,1.8,2.6),stage:1,label:'Kokoon Core',learn:'Learns: logic and code',anchor:V(0,.2,0)});
+  R.mesh(core.g,B(2.5,.28,2.5),m.lime,0,0,0);
+  R.mesh(core.g,B(2.25,.1,2.25),m.pcb,0,.18,0);
+  R.mesh(core.g,B(.7,.12,.7),m.black,-.45,.28,-.4);
+  for(k=0;k<6;k++)R.mesh(core.g,B(.08,.22,.08),m.silver,-.95+k*.12,.33,.95);
+  R.coreLed=R.mesh(core.g,B(.16,.1,.16),m.ledOff,.6,.28,.6);
+  // Cell
+  var cell=R.part(null,{pos:V(.4,.75,-1.2),ex:V(5.6,-.6,-2.8),stage:1,label:'Kokoon Cell',learn:'Learns: power and circuits',anchor:V(0,.3,0)});
+  R.mesh(cell.g,C(.38,.38,2.0),m.maroon,-.42,0,0,0,0,Math.PI/2);
+  R.mesh(cell.g,C(.38,.38,2.0),m.maroon,.42,0,0,0,0,Math.PI/2);
+  R.mesh(cell.g,B(.3,.9,1.7),m.white,1.15,0,0,0,Math.PI/2,0);
+  // pan assembly
+  var pan=new THREE.Group(); pan.position.set(0,1.95,0); R.root.add(pan); R.pan=pan;
+  var ring=R.part(pan,{pos:V(0,0,0),ex:V(0,.9,0),stage:2,label:'Ring gear',learn:'Learns: gear ratios',anchor:V(2.3,.1,.8)});
+  R.mesh(ring.g,C(2.5,2.5,.3),m.ivory,0,.15,0);
+  for(k=0;k<44;k++){var b=k/44*Math.PI*2;R.mesh(ring.g,B(.22,.26,.2),m.ivory,Math.cos(b)*2.6,.15,Math.sin(b)*2.6,0,-b,0);}
+  var pservo=R.part(pan,{pos:V(1.2,.62,-1.1),ex:V(4.6,.4,2.6),stage:2,label:'Pan servo',learn:'Learns: angles and motion',anchor:V(0,.3,0)});
+  R.mesh(pservo.g,B(1.0,.75,1.6),m.black,0,0,0);
+  R.mesh(pservo.g,C(.3,.3,.18),m.white,0,.45,.4);
+  var yokeL=R.part(pan,{pos:V(-1.55,2.0,0),ex:V(-4.4,1.4,-.6),stage:2});
+  var yokeR=R.part(pan,{pos:V(1.55,2.0,0),ex:V(4.4,1.4,-.6),stage:2});
+  [yokeL,yokeR].forEach(function(y,i){var s=i?1:-1;
+    R.mesh(y.g,B(.5,3.4,2.4),m.black,0,0,0);
+    R.mesh(y.g,C(.62,.62,.16),m.gun,s*.32,.6,0,0,0,Math.PI/2);
+    R.mesh(y.g,C(.32,.32,.2),m.black,s*.42,.6,0,0,0,Math.PI/2);
+    for(var j=0;j<5;j++)R.mesh(y.g,B(.06,.06,.9),m.gun,s*.27,-.7-j*.16,0);});
+  var cradle=R.part(pan,{pos:V(0,2.15,0),ex:V(0,-.3,4.6),stage:2});
+  R.mesh(cradle.g,C(1.7,1.7,2.6,40,Math.PI*.5,Math.PI),m.ivory,0,0,0,0,0,Math.PI/2);
+  // tilt head
+  var tilt=new THREE.Group(); tilt.position.set(0,3.2,0); pan.add(tilt); R.tilt=tilt;
+  var tservo=R.part(tilt,{pos:V(1.98,0,0),ex:V(5.4,2.2,0),stage:2,label:'Tilt servo',learn:'Learns: precise control',anchor:V(.2,0,0)});
+  R.mesh(tservo.g,B(.55,.9,1.0),m.black,0,0,0);
+  var recv=R.part(tilt,{pos:V(0,.35,0),ex:V(0,3.2,-.4),stage:3});
+  R.mesh(recv.g,B(3.2,1.35,1.9),m.ivory,0,0,0);
+  R.mesh(recv.g,B(.9,.5,.08),m.black,.9,.2,.96);
+  for(k=0;k<3;k++)R.mesh(recv.g,B(.1,.7,.06),m.black,-1.35+k*.18,0,.96);
+  R.mesh(recv.g,B(.5,.5,.5),m.ivory,1.75,-.1,0);
+  var sensor=R.part(tilt,{pos:V(-1.0,-.25,1.0),ex:V(-3.8,1.6,4.6),stage:3,label:'Ultrasonic · M-04',learn:'Learns: sensing distance',anchor:V(0,0,.2)});
+  R.mesh(sensor.g,B(1.3,.55,.08),m.blue,0,0,0);
+  R.mesh(sensor.g,C(.21,.21,.32),m.silver,-.33,0,.18,Math.PI/2,0,0);
+  R.mesh(sensor.g,C(.21,.21,.32),m.silver,.33,0,.18,Math.PI/2,0,0);
+  var mtx=R.part(tilt,{pos:V(1.62,.35,0),ex:V(5.8,2.8,1.2),stage:3,label:'LED matrix',learn:'Learns: output and feedback',anchor:V(.1,0,0)});
+  R.mesh(mtx.g,B(.06,1.3,1.3),m.black,0,0,0);
+  R.cells=[];
+  for(var r=0;r<8;r++)for(var c=0;c<8;c++){R.cells.push({m:R.mesh(mtx.g,B(.05,.12,.12),m.ledOff,.05,.53-r*.151,-.53+c*.151),r:r,c:c});}
+  var barrel=R.part(tilt,{pos:V(-.85,.35,1.0),ex:V(0,2.2,6.4),stage:4,label:'Launch barrel',learn:'Learns: trajectories',anchor:V(0,0,2.2)});
+  R.mesh(barrel.g,C(.36,.36,2.6),m.ivory,0,0,1.3,Math.PI/2,0,0);
+  R.mesh(barrel.g,C(.46,.46,.5),m.ivory,0,0,2.4,Math.PI/2,0,0);
+  for(k=0;k<4;k++)R.mesh(barrel.g,C(.4,.4,.06),m.gun,0,0,.6+k*.22,Math.PI/2,0,0);
+  R.muzzle=R.mesh(barrel.g,C(.47,.47,.05),m.ledOff,0,0,2.66,Math.PI/2,0,0);
+  var fly=R.part(tilt,{pos:V(-.6,1.18,.65),ex:V(-.5,4.8,2.6),stage:4,label:'Flywheels',learn:'Learns: speed and torque',anchor:V(.5,.2,0)});
+  R.mesh(fly.g,B(2.1,.3,1.2),m.black,0,-.05,0);
+  R.wheels=[];
+  [-.52,.52].forEach(function(x){var w=new THREE.Group();w.position.set(x,.22,0);fly.g.add(w);R.wheels.push(w);
+    R.mesh(w,C(.52,.52,.32),m.orange,0,0,0);
+    for(var s=0;s<5;s++)R.mesh(w,B(.08,.34,.7),m.black,0,0,0,0,s*Math.PI/5,0);
+    R.mesh(w,C(.14,.14,.36),m.black,0,0,0);});
+  var mag=R.part(tilt,{pos:V(.15,2.6,-.2),ex:V(0,7.6,-1.6),stage:4,label:'Magazine',learn:'Learns: timing and sequence',anchor:V(-.6,.6,0)});
+  R.mesh(mag.g,B(1.25,3.1,.95),m.orange,0,0,0);
+  R.mesh(mag.g,B(1.3,.35,1.0),m.black,0,1.7,0);
+  R.mesh(mag.g,B(1.32,.08,1.0),m.orange,0,-.5,0);
+  var cv=document.createElement('canvas');cv.width=256;cv.height=256;var x=cv.getContext('2d');x.fillStyle='#F0661A';x.fillRect(0,0,256,256);x.fillStyle='#8a3608';x.font='700 120px "Chakra Petch",Arial';x.textAlign='center';x.textBaseline='middle';x.fillText('01',128,132);
+  var tex=new THREE.CanvasTexture(cv);tex.encoding=THREE.sRGBEncoding;var lm=new THREE.MeshStandardMaterial({map:tex,roughness:.6,transparent:true});
+  var plane=new THREE.Mesh(new THREE.PlaneGeometry(.95,.95),lm);plane.position.set(0,.5,.48);mag.g.add(plane);
+  markParts(R); R.finalize();
+  R.cam={pos:V(13.5,8.0,16),look:V(0,4.3,0),dist:1};
+  R.idle=function(t,P){R.wheels.forEach(function(w){w.rotation.y+=P*.35;});};
+  return R;
+}
+
+/* REACH · KX-01 */
+function buildReach(M){
+  var R=new Robot(M), m=M, k;
+  var base=R.part(null,{ex:V(0,-3,0),stage:1});
+  R.mesh(base.g,B(5.2,1.9,3.2),m.black,0,.95,0);
+  R.mesh(base.g,B(1.8,1.1,.08),m.black,-1.3,.95,1.62); R.mesh(base.g,B(1.9,1.2,.04),m.gun,-1.3,.95,1.6);
+  for(k=0;k<12;k++)R.mesh(base.g,B(.1,.1,.06),m.gun,1.0+(k%4)*.32,.7+Math.floor(k/4)*.3,1.62);
+  var plate=R.part(null,{pos:V(.4,2.1,0),ex:V(0,-1.2,0),stage:1});
+  R.mesh(plate.g,B(3.4,.42,3.0),m.ivory,0,0,0);
+  var core=R.part(null,{pos:V(-1,1.2,0),ex:V(-5.5,1.5,2),stage:1});
+  R.mesh(core.g,B(2.2,.26,2.2),m.lime,0,0,0); R.mesh(core.g,B(2.0,.1,2.0),m.pcb,0,.15,0);
+  var sh=R.part(null,{pos:V(.4,3.2,0),ex:V(0,1.2,3.6),stage:2});
+  [-1,1].forEach(function(s){R.mesh(sh.g,B(.45,1.9,1.8),m.red,0,0,s*1.0); R.mesh(sh.g,C(.62,.62,.12),m.red,0,.2,s*1.0+s*.28,Math.PI/2,0,0); R.mesh(sh.g,C(.25,.25,.14),m.red,0,.2,s*1.0+s*.36,Math.PI/2,0,0);});
+  var a1=new THREE.Group(); a1.position.set(.4,3.4,0); R.root.add(a1); R.a1=a1; a1.rotation.z=-.42;
+  var arm1=R.part(a1,{pos:V(0,2.3,0),ex:V(-4.2,1.5,0),stage:2});
+  R.mesh(arm1.g,B(1.3,4.8,1.3),m.black,0,0,0);
+  R.mesh(arm1.g,B(.6,1.6,.1),m.red,0,.2,.7);
+  var a2=new THREE.Group(); a2.position.set(0,4.6,0); a1.add(a2); R.a2=a2; a2.rotation.z=1.75;
+  var arm2=R.part(a2,{pos:V(0,1.7,0),ex:V(3.5,3,0),stage:3});
+  R.mesh(arm2.g,B(1.15,3.7,1.15),m.ivory,0,0,0);
+  [-1,1].forEach(function(s){R.mesh(arm2.g,C(.8,.8,.18),m.silver,0,s*1.85,.66,Math.PI/2,0,0);});
+  R.mesh(arm2.g,B(.6,2.6,.12),m.red,0,0,.66);
+  var a3=new THREE.Group(); a3.position.set(0,3.6,0); a2.add(a3); R.a3=a3; a3.rotation.z=-.9;
+  var wrist=R.part(a3,{pos:V(0,.5,0),ex:V(2.5,3.4,1),stage:4});
+  R.mesh(wrist.g,B(.9,1.1,.9),m.black,0,0,0);
+  R.mesh(wrist.g,B(1.2,.3,1.2),m.red,0,.7,0);
+  R.jaws=[];
+  [-1,1].forEach(function(s){var j=new THREE.Group();j.position.set(s*.4,1.3,0);wrist.g.add(j);R.jaws.push(j);R.mesh(j,B(.28,1.0,.9),m.red,0,0,0);});
+  markParts(R); R.finalize();
+  R.cam={pos:V(11,8,15),look:V(.5,4.6,0),dist:1};
+  R.idle=function(t){R.a1.rotation.z=-.42+Math.sin(t*.8)*.06;R.a2.rotation.z=1.75+Math.sin(t*.8+1)*.08;R.jaws.forEach(function(j,i){j.position.x=(i?1:-1)*(.32+Math.abs(Math.sin(t*1.2))*.14);});};
+  return R;
+}
+
+/* HAULER · KX-03 */
+function buildHauler(M){
+  var R=new Robot(M), m=M, k;
+  var ch=R.part(null,{pos:V(0,1.9,0),ex:V(0,-1.6,0),stage:1});
+  R.mesh(ch.g,B(5.4,1.9,3.0),m.ivory,0,0,0);
+  R.mesh(ch.g,B(1.2,1.5,2.8),m.ivory,2.9,-.1,0);
+  for(k=0;k<6;k++)R.mesh(ch.g,B(.08,.9,.05),m.black,3.1+0,-.1,-1.0+k*.4);
+  var core=R.part(null,{pos:V(-.6,2.2,0),ex:V(-5,2.4,2.4),stage:1});
+  R.mesh(core.g,B(2.2,.26,2.2),m.lime,0,0,0); R.mesh(core.g,B(2.0,.1,2.0),m.pcb,0,.15,0);
+  R.wheels=[];
+  [-1,1].forEach(function(s){
+    var tr=R.part(null,{pos:V(-.2,1.0,s*1.95),ex:V(0,-.4,s*3.4),stage:2});
+    R.mesh(tr.g,B(4.4,1.5,.8),m.track,0,0,0);
+    R.mesh(tr.g,C(.75,.75,.8),m.track,-2.2,0,0,Math.PI/2,0,0);
+    R.mesh(tr.g,C(.75,.75,.8),m.track,2.2,0,0,Math.PI/2,0,0);
+    for(var j=0;j<11;j++){R.mesh(tr.g,B(.22,.12,.86),m.gun,-2+j*.4,.8,0);R.mesh(tr.g,B(.22,.12,.86),m.gun,-2+j*.4,-.8,0);}
+    [-2.2,2.2].forEach(function(x){var w=R.mesh(tr.g,C(.55,.55,.84),m.black,x,0,0,Math.PI/2,0,0);R.wheels.push(w);});
+  });
+  var top=R.part(null,{pos:V(-1.0,3.35,0),ex:V(0,3.2,0),stage:3});
+  R.mesh(top.g,B(3.4,1.1,2.8),m.sage,0,0,0);
+  R.mesh(top.g,B(1.2,.3,.06),m.black,.8,0,1.42);
+  R.mesh(top.g,C(1.0,1.0,.3),m.black,-.2,.7,0);
+  R.mesh(top.g,C(.85,.85,.34),m.sage,-.2,.72,0);
+  var mast=R.part(null,{pos:V(3.6,3.4,0),ex:V(3.8,1.8,0),stage:4});
+  [-1,1].forEach(function(s){R.mesh(mast.g,B(.32,5.2,.32),m.black,0,0,s*.9);});
+  R.mesh(mast.g,B(.32,.32,2.1),m.black,0,2.6,0);
+  R.mesh(mast.g,C(.5,.5,.25),m.black,.2,2.0,-.5,Math.PI/2,0,0);
+  var car=new THREE.Group(); car.position.set(3.9,1.2,0); R.root.add(car); R.car=car;
+  var forks=R.part(car,{pos:V(0,0,0),ex:V(4.4,-.6,0),stage:4});
+  R.mesh(forks.g,B(.3,1.0,2.2),m.sage,0,.3,0);
+  [-1,1].forEach(function(s){R.mesh(forks.g,B(3.2,.18,.4),m.black,1.6,-.15,s*.7);});
+  markParts(R); R.finalize();
+  R.cam={pos:V(12,8,15),look:V(1.2,2.6,0),dist:1};
+  R.idle=function(t){R.car.position.y=1.2+(Math.sin(t*.9)*.5+.5)*1.6;R.wheels.forEach(function(w){w.rotation.y+=.02;});};
+  return R;
+}
+
+/* ---------- scene helper ---------- */
+function Scene(canvas,opts){
+  var renderer=new THREE.WebGLRenderer({canvas:canvas,antialias:true,alpha:!!opts.alpha});
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,opts.maxDpr||1.75));
+  renderer.outputEncoding=THREE.sRGBEncoding;
+  var scene=new THREE.Scene();
+  var camera=new THREE.PerspectiveCamera(30,1,.1,200);
+  scene.add(new THREE.HemisphereLight(0xffffff,0x202428,1.0));
+  var key=new THREE.DirectionalLight(0xffffff,1.6); key.position.set(8,14,10); scene.add(key);
+  var rim=new THREE.DirectionalLight(0xC6EC2E,.55); rim.position.set(-10,6,-8); scene.add(rim);
+  var fill=new THREE.DirectionalLight(0xffe2cc,.35); fill.position.set(-6,2,10); scene.add(fill);
+  function size(){var w=canvas.clientWidth,h=canvas.clientHeight;if(!w||!h)return;renderer.setSize(w,h,false);camera.aspect=w/h;
+    if(opts.offset){var a=w/h; if(a>1.1)camera.setViewOffset(w,h,-w*.13,0,w,h); else camera.setViewOffset(w,h,0,h*.14,w,h);} 
+    camera.updateProjectionMatrix();}
+  size(); window.addEventListener('resize',size);
+  return {renderer:renderer,scene:scene,camera:camera,size:size,rim:rim};
+}
+
+/* =========================================================
+   THE BUILD — hero
+   ========================================================= */
+var stage=document.getElementById('stage'), build=document.getElementById('build');
+var H;
+try{ H=Scene(document.getElementById('c3d'),{offset:true}); }catch(e){ document.getElementById('fallback').hidden=false; return; }
+var HM=Mats(), S=buildSentry(HM);
+H.scene.add(S.root);
+S.coreLed.userData.orig=S.coreLed.material; S.muzzle.userData.orig=S.muzzle.material; S.cells.forEach(function(c){c.m.userData.orig=c.m.material;});
+var shadowTex=(function(){var c=document.createElement('canvas');c.width=c.height=256;var g=c.getContext('2d');var r=g.createRadialGradient(128,128,10,128,128,128);r.addColorStop(0,'rgba(0,0,0,.55)');r.addColorStop(1,'rgba(0,0,0,0)');g.fillStyle=r;g.fillRect(0,0,256,256);return new THREE.CanvasTexture(c);})();
+var shadow=new THREE.Mesh(new THREE.PlaneGeometry(12,12),new THREE.MeshBasicMaterial({map:shadowTex,transparent:true,depthWrite:false}));
+shadow.rotation.x=-Math.PI/2; shadow.position.y=-.01; H.scene.add(shadow);
+
+var bgDark=new THREE.Color(0x0D0F11).convertSRGBToLinear(), bgLight=new THREE.Color(0xE4E1D8).convertSRGBToLinear(), bg=new THREE.Color();
+var labelsEl=document.getElementById('labels'), linesEl=document.getElementById('lines');
+var labelled=S.parts.filter(function(p){return p.label;});
+labelled.forEach(function(p){var d=document.createElement('div');d.className='lbl';d.innerHTML='<b>'+p.label+'</b><span>'+p.learn+'</span>';labelsEl.appendChild(d);p.el=d;
+  var path=document.createElementNS('http://www.w3.org/2000/svg','path');var dot=document.createElementNS('http://www.w3.org/2000/svg','circle');dot.setAttribute('r','3.5');linesEl.appendChild(path);linesEl.appendChild(dot);p.path=path;p.dot=dot;});
+
+// ruler
+var ticksEl=document.getElementById('ticks'), TICKS=36, tickEls=[];
+for(var i=0;i<TICKS;i++){var t=document.createElement('i');if(i%6===0)t.className='maj';ticksEl.appendChild(t);tickEls.push(t);}
+var phases=[].slice.call(document.querySelectorAll('.phase'));
+var nowEl=document.getElementById('now'), meterVal=document.getElementById('meterVal'), meterLbl=document.getElementById('meterLbl');
+var bar=document.getElementById('bar'), cue=document.getElementById('cue'), gridEl=document.getElementById('grid');
+var WINDOWS=[[.46,.55],[.55,.64],[.64,.73],[.73,.82]];
+
+var target=0, cur=0, mouse={x:0,y:0}, mtx={x:0,y:0}, visible=true, time=0;
+function readScroll(){var r=build.getBoundingClientRect();var tot=build.offsetHeight-innerHeight;target=clamp(-r.top/tot,0,1);
+  bar.classList.toggle('solid',r.bottom<70);}
+addEventListener('scroll',readScroll,{passive:true}); readScroll();
+addEventListener('pointermove',function(e){mouse.x=e.clientX/innerWidth*2-1;mouse.y=e.clientY/innerHeight*2-1;},{passive:true});
+if('IntersectionObserver' in window)new IntersectionObserver(function(e){visible=e[0].isIntersecting;},{rootMargin:'100px'}).observe(stage);
+
+var TARGET_PATTERN=['00111100','01000010','10011001','10100101','10100101','10011001','01000010','00111100'];
+
+function partE(p,part){
+  if(p<WINDOWS[0][0])return easeIO(seg(p,.10,.27));
+  var w=WINDOWS[part.stage-1]; return 1-easeIO(seg(p,w[0],w[1]));
+}
+function setOpacity(part,solid){
+  part.mats.forEach(function(m){m.opacity=solid;m.transparent=solid<.995;m.depthWrite=solid>.5;});
+  part.lines.forEach(function(l){l.opacity=(1-solid)*.85;});
+}
+
+var proj=new THREE.Vector3();
+function frameHero(dt){
+  cur+= (target-cur)*(reduce?1:Math.min(1,dt*7));
+  var p=cur;
+  var BP=ease(seg(p,.28,.36))*(1-ease(seg(p,.81,.87)));
+  var PW=ease(seg(p,.87,.93));
+  // background + mode
+  bg.copy(bgDark).lerp(bgLight,BP); H.renderer.setClearColor(bg,1);
+  var light=BP>.5; stage.classList.toggle('light',light); bar.classList.toggle('light',light&&!bar.classList.contains('solid'));
+  gridEl.style.opacity=BP.toFixed(3); shadow.material.opacity=1-BP;
+  cue.style.opacity=p<.03?1:0;
+  // parts
+  var sumE=0, installed=0;
+  S.parts.forEach(function(part){
+    var e=partE(p,part); sumE+=e; if(e<.04)installed++;
+    part.g.position.copy(part.home).addScaledVector(part.ex,e);
+    part.g.rotation.set(part.homeRot.x+part.ex.y*.02*e, part.homeRot.y+part.ex.x*.025*e, part.homeRot.z-part.ex.x*.02*e);
+    var solid;
+    if(p<WINDOWS[0][0]) solid=1-BP;
+    else { var w=WINDOWS[part.stage-1]; var done=ease(seg(p,w[1]-.012,w[1]+.03)); solid=Math.max(1-BP,done); }
+    setOpacity(part,solid); part._e=e;
+  });
+  var E=sumE/S.parts.length;
+  // camera
+  var asp=H.camera.aspect, far=asp<.8?1.55:asp<1.2?1.25:1;
+  var d=(1.42+E*.75)*far;
+  var orbit=-.15+p*.9+(reduce?0:Math.sin(time*.25)*.04*(1-PW));
+  var base=S.cam.pos, rad=Math.hypot(base.x,base.z);
+  var ang=Math.atan2(base.z,base.x)+orbit*.5;
+  H.camera.position.set(Math.cos(ang)*rad*d, (base.y+E*2.0)*d*.9, Math.sin(ang)*rad*d);
+  var look=S.cam.look.clone(); look.y+=E*2.6; if(asp>1.1){ look.x-= (1-PW)*0; }
+  H.camera.lookAt(look);
+  S.root.rotation.y = -.35;
+  // power on
+  mtx.x=lerp(mtx.x,mouse.x,.06); mtx.y=lerp(mtx.y,mouse.y,.06);
+  S.pan.rotation.y = PW*(-mtx.x*.9) + (1-PW)*0;
+  S.tilt.rotation.x = PW*(mtx.y*.28);
+  var on=PW>.5;
+  S.coreLed.material=on?HM.ledOn:S.coreLed.userData.orig;
+  S.muzzle.material=on?HM.ledOn:S.muzzle.userData.orig;
+  S.cells.forEach(function(c){var lit=TARGET_PATTERN[c.r][c.c]==='1'; c.m.material=(on&&lit)?HM.ledOn:c.m.userData.orig;});
+  HM.ledOn.emissiveIntensity=1+Math.sin(time*4)*.25;
+  S.idle(time,PW);
+  H.rim.intensity=.55+PW*.6;
+  // copy phases
+  phases.forEach(function(ph){var a=+ph.dataset.from,b=+ph.dataset.to;ph.classList.toggle('on',p>=a&&p<b);});
+  // ruler + meter
+  var n=Math.round(p*(TICKS-1)); tickEls.forEach(function(t,i){t.classList.toggle('on',i===n);});
+  var names=[[.1,'Assembled'],[.28,'Taking apart'],[.46,'Blueprint'],[.55,'Stage 1 · Brain'],[.64,'Stage 2 · Motion'],[.73,'Stage 3 · Senses'],[.86,'Stage 4 · Purpose'],[1.01,'Powered on']];
+  for(var q=0;q<names.length;q++){if(p<names[q][0]){nowEl.textContent=names[q][1];break;}}
+  meterLbl.textContent=PW>.5?'Status':'Parts installed';
+  meterVal.textContent=PW>.5?'Online':(installed+' / '+S.parts.length);
+  // labels
+  H.renderer.render(H.scene,H.camera);
+  drawLabels(p,BP);
+}
+
+function copyTopEst(){var a=document.querySelector('.phase.on');return a?a.getBoundingClientRect().top-stage.getBoundingClientRect().top-28:9999;}
+function drawLabels(p,BP){
+  var w=stage.clientWidth,h=stage.clientHeight,small=w<700;
+  linesEl.setAttribute('viewBox','0 0 '+w+' '+h);
+  var cs=-1; if(p>=WINDOWS[0][0]&&p<WINDOWS[3][1]+.03){cs=Math.min(4,Math.floor((p-WINDOWS[0][0])/.09)+1);}
+  var pts=[];
+  labelled.forEach(function(part){
+    var show = BP>.02 && (p<WINDOWS[0][0] ? (p>.31) : (part.stage===cs));
+    var o = show? BP*(p<WINDOWS[0][0]?ease(seg(p,.31,.36)):1) : 0;
+    if(o<.01){part.el.style.opacity=0;part.path.setAttribute('d','');part.dot.setAttribute('r','0');return;}
+    proj.copy(part.anchor); part.g.localToWorld(proj); proj.project(H.camera);
+    var x=(proj.x*.5+.5)*w, y=(-proj.y*.5+.5)*h;
+    pts.push({part:part,x:x,y:y,o:o});
+  });
+  var cx=w*(w>1100?.56:.5);
+  var L=pts.filter(function(q){return q.x<cx;}).sort(function(a,b){return a.y-b.y;});
+  var Rr=pts.filter(function(q){return q.x>=cx;}).sort(function(a,b){return a.y-b.y;});
+  var lw=small?128:210, gap=small?34:50, top=small?170:160, bottomAll=h-(small?250:110);
+  if(!small){var room=Math.min(bottomAll,copyTopEst())-top; while(L.length && L.length*gap>room){Rr.push(L.pop());} Rr.sort(function(a,b){return a.y-b.y;});}
+  var activeP=document.querySelector('.phase.on'), copyTop=activeP?activeP.getBoundingClientRect().top-stage.getBoundingClientRect().top-28:bottomAll;
+  function place(list,side){
+    var bottom=side==='l'&&!small?Math.min(bottomAll,copyTop):bottomAll;
+    var ys=list.map(function(q){return clamp(q.y,top,bottom);});
+    for(var i=1;i<ys.length;i++) if(ys[i]-ys[i-1]<gap) ys[i]=ys[i-1]+gap;
+    var over=ys.length?ys[ys.length-1]-bottom:0; if(over>0)ys=ys.map(function(y){return y-over;});
+    list.forEach(function(q,i){
+      var lx=side==='l'? (small?12:Math.max(24,w*.06)) : w-(small?12:Math.max(24,w*.06))-lw;
+      var ly=ys[i];
+      var el=q.part.el; el.classList.toggle('r',side==='r');
+      el.style.transform='translate('+lx.toFixed(1)+'px,'+(ly-10).toFixed(1)+'px)'; el.style.opacity=q.o.toFixed(2);
+      var sx= side==='l'? lx+lw+8 : lx-8, kx= side==='l'? sx+28 : sx-28;
+      q.part.path.setAttribute('d','M'+sx+' '+ly+' L'+kx+' '+ly+' L'+q.x.toFixed(1)+' '+q.y.toFixed(1));
+      q.part.path.style.opacity=(q.o*.6).toFixed(2);
+      q.part.dot.setAttribute('cx',q.x.toFixed(1)); q.part.dot.setAttribute('cy',q.y.toFixed(1)); q.part.dot.setAttribute('r','3.5');
+      q.part.dot.style.opacity=q.o.toFixed(2);
+    });
+  }
+  place(L,'l'); place(Rr,'r');
+  linesEl.style.color=getComputedStyle(stage).color;
+}
+
+/* =========================================================
+   MACHINES viewer
+   ========================================================= */
+var V2=Scene(document.getElementById('cv'),{alpha:true,maxDpr:1.5});
+V2.renderer.setClearColor(0x000000,0);
+var robots={}, VM={};
+['reach','sentry','hauler'].forEach(function(k){VM[k]=Mats();});
+robots.reach=buildReach(VM.reach); robots.sentry=buildSentry(VM.sentry); robots.hauler=buildHauler(VM.hauler);
+Object.keys(robots).forEach(function(k){var r=robots[k];r.root.visible=false;V2.scene.add(r.root);
+  r.parts.forEach(function(p){p.mats.forEach(function(m){m.transparent=false;});});});
+// power accents on in the viewer
+VM.sentry.ledOff.color.set(0x22262a);
+robots.sentry.coreLed.material=VM.sentry.ledOn; robots.sentry.muzzle.material=VM.sentry.ledOn;
+robots.sentry.cells.forEach(function(c){if(TARGET_PATTERN[c.r][c.c]==='1')c.m.material=VM.sentry.ledOn;});
+
+var INFO={
+  reach:{id:'KX-01 · Build 1',name:'REACH',text:'A multi-joint robotic arm. They learn how servos hold an angle, how joints add up to a position, and how to pick something up exactly where they want.',chips:['Servos','Angles','Sequences','Gripping']},
+  sentry:{id:'KX-02 · Build 2',name:'SENTRY',text:'A pan-tilt launcher that tracks a target and launches on command. They learn sensors, feedback and timing, then tune its aim.',chips:['Ultrasonic sensing','Tracking','LED matrix','Timing']},
+  hauler:{id:'KX-03 · Build 3',name:'HAULER',text:'A tracked forklift. They learn drive motors, steering and lifting loads, then drive it wirelessly from a second board.',chips:['Drive motors','Lift','Wireless · ESP-NOW','Steering']}
+};
+var info=document.getElementById('machInfo'), tabs=[].slice.call(document.querySelectorAll('.tab'));
+var active=null, assembleT=0, rotY=-.5, dragV=0, dragging=false, lastX=0;
+function select(k){
+  if(active)robots[active].root.visible=false;
+  active=k; var r=robots[k]; r.root.visible=true; assembleT=0;
+  tabs.forEach(function(t){t.setAttribute('aria-selected',t.dataset.k===k);});
+  var d=INFO[k]; info.innerHTML='<span class="mono">'+d.id+'</span><h3>'+d.name+'</h3><p>'+d.text+'</p><div class="chips">'+d.chips.map(function(c){return '<span class="chip">'+c+'</span>';}).join('')+'</div>';
+}
+tabs.forEach(function(t){t.addEventListener('click',function(){select(t.dataset.k);});
+  t.addEventListener('keydown',function(e){var i=tabs.indexOf(t);if(e.key==='ArrowRight'||e.key==='ArrowLeft'){var n=tabs[(i+(e.key==='ArrowRight'?1:2))%3];n.focus();select(n.dataset.k);}});});
+var viewer=document.getElementById('viewer'), vVisible=false;
+viewer.addEventListener('pointerdown',function(e){dragging=true;lastX=e.clientX;viewer.setPointerCapture(e.pointerId);});
+viewer.addEventListener('pointermove',function(e){if(!dragging)return;var dx=e.clientX-lastX;lastX=e.clientX;rotY+=dx*.01;dragV=dx*.01;});
+viewer.addEventListener('pointerup',function(){dragging=false;});
+viewer.addEventListener('pointercancel',function(){dragging=false;});
+if('IntersectionObserver' in window)new IntersectionObserver(function(e){var was=vVisible;vVisible=e[0].isIntersecting;if(vVisible&&!was)assembleT=0;},{threshold:.25}).observe(viewer);
+select('sentry');
+
+function frameViewer(dt){
+  var r=robots[active]; assembleT=Math.min(assembleT+dt,4);
+  r.parts.forEach(function(p){
+    var t=reduce?1:clamp((assembleT-.15-(p.stage-1)*.32)/.85,0,1); var e=1-easeIO(t);
+    p.g.position.copy(p.home).addScaledVector(p.ex,e*.9);
+    p.g.rotation.set(p.homeRot.x+p.ex.y*.03*e,p.homeRot.y+p.ex.x*.03*e,p.homeRot.z);
+  });
+  if(!dragging){dragV*=.94;rotY+=dragV+(reduce?0:dt*.18);}
+  r.root.rotation.y=rotY;
+  r.idle(time,1);
+  var c=r.cam; V2.camera.position.copy(c.pos).multiplyScalar(1.22); V2.camera.lookAt(c.look);
+  V2.renderer.render(V2.scene,V2.camera);
+}
+
+/* ---------- loop ---------- */
+var last=performance.now();
+function loop(now){
+  var dt=Math.min(.05,(now-last)/1000); last=now; time+=dt;
+  if(visible)frameHero(dt);
+  if(vVisible)frameViewer(dt);
+  requestAnimationFrame(loop);
+}
+requestAnimationFrame(loop);
+if(document.fonts&&document.fonts.ready)document.fonts.ready.then(function(){H.size();V2.size();});
+})();
+</script>

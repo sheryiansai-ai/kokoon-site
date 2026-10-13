@@ -1,0 +1,943 @@
+Talk to a person before you decide. +91 00000 00000                                                                                     Missing a part? We'll post you one · Refund policy
+
+
+                                 The programme               Is it for us?    How we teach             Fees     For schools        About                              Book a free class
+
+
+
+
+LIVE ONLINE ROBOTICS · CLASS 8+
+
+
+
+
+Where teenagers learn to
+                                                                                                           PROJECT 04
+
+                                                                                                           REAL LIFT + DRIVE
+
+
+
+
+build like real engineers.
+Five to six months on an ESP32-S3 board, with a mentor your
+child can ask. They work through 50+ guided builds and finish
+three robots they keep.
+
+  Not a toy version of engineering. The same board, the same faults, the
+  same fix.
+
+
+    See the learning path         Ask about the programme
+                                                                                                          Motorised Forklift          A build that has to move, lift, and stay under control.
+For teenagers, typically age 14+ · No prior coding required
+
+
+
+
+                                                                     W H E R E O UR S T UDE N T S H AV E C O M PE T E D
+
+                            ATL Marathon             Avishkaar IRC               Makeathon               MP State Science Fair             CBSE Skill 417
+
+
+
+
+                                              Your child is bright. The report card
+                                               says "has potential". Nobody can
+                                                tell you what they are good at.
+                                 You have probably paid for something educational before and watched it go
+                                 nowhere. Most of it either fixes a grade or fills a Sunday. This does neither. It
+                                                 produces twelve objects you can pick up.
+
+    OUR IMPACT
+
+
+
+Four cohorts in, here is the whole record
+Every robot built and every student taught. Small numbers, because we
+started in 2024.
+
+
+             142                                  68                                     50+                                      3                                   50+
+           ROBOTS BUILT                     STUDENTS TAUGHT                          GUIDED BUILDS                        CAPSTONE ROBOTS                         GUIDED BUILDS
+
+
+
+
+IT DOES NOT BEGIN WITH A ROBOT
+
+
+
+
+It begins with one part, one question,
+and a chance to see what happens.
+They do not watch an explanation on a screen. They connect a part, test what
+happens, make a change, and see the machine respond.
+ESP32 brain board    ·    50+ guided builds   ·     3 capstone projects
+
+
+
+
+  PICK A PART                                                                                                                                           THEN THE STUDENT REPEATS A
+                                                                                                                                                        SIMPLE LOOP
+
+    ESP32 brain board
+                                          ESP32 BRAIN BOARD
+                                                                                                                                                        01    Connect the part
+    Sensors                               It runs the code and tells the rest of the machine what to                                                    02    Test what happens
+                                          do.
+    Motors
+                                          In a session: The student writes code, uploads it, and sees something physical                                03    Find the fault
+    Servos                                respond.
+                                                                                                                                                        04    Change one thing and
+                                           MicroPython-ready           4 motor drivers       2 sensor ports                                                   test again
+
+
+
+
+                                 One component becomes a response. A few responses become a build. Then the question
+                                 changes: what else can I make it do? It is learning that leaves the screen and stays in their
+                                                                           hands.
+
+
+
+    BEFORE YOU COMPARE
+
+
+
+Your Guide to the Words We Use
+Six terms you will hear from us, and from anybody else selling this.
+
+
+        Brain Board                                                  Sensor                                                          Breadboard
+    Our own ESP32-S3 board. The same chip                          Measures one thing and reports it. Without                     Build a circuit without soldering. Wires pull
+    family sits inside real IoT products.                          sensors a robot cannot react.                                  out, so a mistake costs nothing.
+
+
+
+        MicroPython                                                  Capstone                                                        Kokoon CodeLab
+    The language they start in. Readable,                          One of three finished robots: Sentry X1, Rover                 Our editor. Start with blocks, move to
+    forgiving, used by working engineers.                          Tank, Shadow Arm.                                              MicroPython, send it to the robot over Wi-Fi.
+
+
+
+
+  Week two. Wiring a distance sensor. Nothing works yet.
+
+
+
+
+    WHAT YOU GET
+
+
+
+What Do They Actually
+Have at the End?
+Three finished robots, photographs and video of every build, and the
+code they wrote for each one.
+
+                              Pan, tilt, sensing                                  Drive, traction, attachments                                   Four servos, precise movement
+
+
+
+
+   SENTRY X1 | CAPSTONE 01 | 3D-PRINTED BUILD                      ROVER TANK | CAPSTONE 02 | 3D-PRINTED BUILD                       SHADOW ARM | CAPSTONE 03 | 3D-PRINTED BUILD
+
+
+   Nerf-style turret                                               Configurable 4×4 rover                                            Four-servo robotic arm
+   A full pan-and-tilt aiming mechanism that                       Wheel drive or tank tracks, swapped by the                        Move the small control arm and the large one
+   fires darts. Two servos for the axes, a sensor                  student. Mounts for extra sensors, so the                         mirrors it. Four servos held to an exact angle,
+   to find the target, and code that has to hit                    same chassis becomes a different                                  which is the hardest control problem in the
+   something moving.                                               experiment each time.                                             kit.
+
+
+Every student finishes all three. None of them had wired a circuit before week one.
+Plus 50+ smaller guided builds along the way.
+
+    See the three capstones
+
+
+
+
+    WHAT YOU WILL NOTICE
+
+
+
+What changes at home
+The classroom is our problem. This is what you see at home.
+
+
+   MONTH 1                                     MONTH 2                                            MONTHS 3 TO 4                                  MONTHS 5 TO 6
+
+   They start explaining things                They stop asking you to sit                        They take criticism about their                They start talking about what
+   to you at dinner.                           with them while they work.                         work without falling apart.                    things cost to make.
+
+
+
+
+                                                                                    WHEN THE BUILD GETS DIFFICULT
+
+
+
+
+                                                                                    The student gets help. You
+                                                                                    do not become the instructor.
+                                                                                    Real hardware has real faults: a loose connection, a motor wired the
+                                                                                    wrong way, code that produces a surprise. That is where most kits
+                                                                                    are left unused.
+                                                                                    KokoonLabs gives your child a teaching assistant to ask in live
+                                                                                    doubt sessions and chat. They stay with the cause, learn how to test
+                                                                                    it, and keep the project moving without you having to troubleshoot
+                                                                                    after work.
+
+
+                                                                                    For the child                                          For the parent
+
+                                                                                    Live doubt sessions and chat                           Progress updates
+                                                                                    Build coins can be redeemed for discounted 3D parts and extra sensors, so the next
+                                                                                    experiment has somewhere to go.
+
+
+
+
+    HOW IT RUNS
+
+
+
+Four stages, five to six months
+Each stage ends with something finished. The full week-by-week
+breakdown is on the programme page.
+
+
+   01                                          02                                                 03                                             04
+   Month 1                                     Month 2                                            Month 3–4                                      Month 5–6
+
+
+   The first spark                             Learning to think it through                       Building their own idea                        The capstone
+
+
+
+    See what happens in each stage
+
+
+
+
+    WHAT THEY FINISH WITH
+
+
+
+Work they can hold,
+demonstrate and explain
+At the end there is no certificate to file away. There are three working
+robots on the table, fifty-odd smaller builds behind them, and a child who
+can tell you how each one works.
+
+
+    A portfolio, not a report                                       Skills that carry                                                Confidence that shows
+    Photographs and video of every build, with                      MicroPython, sensors, motor control and                          The change most parents mention is not
+    the code they wrote. Useful when a                              debugging transfer straight into                                 technical. It is a child who volunteers to
+    school or a competition asks what they                          engineering college and robotics                                 explain something instead of waiting to be
+    have made.                                                      competitions. Nothing needs relearning.                          asked.
+
+
+
+
+    BEFORE YOU DECIDE
+
+
+
+Is this right for your child?
+We would rather have an empty seat than a student who stops coming
+in week three. One in six families who book a free class is told to wait a
+year.
+
+
+    This suits your child if they                                                                      Wait a year if your child
+
+          Takes things apart to see inside                                                                Is in Grade 10 with boards this year
+
+          Gets frustrated but comes back to it                                                            Needs a maths or science grade fixed
+
+          Asks how things work more than why                                                              Has never finished a long project and is not ready to try
+
+          Is somewhere in the middle at school, not at the top                                            Would rather be doing something else on a Saturday
+
+          Has never been given a real tool
+
+
+
+    Read the honest argument
+
+
+
+
+            NEXT BATCH STARTS 12 SEPTEMBER
+
+
+
+        Sit in on one class                                                                                                                                  Book a free class
+        The first class is free and you are welcome to watch it with them. Ninety
+        minutes on camera tells you more than this website can.
+
+
+
+
+                                               DECI DI N G                            R EAS S UR AN CE                    S T UDEN T WO R K                   CO MPAN Y
+
+                                               Is it for us?                          Safety                              Projects                            About
+Engineering and enterprise, taught
+together, to Class 8–10 students across        The programme                          Who teaches                         The three capstones                 For schools
+India.                                         Full curriculum                        How we teach                                                            Contact
+                                               Fees                                   Questions
+                                               Book a free class                      Parent guides
+
+
+
+© 2026 KokoonLabs · Bengaluru, Karnataka · +91 00000 00000                                                                                     Terms · Privacy · Refund policy · Child safety
+    Talk to a person before you decide. +91 00000 00000                                                                            Missing a part? We'll post you one · Refund policy
+
+
+                                     The programme             Is it for us?   How we teach         Fees     For schools      About                             Book a free class
+
+
+Home › Is it for us?
+
+       Grades 8 to 10       Live online       5 to 6 months             ₹30,000, kit couriered
+
+
+
+
+      STEP 2 OF 5 · IS IT FOR US?         BEFORE YOU DECIDE
+
+
+
+
+    Is this worth the money?
+    The case for it, including the parts against us.
+
+
+
+
+                                     What is a robotics engineering programme, and does it
+                                     really help my child?
+                                     It is a robotics course built around real hardware rather than a screen. Your child
+                                     works through 50+ guided builds and finishes three capstone robots they keep.
+                                     Most robotics classes hand over a kit and a video. Ours assigns a Teaching Assistant,
+                                     so when a servo jams at 9pm the child asks them, not you.
+
+                                     It helps in three ways:
+
+                                         It Builds Judgement: They decide what to make, what to charge and what to cut.
+                                         Nobody marks those decisions. They find out when a buyer says no.
+
+
+                                         It Builds Follow-Through: Interest runs out around week nine. There are months
+                                         after that, with a deadline and three teammates waiting. Getting past it is most of
+                                         what they learn.
+
+
+                                         It Builds a Record: Three finished robots, 50+ builds behind them, and video of
+                                         each one working. A report card shows none of that.
+
+
+                                     It will not raise a maths grade. If your child needs marks this year, coaching is the better
+                                     spend.
+
+
+
+
+                               How to tell a good robotics
+                               programme from an expensive one
+                               Six things worth checking, whoever you are speaking to. One of them we would fail.
+
+                               1. Ask to see the full curriculum before you pay. If it is only available after a phone call, there is a
+                               reason. Ours is on this site.
+                               2. Ask how many students are in a batch. Above twelve, your child will not be known by name.
+                               We cap at eight.
+                               3. Ask what happens when something breaks. A programme that charges for replacement parts is
+                               selling you a kit.
+                               4. Ask who is actually in the room. Not the founder's credentials. The person who will sit with your
+                               child on a Saturday.
+                               5. Ask what happens if your child wants to stop. Look for a refund window and a way to pay in
+                               parts. If the whole year is due upfront and non-refundable, that tells you what they expect.
+                               6. Ask how long they have run and how many finish. We would fail this one. Four cohorts. Our
+                               completion numbers are too new to mean much. Ask us again in two years.
+
+
+
+
+                               CBSE teaches computational thinking and AI from Grade 3. For Grades 6 to 8 it is marked
+                               by project, not exam. Skill Subject 417 covers it at Grades 9 and 10. So the work your child
+                               does here can go towards school submissions.
+
+                               Most Grade 9 students can explain how a sensor works. Very few have wired one up and
+                               had it not work. Finding the fault and fixing it takes time a school timetable does not have.
+                               That gap is what this programme is for.
+
+                               Software is getting better at writing code. It is not getting better at spotting a problem
+                               worth solving, or at building a thing that works.
+
+
+
+
+         HONEST FILTER
+
+
+
+    Is your child ready?
+    One in six families who book a free class is told to wait a year.
+
+
+         This suits your child if they                                                              Wait a year if your child
+
+             Takes things apart to see inside                                                           Is in Grade 10 with boards this year
+
+             Gets frustrated but comes back to it                                                       Needs a maths or science grade fixed
+
+             Asks how things work more than why                                                         Has never finished a long project and is not ready to try
+
+             Is somewhere in the middle at school, not at the top                                       Would rather be doing something else on a Saturday
+
+             Has never been given a real tool
+
+
+
+
+         AFTERWARDS
+
+
+
+    Where this leads
+    Parents of a Grade 9 student are thinking three years ahead. This is
+    what the year opens up, and it is not an engineering seat.
+
+
+        Competitions                                                  Grades 11 and 12                                          Carrying on
+        Students who finish stage two can enter                       Schools that ask what a student has built                 Some students come back as assistants in
+        ATL Marathon, Avishkaar IRC and                               outside class will accept the portfolio. It               the next cohort. It is unpaid, it is one
+        Makeathon. We prepare them in class and                       also covers Grade 11 and 12 project work.                 Saturday a month, and we cap it at four.
+        pay the entry fees.
+
+
+
+
+         QUESTIONS
+
+
+
+    What parents ask us
+                             Is this an expensive hobby class?
+
+                             For the first three months it looks like one, and if we stopped there you would be right to call it that.
+                             Stage four is the difference. Your child sets a price and sells to somebody with no reason to be kind
+                             about it. We have not found another programme in India that does that part.
+
+
+                             Will this affect board preparation?
+
+
+                             What if my child loses interest?
+
+
+                             We are not in Bengaluru. Does that matter?
+
+
+                             Why does it take four to six months and not a fixed term?
+
+
+
+
+    READ THIS NEXT
+
+
+        The programme                                                                              Book a free class
+        Four stages, 50+ builds, three capstone robots                                             Ninety minutes, no charge, and nothing to pay afterwards unless you
+        Continue →                                                                                 decide to.
+                                                                                                   Book a seat →
+
+
+
+
+                                                 DECI DI N G                         R EAS S UR AN CE                S T UDEN T WO R K                  CO MPAN Y
+
+                                                 Is it for us?                       Safety                          Projects                           About
+    Engineering and enterprise, taught
+    together, to Class 8–10 students across      The programme                       Who teaches                     The three capstones                For schools
+    India.                                       Full curriculum                     How we teach                                                       Contact
+                                                 Fees                                Questions
+                                                 Book a free class                   Parent guides
+
+
+
+    © 2026 KokoonLabs · Bengaluru, Karnataka · +91 00000 00000                                                                           Terms · Privacy · Refund policy · Child safety
+   Talk to a person before you decide. +91 00000 00000                                                                                 Missing a part? We'll post you one · Refund policy
+
+
+                                     The programme              Is it for us?   How we teach         Fees     For schools         About                             Book a free class
+
+
+Home › The programme
+
+     Grades 8 to 10        Live online         5 to 6 months             ₹30,000, kit couriered
+
+
+
+
+     STEP 3 OF 5 · THE PROGRAMME
+
+
+
+
+   The Robotics Engineering Programme
+   Five to six months, four stages, 50+ guided builds and three capstone robots.
+   ₹30,000 including the kit, which they keep.
+
+       Book a free class            See the fees
+
+
+
+
+       24                                              12                                           8                                             90
+       WEEKS                                           MACHINES BUILT                               STUDENTS PER BATCH                            MINUTES PER WEEK
+
+
+
+
+       WHAT YOU GET TO USE                                                                                                      Grades 8 to 10 only. There is no junior version of this.
+
+
+         ESP32-S3 Brain Board                           Ultrasonic and IR                            Motors and servos                            Real money
+       The same chip family used in real           Distance, light, moisture,                     Two drive motors and an SG90                 You set the price. You keep what
+       IoT products. Not a teaching toy.           temperature. Five sensor types                 servo. Enough to make something              your robot sells for.
+                                                   your robot reads.                              that moves and grips.
+
+
+
+
+       THE PROGRESSION
+
+
+
+   Four stages
+   Four to six weeks each. Every stage ends with something finished.
+
+
+       01              STAGE ONE
+      MONTH 1
+
+                       The first spark
+                       No screens for the first three weeks. Your child learns what current and resistance do by wiring things wrong and then working out
+                       why. Most of them get an LED lit in the first class and take it home in their pocket.
+                        Breadboarding        Sensors      Motors       Soldering
+
+
+                          68 students have finished this stage
+
+
+
+
+       02              STAGE TWO
+      MONTH 2
+
+                       Learning to think it through
+                       Block coding first, then real Arduino. The robot starts making its own decisions. This is the stage where parents tell us their child
+                       has stopped asking for help with everything.
+                        Arduino      Loops      Line follower         Costing
+
+
+                          54 students have finished this stage
+
+
+
+
+       03              STAGE THREE
+     MONTH 3–4
+                       Building their own idea
+                       They stop building what we set. Everyone picks a problem they have noticed and builds something for it. Then somebody who has
+                       never seen it tries to use it. It usually fails. Then they fix it.
+                        Tinkercad       3D printing       IoT       User testing
+
+
+                          41 students have finished this stage
+
+
+
+
+       04              STAGE FOUR
+     MONTH 5–6
+                       The capstone
+                       The capstone build, made properly. Your child assembles the 3D-printed parts, wires four servos, writes the control code, and
+                       presents the finished machine to their TA and cohort.
+                        Assembly      Servo control        Debugging        Demonstration
+
+
+                          34 students have finished all three capstones
+
+
+
+
+                                                                                             WHAT'S IN THE BOX
+
+
+
+                                                                                        Real components
+                                                                                        A college student could pick up this exact kit. We made it
+                                                                                        approachable for a fourteen-year-old, not simpler.
+
+                                                                                            Brain Board                  ESP32-S3, our own PCB
+
+
+
+                                                                                            Motor and servo              4× motor drivers, 4× servo ports
+
+
+
+                                                                                            Expansion                    2× I2C, 2× sensor ports, RS485
+
+
+
+                                                                                            Sensors                      Full suite for hands-on experiments
+
+
+
+                                                                                            3D-printed parts             Every part for all three capstone builds
+
+
+
+                                                                                            Power                        Protected battery pack, safe voltages
+
+
+
+
+                                                                                            Included in the fee. Nothing to buy later. If a part goes missing, ask us and
+                                                                                            we will post you another.
+
+
+
+
+       INCLUDED
+
+
+
+   What ₹30,000 covers
+   Six things. There is no second invoice at any point.
+
+
+
+
+       The kit                                                       The curriculum                                             The mentors
+       Arduino board, five sensor types, motors,                     24 classes, published in full on this site.                Eight students per batch. Police verified. Each
+       chassis parts. Theirs to keep at the end.                     Nothing hidden behind a phone call.                        one builds the curriculum before teaching it.
+
+
+
+
+       The portfolio                                                 Kokoon CodeLab                                             Replacement parts
+       Photographs and video of every machine, plus                  Our own editor. Start in blocks, graduate to               Something breaks or goes missing, you ask,
+       the costing sheets, on a page they can share.                 real MicroPython, and deploy to the robot                  we post another. No charge and no
+                                                                     wirelessly.                                                explanation needed.
+
+
+
+
+   Questions
+                             My child has never coded.
+
+                             Most of ours had not either, and most were quietly nervous about it on the first day. The first three
+                             weeks have no screens, only circuits. They learn what the code controls before they write any.
+
+
+                             Will my child be left stuck on a problem?
+
+
+                             Is it safe? There is a soldering iron in the kit.
+
+
+                             What are build coins?
+
+
+                             What do they take home at the end?
+
+
+
+
+   READ THIS NEXT
+
+
+       Fees                                                                                         Book a free class
+       ₹30,000 in full, with the arithmetic and what happens if you stop                            Ninety minutes, no charge, and nothing to pay afterwards unless you
+       Continue →                                                                                   decide to.
+                                                                                                    Book a seat →
+
+
+
+
+                                                  DECI DI N G                         R EAS S UR AN CE                   S T UDEN T WO R K                  CO MPAN Y
+
+                                                  Is it for us?                       Safety                             Projects                           About
+   Engineering and enterprise, taught
+   together, to Class 8–10 students across        The programme                       Who teaches                        The three capstones                For schools
+   India.                                         Full curriculum                     How we teach                                                          Contact
+                                                  Fees                                Questions
+                                                  Book a free class                   Parent guides
+
+
+
+   © 2026 KokoonLabs · Bengaluru, Karnataka · +91 00000 00000                                                                                Terms · Privacy · Refund policy · Child safety
+    Talk to a person before you decide. +91 00000 00000                                                                                   Missing a part? We'll post you one · Refund policy
+
+
+                                         The programme            Is it for us?    How we teach        Fees       For schools        About                              Book a free class
+
+
+Home › The programme › Fees
+
+      Grades 8 to 10          Live online        5 to 6 months              ₹30,000, kit couriered
+
+
+
+
+     STEP 4 OF 5 · FEES            FEES
+
+
+
+
+    Rs.30,000, and here is exactly where it goes
+    ₹30,000 is a lot of money. Everything is on this page. If the number does not work
+    for your household, find that out now, not after a phone call.
+
+
+
+
+                                                                                                                The first class is free
+         FU LL P ROGRA MME · 5 TO 6 MONTHS
+                                                                                                           Ninety minutes online, with a mentor and a small group. You decide
+
+         ₹30,000                             EVERYTHING INCLUDED
+                                                                                                           afterwards.
+
+
+         That is a mid-range phone, or about five months of coaching. We
+         could break it into a monthly number to make it look smaller. We                                       Seven days to change your mind
+         would rather write the number down.                                                               Full refund within a week of the first class. There is no form to fill in.
+
+
+              24 live classes of 90 minutes, eight students per batch
+                                                                                                                Nothing in February or March
+              The full kit, which they keep                                                                The programme stops for boards and picks up again in April.
+              Tools, 3D printing and all materials
+              A dedicated Teaching Assistant, live sessions and chat                                            You can pay stage by stage
+              A portfolio page with photos and video of everything they built                              ₹9,000 every six weeks instead. It costs a bit more in total and you can
+                                                                                                           stop at any point.
+              Every robot and every part stays with your child
+
+
+                                          Book a free class
+
+          EMI from ₹5,150 a month over six months · second child 10% off
+
+
+
+
+        THE BRACKET
+
+
+
+    What else ₹30,000 buys
+    You are comparing us to the other things that money could go on. Here
+    they are.
+
+
+        A MID-RANGE PHONE                                               FIVE MONTHS OF COACHING                                     THIS PROGRAMME
+
+
+        ₹25,000 to ₹35,000                                              ₹6,000 a month,                                             ₹30,000, one time
+        Lasts about three years. Replaces one they
+        already have.
+                                                                        roughly                                                     Real hardware they keep, 50+ builds, and
+                                                                                                                                    three finished robots.
+                                                                        Buys marks in one subject, if they turn up and
+                                                                        do the work.
+
+
+    The coaching comparison is the fair one. If your child needs marks in a subject this
+    year, coaching is the better spend and we will tell you that on the phone.
+
+
+
+
+    All programmes
+      PROGRAMME                                                    LENGTH                     FEE                             PER WEEK              KIT
+
+
+
+      Robotics Engineering                                         5 to 6 months              ₹30,000                         ₹1,041                Included, kept
+      Four stages, ends in a real sale
+
+
+      Pay by stage                                                 6 weeks each               ₹9,000 / stage                  ₹1,250                Included, kept
+      Same programme, decide each stage
+
+
+      Six-Week Sprint                                              6 weeks                    ₹5,999                          ₹1,000                Starter kit, kept
+      One product, one sale
+
+
+      Summer Workshop                                              3 weeks                    ₹8,999                          —                     Included, kept
+      Holiday intensive
+
+
+      Free trial                                                   90 min                     Free                            —                     Keeps what they build
+      One session, no obligation
+
+
+
+
+        EMI                                                              Sibling discount                                              Early-bird
+        ₹5,150 × 6 months through Razorpay.                              10% off the second child, applied                             15% off the first four seats in each
+        No cost EMI on selected cards.                                   automatically at enrolment.                                   batch.
+
+
+
+       Not charged for. The kit and its courier, consumables, 3D-printed parts for every build, replacement parts, class recordings and the certificate. There
+       is no second invoice.
+
+
+
+
+        FEE HELP
+
+
+
+    If the fee is the problem, say so
+    We keep two part-funded seats in every batch for families where
+    cost is the barrier. There is no form and no paperwork. You email us,
+    we have a conversation, and it stays between us.
+
+        Write to us about a funded seat
+
+
+
+
+    READ THIS NEXT
+
+
+       Book a free class                                                                              Book a free class
+       One class, no charge, decide afterwards                                                        Ninety minutes, no charge, and nothing to pay afterwards unless you
+       Continue →                                                                                     decide to.
+                                                                                                      Book a seat →
+
+
+
+
+                                                    DECI DI N G                         R EAS S UR AN CE                    S T UDEN T WO R K                   CO MPAN Y
+
+                                                    Is it for us?                       Safety                              Projects                            About
+    Engineering and enterprise, taught
+    together, to Class 8–10 students across         The programme                       Who teaches                         The three capstones                 For schools
+    India.                                          Full curriculum                     How we teach                                                            Contact
+                                                    Fees                                Questions
+                                                    Book a free class                   Parent guides
+
+
+
+    © 2026 KokoonLabs · Bengaluru, Karnataka · +91 00000 00000                                                                                   Terms · Privacy · Refund policy · Child safety
+    Talk to a person before you decide. +91 00000 00000                                                                                 Missing a part? We'll post you one · Refund policy
+
+
+                                     The programme              Is it for us?   How we teach        Fees         For schools       About                              Book a free class
+
+
+Home › The programme › Free class
+
+      Grades 8 to 10        Live online        5 to 6 months             ₹30,000, kit couriered
+
+
+
+
+      STEP 5 OF 5 · BOOK A FREE CLASS          FREE TRIAL
+
+
+
+
+    Book a free class
+    Nobody should spend ₹30,000 on a description of a class. Your child joins one live
+    online class for ninety minutes, meets the mentor and builds a circuit in simulation.
+    There is nothing to pay afterwards unless you decide to enrol.
+
+
+
+
+    What happens
+                                                                                                         Book a seat
+                                                                                                         We will message you on WhatsApp within two hours to confirm a
+        1              They meet the batch
+       0–15M                                                                                             time.
+                       Eight students, one mentor. Most arrive nervous
+                       and stop being nervous somewhere in the first                                     Your name
+                       fifteen minutes.
+                                                                                                           Parent or guardian
+
+                                                                                                         WhatsApp number
+
+        2              They build a circuit                                                                +91
+       15–60M
+
+                       A light-triggered buzzer. It will not work the first                              We message on WhatsApp. We will not cold call you.
+                       time.                                                                             Child's class                          Preferred
+
+                                                                                                            Grade 8                                Saturday morning
+
+        3              They take it home                                                                 Anything you want to ask first?
+       60–90M
+
+                       Theirs to keep whether or not you enrol. Then we                                    Optional. Most parents ask about boards.
+                       talk to you for ten minutes about whether this suits
+                       your child, including when we think it does not.
+
+                                                                                                                               Book my child's free seat
+
+       We will tell you if it is not a fit. One in six families is pointed to a                                              6 of 8 seats remaining in Batch 04
+       shorter format, or told to come back after boards.
+
+
+
+
+                                                                                                        Prefer to talk?
+                                                                                                        Call +91 00000 00000 between 10am and 7pm. You will get a mentor,
+                                                                                                        not a salesperson.
+
+
+
+
+    Before you book
+                              Are the classes live, or recordings?
+
+                              Live. A fixed slot each week, eight students, one mentor, ninety minutes on camera. If your child misses
+                              one we send the recording, but the programme is built around them being there.
+
+
+                              What do we need at home?
+
+
+                              Do I have to sit with my child during class?
+
+
+                              My child is in Grade 7. Can they join?
+
+
+
+
+                                                  DECI DI N G                        R EAS S UR AN CE                     S T UDEN T WO R K                   CO MPAN Y
+
+                                                  Is it for us?                      Safety                               Projects                            About
+    Engineering and enterprise, taught
+    together, to Class 8–10 students across       The programme                      Who teaches                          The three capstones                 For schools
+    India.                                        Full curriculum                    How we teach                                                             Contact
+                                                  Fees                               Questions
+                                                  Book a free class                  Parent guides
+
+
+
+    © 2026 KokoonLabs · Bengaluru, Karnataka · +91 00000 00000                                                                                Terms · Privacy · Refund policy · Child safety
+
