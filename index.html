@@ -8,31 +8,35 @@
 <meta name="description" content="Kokoon Origin: a real robotics lab for teenagers. Our own Core board, three machines they build and keep, and a guided path from the first LED to a robot that thinks.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Unbounded:wght@600;700;800&family=DM+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Unbounded:wght@700;800&family=DM+Mono:wght@400;500&display=swap">
 <style>
-/* Layout: editorial product page. Warm white ground, two dark chapters (Why now, The build). Indigo from the logo is the only accent.
-   Type: Instrument Sans tight for display and UI, Instrument Serif italic for the emotional half-line, DM Mono for small labels. */
+/* Kokoon Labs · Origin homepage (draft 3)
+   Type: Plus Jakarta Sans (display + UI, tight), Unbounded for the accent words, DM Mono for labels, rulers and drawings.
+   Colour: logo purple #3324C4 primary, logo yellow #F5C400 for the one thing that matters on each screen.
+   Motion: Lenis smooth scroll, drawn guide lines, a fixed ruler, and a long pinned three.js chapter built from the real print file. */
 :root{
   --bg:#F7F6FC; --bg2:#EEEBFB; --card:#FFFFFF; --ink:#120E2E; --ink2:#5A567A; --ink3:#8B88A6; --line:#DEDBF0; --line2:#CBC6EA;
   --indigo:#3324C4; --indigo2:#271B9E; --indigo-deep:#200070; --yellow:#F5C400; --yellow2:#FFE566; --yellow-soft:#FFF0A6;
   --dark:#1A1140; --dark2:#241A55; --dark3:#2E2366; --dark-line:#3B2F78; --dark-ink:#F8F6FF; --dark-ink2:#BDB6E3;
-  --f-sans:"Instrument Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
-  --f-display:"Unbounded","Instrument Sans",system-ui,sans-serif;
+  --f-sans:"Plus Jakarta Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-display:"Unbounded","Plus Jakarta Sans",system-ui,sans-serif;
   --f-mono:"DM Mono",ui-monospace,Menlo,monospace;
   --gutter:clamp(20px,4.5vw,64px); --max:1280px; --r:22px; --r-s:14px;
   color-scheme:light;
 }
 *{box-sizing:border-box}
 [hidden]{display:none!important}
-html{scroll-behavior:smooth}
+html.lenis,html.lenis body{height:auto}
+.lenis.lenis-smooth{scroll-behavior:auto!important}
+.lenis.lenis-stopped{overflow:hidden}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--f-sans);font-size:17px;line-height:1.55;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
 img{max-width:100%;display:block}
 a{color:inherit}
 :focus-visible{outline:2px solid var(--indigo);outline-offset:3px;border-radius:4px}
-h1,h2,h3{margin:0;font-weight:600;letter-spacing:-0.03em;line-height:1.02;text-wrap:balance}
-h1{font-size:clamp(44px,7.2vw,104px);letter-spacing:-0.045em;line-height:.96}
+h1,h2,h3{margin:0;font-weight:700;letter-spacing:-0.035em;line-height:1.02;text-wrap:balance}
+h1{font-size:clamp(44px,7.2vw,104px);letter-spacing:-0.045em;line-height:.96;font-weight:800}
 h2{font-size:clamp(36px,5.2vw,72px)}
-h3{font-size:clamp(22px,2.2vw,28px);letter-spacing:-0.02em;line-height:1.15}
+h3{font-size:clamp(22px,2.2vw,28px);letter-spacing:-0.02em;line-height:1.15;font-weight:600}
 p{margin:0}
 em.s{font-family:var(--f-display);font-style:normal;font-weight:700;font-size:.74em;letter-spacing:-0.02em;color:var(--indigo);background:linear-gradient(transparent 62%,var(--yellow2) 62%,var(--yellow2) 94%,transparent 94%);padding:0 .08em;box-decoration-break:clone;-webkit-box-decoration-break:clone}
 .dark em.s{color:var(--yellow);background:none}
@@ -42,7 +46,11 @@ em.s{font-family:var(--f-display);font-style:normal;font-weight:700;font-size:.7
 .dark .eyebrow::before{box-shadow:0 0 0 3px rgba(245,196,0,.25)}
 .lead{font-size:clamp(18px,1.55vw,21px);line-height:1.5;color:var(--ink2);max-width:58ch;letter-spacing:-0.005em}
 .wrap{max-width:var(--max);margin-inline:auto;padding-inline:var(--gutter)}
-.sec{padding-block:clamp(80px,11vw,152px)}
+.sec{padding-block:clamp(80px,11vw,152px);position:relative}
+/* drawn section rule (metic-style guide line + crosshair) */
+.sec::before{content:"";position:absolute;left:var(--gutter);right:var(--gutter);top:0;height:1px;background:currentColor;opacity:.16;transform:scaleX(0);transform-origin:left;transition:transform 1.5s cubic-bezier(.2,.7,.2,1)}
+.sec::after{content:"+";position:absolute;left:calc(var(--gutter) - 6px);top:-11px;font:400 16px/1 var(--f-mono);opacity:0;transition:opacity .6s .9s}
+.sec.in::before{transform:scaleX(1)}.sec.in::after{opacity:.5}
 .btn{display:inline-flex;align-items:center;gap:10px;height:54px;padding:0 26px;border-radius:999px;border:0;background:var(--indigo);color:#fff;font:600 15.5px/1 var(--f-sans);letter-spacing:-0.005em;text-decoration:none;cursor:pointer;transition:transform .2s cubic-bezier(.2,.7,.2,1),background .2s;white-space:nowrap}
 .btn:hover{transform:translateY(-1px);background:var(--indigo2)}
 .btn svg{width:16px;height:16px;transition:transform .2s}
@@ -55,10 +63,20 @@ em.s{font-family:var(--f-display);font-style:normal;font-weight:700;font-size:.7
 .dark .lead{color:var(--dark-ink2)}
 .dark .eyebrow{color:var(--dark-ink2)}
 .dark .btn--ghost{color:var(--dark-ink);box-shadow:inset 0 0 0 1.5px var(--dark-line)}.dark .btn--ghost:hover{background:rgba(255,255,255,.06);box-shadow:inset 0 0 0 1.5px var(--dark-ink2)}
-.rv{transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1)}
-.js .rv{opacity:.02;transform:translateY(16px)}
+.rv{transition:opacity .9s cubic-bezier(.2,.7,.2,1),transform .9s cubic-bezier(.2,.7,.2,1)}
+.js .rv{opacity:.02;transform:translateY(18px)}
 .js .rv.in{opacity:1;transform:none}
-@media (prefers-reduced-motion:reduce){.rv,.js .rv{opacity:1;transform:none;transition:none}}
+@media (prefers-reduced-motion:reduce){.rv,.js .rv{opacity:1;transform:none;transition:none}.sec::before{transform:none}.sec::after{opacity:.5}}
+
+/* ruler (fixed, right edge) */
+.ruler,.rulerm{position:fixed;top:0;right:0;bottom:0;width:44px;z-index:45;pointer-events:none}
+.ruler{mix-blend-mode:difference;color:#fff}
+.ruler i{position:absolute;right:0;width:7px;height:1px;background:currentColor;opacity:.55}
+.ruler i.M{width:15px;opacity:.8}
+.ruler i b{position:absolute;right:20px;top:-6px;font:500 9px/1 var(--f-mono);letter-spacing:.06em;color:currentColor;opacity:.9}
+.rulerm span{position:absolute;right:0;width:44px;height:2px;background:var(--yellow);box-shadow:0 0 0 1px rgba(0,0,0,.08)}
+.rulerm em{position:absolute;right:4px;top:-16px;font:500 10px/1 var(--f-mono);font-style:normal;color:var(--yellow);letter-spacing:.04em}
+@media (max-width:900px){.ruler,.rulerm{display:none}}
 
 /* nav */
 .nav{position:fixed;inset:0 0 auto 0;z-index:50;padding-top:env(safe-area-inset-top,0px);transition:background .3s,box-shadow .3s}
@@ -66,9 +84,9 @@ em.s{font-family:var(--f-display);font-style:normal;font-weight:700;font-size:.7
 .nav.ondark{color:var(--dark-ink)}
 .nav.ondark.scrolled{background:rgba(26,17,64,.78);box-shadow:0 1px 0 rgba(255,255,255,.06)}
 .nav .wrap{display:flex;align-items:center;gap:32px;height:72px}
-.logo{display:flex;align-items:center;gap:10px;text-decoration:none;font-weight:600;font-size:18px;letter-spacing:-0.02em}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;font-weight:700;font-size:18px;letter-spacing:-0.02em}
 .logo img{width:34px;height:auto}
-.nav nav{display:flex;gap:28px;margin-left:auto}
+.nav nav{display:flex;gap:26px;margin-left:auto}
 .nav nav a{text-decoration:none;font-size:15px;font-weight:500;opacity:.72}
 .nav nav a:hover{opacity:1}
 .nav .btn{height:44px;padding:0 20px;font-size:14.5px}
@@ -80,15 +98,21 @@ em.s{font-family:var(--f-display);font-style:normal;font-weight:700;font-size:.7
 .hero{position:relative;padding-top:calc(72px + clamp(48px,8vw,112px));padding-bottom:0}
 .hero::before{content:"";position:absolute;top:-120px;right:-160px;width:620px;height:620px;border-radius:50%;background:radial-gradient(circle,rgba(51,36,196,.16) 0%,rgba(51,36,196,0) 65%);pointer-events:none}
 .hero::after{content:"";position:absolute;top:360px;left:-220px;width:520px;height:520px;border-radius:50%;background:radial-gradient(circle,rgba(245,196,0,.22) 0%,rgba(245,196,0,0) 65%);pointer-events:none;z-index:-1}
+.hero .inner{position:relative}
+.guides{position:absolute;inset:-28px;width:calc(100% + 56px);height:calc(100% + 56px);pointer-events:none;overflow:visible;color:var(--ink)}
+.guides line{stroke:currentColor;stroke-width:1;opacity:.22;stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset 1.8s cubic-bezier(.2,.7,.2,1)}
+.guides line:nth-child(2){transition-delay:.25s}.guides line:nth-child(3){transition-delay:.5s}.guides line:nth-child(4){transition-delay:.7s}
+.guides text{font:500 10px var(--f-mono);letter-spacing:.08em;fill:currentColor;opacity:0;transition:opacity .6s 1s}
+.guides.in line{stroke-dashoffset:0}.guides.in text{opacity:.55}
+@media (max-width:900px){.guides{display:none}}
 .hero h1{max-width:13ch}
 .hero .lead{margin-top:28px}
 .hero-cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:36px}
-.hero-meta{display:flex;gap:28px;flex-wrap:wrap;margin-top:40px;color:var(--ink3)}
 .hero-fig{position:relative;margin:clamp(48px,7vw,88px) 0 0;border-radius:var(--r);overflow:hidden;aspect-ratio:16/8.4;background:var(--bg2)}
-.hero-fig img{width:100%;height:100%;object-fit:cover}
+.hero-fig img{width:100%;height:100%;object-fit:cover;object-position:center 42%}
 .hero-fig::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0) 55%,rgba(0,0,0,.28) 100%)}
 .cap{position:absolute;z-index:2;background:rgba(255,255,255,.92);backdrop-filter:blur(8px);border-radius:14px;padding:14px 16px;max-width:320px;display:grid;gap:4px;box-shadow:0 10px 30px rgba(0,0,0,.12)}
-.cap b{font-weight:600;font-size:15px;letter-spacing:-0.01em;color:var(--indigo)}
+.cap b{font-weight:700;font-size:15px;letter-spacing:-0.01em;color:var(--indigo)}
 .cap span{font-size:13.5px;color:var(--ink2);line-height:1.4}
 .cap.c1{left:24px;bottom:24px}
 .cap.c2{right:24px;top:24px}
@@ -141,7 +165,7 @@ em.s{font-family:var(--f-display);font-style:normal;font-weight:700;font-size:.7
 .mitem{text-align:left;background:var(--card);border:1px solid var(--line);border-radius:var(--r-s);padding:20px 22px;cursor:pointer;font:inherit;color:inherit;display:grid;gap:6px;transition:border-color .2s,background .2s}
 .mitem[aria-selected="true"]{border-color:var(--indigo);background:#fff;box-shadow:0 0 0 3px rgba(51,36,196,.12)}
 .mitem .mono{color:var(--indigo)}
-.mitem b{font-size:22px;font-weight:600;letter-spacing:-0.02em}
+.mitem b{font-size:22px;font-weight:700;letter-spacing:-0.02em}
 .mitem p{color:var(--ink2);font-size:15px;line-height:1.45}
 .mitem .tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}
 .tag{font-family:var(--f-mono);font-size:11px;letter-spacing:.04em;text-transform:uppercase;padding:5px 9px;border-radius:999px;background:var(--bg2);color:var(--indigo)}
@@ -152,45 +176,96 @@ em.s{font-family:var(--f-display);font-style:normal;font-weight:700;font-size:.7
 .stage .ld{position:absolute;inset:0;display:grid;place-items:center;color:var(--ink3);font-size:14px}
 @media (max-width:900px){.mach{grid-template-columns:1fr}.stage{order:-1;aspect-ratio:1/1;min-height:0}.mach-head{grid-template-columns:1fr}}
 
-/* the build (dark, pinned) */
-#build{position:relative;height:620vh}
-.pin{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;background:#130C30;color:var(--dark-ink)}
-.pin canvas{position:absolute;inset:0;width:100%;height:100%}
-#lines{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
-#lines path{fill:none;stroke:rgba(244,242,236,.35);stroke-width:1}
-#lines circle{fill:var(--yellow);stroke:#130C30;stroke-width:1.5}
-.labels{position:absolute;inset:0;pointer-events:none}
+/* the build (pinned, long) */
+#build{position:relative;height:1500vh}
+@media (max-width:700px){#build{height:1100vh}}
+.pin{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;background:#130C30;color:var(--pin-ink);
+  --pin-ink:#F8F6FF;--pin-ink2:#BDB6E3;--pin-line:rgba(244,242,236,.38);--pin-dot:#F5C400;--pin-acc:#F5C400;--pin-grid:rgba(255,255,255,.06)}
+.pin.paper{--pin-ink:#120E2E;--pin-ink2:#5A567A;--pin-line:rgba(51,36,196,.55);--pin-dot:#3324C4;--pin-acc:#3324C4;--pin-grid:rgba(51,36,196,.1)}
+.pin,.pin .lbl b,.pin .lbl span,.pin .ph p,.pin .ph .eyebrow,.pin .prog,.pin .bmeta,.pin .chap,.pin .tblock{transition:color .6s,background-color .6s}
+.btitle{position:absolute;inset:0;z-index:0;display:grid;place-items:center;pointer-events:none;font-family:var(--f-display);font-weight:800;font-size:clamp(64px,17vw,250px);letter-spacing:-0.04em;line-height:.9;text-align:center;white-space:nowrap;color:transparent;-webkit-text-stroke:1.5px rgba(248,246,255,.22);transition:opacity .4s}
+.btitle small{display:block;font:500 12px/1 var(--f-mono);letter-spacing:.14em;text-transform:uppercase;color:var(--yellow);-webkit-text-stroke:0;margin-top:22px}
+.pin canvas{position:absolute;inset:0;width:100%;height:100%;z-index:1}
+#lines{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:2}
+#lines path{fill:none;stroke:var(--pin-line);stroke-width:1}
+#lines circle{fill:var(--pin-dot);stroke:#130C30;stroke-width:1.5}
+.pin.paper #lines circle{stroke:#F4F2FB}
+#lines .dim{fill:none;stroke:var(--indigo);stroke-width:1;opacity:0}
+#lines .dim.b{stroke-dasharray:4 4;opacity:0}
+#lines .dimt{font:500 11px var(--f-mono);letter-spacing:.06em;fill:var(--indigo);opacity:0}
+.labels{position:absolute;inset:0;pointer-events:none;z-index:3}
 .lbl{position:absolute;left:0;top:0;width:200px;opacity:0;transition:opacity .25s;display:grid;gap:3px}
-.lbl b{font:500 12px/1.2 var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--dark-ink)}
-.lbl span{font-size:13px;color:var(--dark-ink2);line-height:1.3}
+.lbl b{font:500 12px/1.2 var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--pin-ink)}
+.lbl span{font-size:13px;color:var(--pin-ink2);line-height:1.3}
 .lbl.r{text-align:right}
-.bcopy{position:absolute;left:var(--gutter);bottom:clamp(56px,9vh,96px);width:min(520px,calc(100% - 2*var(--gutter)));pointer-events:none}
+.bcopy{position:absolute;left:var(--gutter);bottom:clamp(56px,9vh,96px);width:min(520px,calc(100% - 2*var(--gutter)));pointer-events:none;z-index:4}
 .ph{position:absolute;left:0;bottom:0;width:100%;opacity:0;transform:translateY(12px);transition:opacity .45s,transform .45s}
 .ph.on{opacity:1;transform:none;pointer-events:auto}
-.ph .eyebrow{margin-bottom:16px;color:var(--yellow)}
+.ph .eyebrow{margin-bottom:16px;color:var(--pin-acc)}
 .ph h2{font-size:clamp(34px,4.6vw,64px)}
-.ph p{margin-top:16px;color:var(--dark-ink2);font-size:clamp(15.5px,1.3vw,18px);max-width:44ch}
+.ph p{margin-top:16px;color:var(--pin-ink2);font-size:clamp(15.5px,1.3vw,18px);max-width:44ch}
 .ph .cta{display:flex;gap:10px;flex-wrap:wrap;margin-top:24px}
-.prog{position:absolute;right:var(--gutter);bottom:28px;display:flex;align-items:center;gap:14px;color:var(--dark-ink2)}
-.prog .bar{width:160px;height:2px;background:var(--dark-line);border-radius:2px;overflow:hidden}
-.prog .bar i{display:block;height:100%;width:0;background:var(--yellow)}
-.bmeta{position:absolute;right:var(--gutter);top:calc(72px + 28px);text-align:right;color:var(--dark-ink2);display:grid;gap:4px}
-.bmeta b{font-family:var(--f-display);font-size:24px;font-weight:700;letter-spacing:-0.02em;color:var(--yellow);font-variant-numeric:tabular-nums}
-.cue{position:absolute;left:50%;bottom:28px;transform:translateX(-50%);color:var(--dark-ink2);transition:opacity .3s;display:flex;flex-direction:column;align-items:center;gap:8px}
-.cue i{width:1px;height:34px;background:linear-gradient(var(--dark-ink2),transparent);animation:cue 1.8s ease-in-out infinite}
+.pin.paper .btn--light{background:var(--indigo);color:#fff}
+.prog{position:absolute;right:var(--gutter);bottom:28px;display:flex;align-items:center;gap:14px;color:var(--pin-ink2);z-index:4}
+.prog .bar{width:160px;height:2px;background:rgba(128,128,160,.35);border-radius:2px;overflow:hidden}
+.prog .bar i{display:block;height:100%;width:0;background:var(--pin-acc)}
+.bmeta{position:absolute;right:var(--gutter);top:calc(72px + 28px);text-align:right;color:var(--pin-ink2);display:grid;gap:4px;z-index:4}
+.bmeta b{font-family:var(--f-display);font-size:24px;font-weight:700;letter-spacing:-0.02em;color:var(--pin-acc);font-variant-numeric:tabular-nums}
+.chaps{position:absolute;left:var(--gutter);top:calc(72px + 28px);display:grid;gap:8px;z-index:4}
+.chap{background:none;border:0;padding:0;cursor:pointer;display:flex;align-items:center;gap:10px;color:var(--pin-ink2);font:500 11px var(--f-mono);letter-spacing:.08em;text-transform:uppercase;opacity:.55;transition:opacity .3s}
+.chap::before{content:"";width:18px;height:1px;background:currentColor;transition:width .3s}
+.chap.on{opacity:1;color:var(--pin-ink)}.chap.on::before{width:34px;background:var(--pin-acc)}
+.tblock{position:absolute;right:var(--gutter);bottom:72px;z-index:4;display:grid;grid-template-columns:auto auto;gap:3px 18px;padding:12px 14px;border:1px solid var(--pin-line);color:var(--pin-ink2);font:500 10.5px/1.5 var(--f-mono);letter-spacing:.06em;text-transform:uppercase;opacity:0;transition:opacity .4s}
+.tblock b{color:var(--pin-ink);font-weight:500}
+#fade{position:absolute;inset:0;z-index:6;background:var(--bg);opacity:0;pointer-events:none}
+.cue{position:absolute;left:50%;bottom:28px;transform:translateX(-50%);color:var(--pin-ink2);transition:opacity .3s;display:flex;flex-direction:column;align-items:center;gap:8px;z-index:4}
+.cue i{width:1px;height:34px;background:linear-gradient(var(--pin-ink2),transparent);animation:cue 1.8s ease-in-out infinite}
 @keyframes cue{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
-@media (max-width:980px){.cue{display:none}}
-@media (max-width:700px){.lbl{width:120px}.lbl span{display:none}.lbl b{font-size:10.5px}.prog .bar{width:90px}.prog span{display:none}.bmeta b{font-size:22px}}
+@media (max-width:980px){.cue{display:none}.tblock{display:none}.chaps{display:none}}
+@media (max-width:700px){.lbl{width:120px}.lbl span{display:none}.lbl b{font-size:10.5px}.prog .bar{width:90px}.prog span{display:none}.bmeta b{font-size:22px}.btitle{font-size:19vw}}
 
 /* core */
 .core-grid{display:grid;grid-template-columns:minmax(0,6fr) minmax(0,6fr);gap:clamp(32px,6vw,80px);align-items:center}
-.core-art{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:clamp(20px,3vw,40px)}
-.core-art svg{width:100%;height:auto;display:block}
+.core-art{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);grid-template-rows:1fr 1fr;gap:12px}
+.core-art figure{margin:0;position:relative;border-radius:var(--r-s);overflow:hidden;background:var(--bg2);border:1px solid var(--line)}
+.core-art figure:first-child{grid-row:1/3;aspect-ratio:3/4}
+.core-art img{width:100%;height:100%;object-fit:cover}
+.core-art figcaption{position:absolute;left:12px;bottom:12px;background:rgba(255,255,255,.92);backdrop-filter:blur(6px);border-radius:8px;padding:6px 9px;color:var(--indigo)}
 .specs{display:grid;grid-template-columns:1fr 1fr;gap:0;margin-top:32px;border-top:1px solid var(--line)}
 .specs div{padding:16px 16px 16px 0;border-bottom:1px solid var(--line);display:grid;gap:4px}
 .specs .mono{color:var(--indigo);font-size:11px}
 .specs b{font-weight:600;letter-spacing:-0.01em;font-size:17px}
 @media (max-width:900px){.core-grid{grid-template-columns:1fr}}
+
+/* hardware gallery */
+.hw{background:var(--bg2)}
+.hwg{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));grid-auto-rows:clamp(150px,19vw,250px);gap:12px;margin-top:clamp(36px,5vw,56px)}
+.hwg figure{margin:0;position:relative;border-radius:var(--r-s);overflow:hidden;background:var(--card);border:1px solid var(--line)}
+.hwg img{width:100%;height:100%;object-fit:cover;transition:transform 1s cubic-bezier(.2,.7,.2,1)}
+.hwg figure:hover img{transform:scale(1.04)}
+.hwg figcaption{position:absolute;left:12px;bottom:12px;background:rgba(18,14,46,.78);color:#fff;backdrop-filter:blur(6px);border-radius:8px;padding:6px 9px}
+.hwg .a{grid-column:span 4;grid-row:span 2}.hwg .b{grid-column:span 4}.hwg .c{grid-column:span 4}.hwg .d{grid-column:span 5}.hwg .e{grid-column:span 3}
+@media (max-width:800px){.hwg{grid-template-columns:1fr 1fr;grid-auto-rows:180px}.hwg .a{grid-column:span 1;grid-row:span 2}.hwg .b,.hwg .c,.hwg .d,.hwg .e{grid-column:span 1}}
+
+/* code lab */
+.cl-head{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:32px;align-items:end}
+.cl-frame{margin-top:clamp(36px,5vw,56px);border-radius:var(--r);overflow:hidden;border:1px solid var(--line);background:var(--card);box-shadow:0 30px 80px rgba(51,36,196,.12)}
+.cl-bar{display:flex;align-items:center;gap:8px;padding:12px 16px;border-bottom:1px solid var(--line);background:#fff}
+.cl-bar span{width:10px;height:10px;border-radius:50%;background:var(--line2)}
+.cl-bar i{margin-left:12px;font-style:normal;color:var(--ink3)}
+.cl-frame img{width:100%;height:auto}
+.cl-soon{aspect-ratio:16/8.5;display:grid;grid-template-columns:200px 1fr;background:#F3F1FB}
+.cl-soon .pal{border-right:1px solid var(--line);padding:16px;display:grid;gap:8px;align-content:start}
+.cl-soon .blk{height:34px;border-radius:8px;display:flex;align-items:center;padding:0 12px;color:#fff;font:600 12px var(--f-sans);letter-spacing:-0.005em}
+.cl-soon .cv{position:relative;background-image:radial-gradient(var(--line2) 1px,transparent 1px);background-size:22px 22px;padding:28px}
+.cl-soon .stack{display:grid;gap:6px;width:min(360px,80%)}
+.cl-soon .note{position:absolute;right:20px;bottom:20px;background:#fff;border:1px solid var(--line);border-radius:10px;padding:10px 12px;color:var(--ink2);font-size:13px;max-width:260px}
+.cl-steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:24px}
+.cl-steps div{display:grid;gap:8px;padding:22px 24px;background:var(--card);border:1px solid var(--line);border-radius:var(--r-s)}
+.cl-steps .mono{color:var(--indigo)}
+.cl-steps b{font-size:19px;font-weight:700;letter-spacing:-0.02em}
+.cl-steps p{color:var(--ink2);font-size:15px}
+@media (max-width:900px){.cl-head,.cl-steps{grid-template-columns:1fr}.cl-soon{grid-template-columns:1fr}.cl-soon .pal{display:none}}
 
 /* offer */
 .offer{background:var(--bg2)}
@@ -248,6 +323,7 @@ form .btn{justify-self:start}
 
 /* closing + footer */
 .close{padding-block:clamp(72px,10vw,140px);background:var(--indigo)}
+.close::before,.close::after{display:none}
 .close h2{color:#fff}
 .close em.s{color:var(--yellow)}
 .close .row{display:flex;justify-content:space-between;align-items:flex-end;gap:32px;flex-wrap:wrap}
@@ -262,24 +338,36 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
 <header class="nav" id="nav">
   <div class="wrap">
     <a class="logo" href="#top"><img src="img/logo.png" alt="" width="34" height="13"><span>Kokoon Labs</span></a>
-    <nav aria-label="Main"><a href="#why">Why now</a><a href="#machines">Machines</a><a href="#build">The build</a><a href="#core">The Core</a><a href="#offer">Price</a></nav>
+    <nav aria-label="Main"><a href="#why">Why now</a><a href="#machines">Machines</a><a href="#build">The build</a><a href="#core">The Core</a><a href="#codelab">Code Lab</a><a href="#offer">Price</a></nav>
     <button class="menu" id="menuBtn">Menu</button>
     <a class="btn" href="#reserve">Reserve Series 01</a>
   </div>
 </header>
+<div class="ruler" id="ruler" aria-hidden="true"></div>
+<div class="rulerm" aria-hidden="true"><span id="rmk"><em id="rpct">0</em></span></div>
 
 <main id="top">
 <section class="hero wrap" aria-labelledby="h1">
-  <div class="eyebrow mono rv">Kokoon Origin · Series 01 · Ages 14+</div>
-  <h1 id="h1" class="rv">The future won't be written. <em class="s">It will be built.</em></h1>
-  <p class="lead rv">A real robotics lab for teenagers. Our own Core board, three machines they build and keep, and a guided path from their first LED to a robot that thinks. For the generation growing up with AI.</p>
-  <div class="hero-cta rv">
-    <a class="btn btn--indigo" href="#reserve">Reserve Series 01 <svg viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-    <a class="btn btn--ghost" href="#machines">See what they build</a>
+  <div class="inner">
+    <svg class="guides rv" aria-hidden="true">
+      <line x1="0" y1="0" x2="100%" y2="0" pathLength="1"/>
+      <line x1="0" y1="0" x2="0" y2="100%" pathLength="1"/>
+      <line x1="0" y1="100%" x2="100%" y2="100%" pathLength="1"/>
+      <line x1="100%" y1="0" x2="100%" y2="100%" pathLength="1"/>
+      <text x="8" y="-8">01 / ORIGIN · SERIES 01</text>
+      <text x="8" y="100%" dy="16">KOKOON LABS · DESIGNED IN INDIA</text>
+    </svg>
+    <div class="eyebrow mono rv">Kokoon Origin · Series 01 · Ages 14+</div>
+    <h1 id="h1" class="rv">The future won't be written. <em class="s">It will be built.</em></h1>
+    <p class="lead rv">A real robotics lab for teenagers. Our own Core board, three machines they build and keep, and a guided path from their first LED to a robot that thinks. For the generation growing up with AI.</p>
+    <div class="hero-cta rv">
+      <a class="btn btn--indigo" href="#reserve">Reserve Series 01 <svg viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      <a class="btn btn--ghost" href="#machines">See what they build</a>
+    </div>
   </div>
   <figure class="hero-fig rv">
-    <img src="img/bench.jpg" alt="A teenager at a workbench wiring a circuit on a breadboard connected to a green Kokoon board." width="1400" height="763">
-    <div class="cap c1"><b>Week two. Wiring a distance sensor.</b><span>Nothing works yet. That's the part that teaches.</span></div>
+    <img src="img/p/hero.jpg" alt="A hand places the Kokoon Core board onto a black build plate, with four sensor modules wired to it." width="2000" height="1500">
+    <div class="cap c1"><b>Our own board. The Kokoon Core.</b><span>ESP32-S3, four motor channels, sensors that click onto the plate.</span></div>
     <div class="cap c2"><b>Not a toy version of engineering.</b><span>The same board, the same faults, the same fix.</span></div>
   </figure>
   <div class="strip mono rv"><span>Designed in India</span><span>Our own ESP32-S3 Core board</span><span>3 machines they keep</span><span>50+ guided builds</span><span>No prior coding needed</span></div>
@@ -289,7 +377,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
   <div class="wrap">
     <div class="top">
       <div>
-        <div class="eyebrow mono rv">Why now</div>
+        <div class="eyebrow mono rv">01 — Why now</div>
         <h2 id="why-h" class="rv">AI already writes the code. <span class="dim">It still can't build the machine.</span></h2>
       </div>
       <p class="lead rv">Software is getting very good at writing software. It is not getting better at spotting a problem worth solving, or at making a thing that works in the real world. The next decade belongs to people who can make code touch metal, motors and sensors. That can't be prompted. It has to be built, by hand, with mistakes.</p>
@@ -308,20 +396,20 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
 
 <section class="sec moments" aria-labelledby="mo-h">
   <div class="wrap">
-    <div class="eyebrow mono rv">What you're really buying</div>
+    <div class="eyebrow mono rv">02 — What you're really buying</div>
     <h2 id="mo-h" class="rv">Not a kit. <em class="s">The moment it works.</em></h2>
     <p class="lead rv" style="margin-top:24px">It does not begin with a robot. It begins with one part, one question, and a chance to see what happens. They connect a part, test it, change one thing, and watch the machine respond.</p>
     <div class="mgrid">
-      <article class="moment rv"><figure><img src="img/plant.jpg" alt="A small sensor board wired to a potted plant on a wooden table." loading="lazy"></figure><div><span class="mono">Moment 01</span><h3>The first LED, in their pocket</h3><p>No screens for the first weeks. They learn what current and resistance do by wiring things wrong and working out why. Most light an LED in the first session and take it home.</p></div></article>
-      <article class="moment rv"><figure><img src="img/boxbot.jpg" alt="A home-made robot with an ultrasonic sensor and wires, on a sunlit table." loading="lazy"></figure><div><span class="mono">Moment 02</span><h3>The first fault they fix alone</h3><p>A loose wire, a motor backwards, code that surprises them. Real hardware has real faults. Finding one and fixing it is the day they stop asking you to sit with them.</p></div></article>
-      <article class="moment rv"><figure><img src="img/rover.jpg" alt="A small wheeled robot following a black line drawn on a table." loading="lazy"></figure><div><span class="mono">Moment 03</span><h3>The first machine that listens</h3><p>A robot that does what they told it to. Not a video of one. One component becomes a response, a few responses become a build, and then the question changes: what else can I make it do?</p></div></article>
+      <article class="moment rv"><figure><img src="img/p/hand.jpg" alt="A hand holding the Kokoon Core board in its clear case." loading="lazy"></figure><div><span class="mono">Moment 01</span><h3>The first LED, in their pocket</h3><p>No screens for the first weeks. They learn what current and resistance do by wiring things wrong and working out why. Most light an LED in the first session and take it home.</p></div></article>
+      <article class="moment rv"><figure><img src="img/p/project.jpg" alt="The Core board on a build plate, wired to four sensor and motor modules." loading="lazy"></figure><div><span class="mono">Moment 02</span><h3>The first fault they fix alone</h3><p>A loose wire, a motor backwards, code that surprises them. Real hardware has real faults. Finding one and fixing it is the day they stop asking you to sit with them.</p></div></article>
+      <article class="moment rv"><figure><img src="img/p/hands2.jpg" alt="A hand steadies a build plate while modules are wired to the Core." loading="lazy"></figure><div><span class="mono">Moment 03</span><h3>The first machine that listens</h3><p>A robot that does what they told it to. Not a video of one. One component becomes a response, a few responses become a build, and then the question changes: what else can I make it do?</p></div></article>
     </div>
   </div>
 </section>
 
 <section class="sec home" aria-labelledby="home-h">
   <div class="wrap">
-    <div class="eyebrow mono rv">What you'll notice</div>
+    <div class="eyebrow mono rv">03 — What you'll notice</div>
     <h2 id="home-h" class="rv">What changes at home.</h2>
     <p class="lead rv" style="margin-top:24px">The building is their problem. This is what you see across the kitchen table.</p>
     <div class="tl">
@@ -336,7 +424,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
 <section class="sec" id="machines" aria-labelledby="ma-h">
   <div class="wrap">
     <div class="mach-head">
-      <div><div class="eyebrow mono rv">What they finish with</div><h2 id="ma-h" class="rv">Three machines they build, <em class="s">and keep.</em></h2></div>
+      <div><div class="eyebrow mono rv">04 — What they finish with</div><h2 id="ma-h" class="rv">Three machines they build, <em class="s">and keep.</em></h2></div>
       <p class="lead rv">3D-printed, motorised, and wired by hand. Every student finishes all three. None of them had wired a circuit before week one.</p>
     </div>
     <div class="mach">
@@ -355,97 +443,41 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
   </div>
 </section>
 
-<section id="build" aria-label="Sentry X1, taken apart and rebuilt as you scroll">
+<section id="build" aria-label="Sentry X1, taken apart, drawn, rebuilt and switched on as you scroll">
   <div class="pin" id="pin">
+    <div class="btitle" id="btitle" aria-hidden="true"><div>Sentry X1<small>Capstone 01 · the real print file</small></div></div>
     <canvas id="c3d" aria-hidden="true"></canvas>
     <svg id="lines" aria-hidden="true"></svg>
     <div class="labels" id="labels" aria-hidden="true"></div>
+    <div class="chaps" id="chaps" aria-hidden="true"></div>
     <div class="bmeta" aria-hidden="true"><span class="mono" id="bmLbl">Parts in place</span><b id="bmVal">14 / 14</b></div>
+    <div class="tblock" id="tblock" aria-hidden="true"><span>Drawing</span><b>KL-SX1-01</b><span>Scale</span><b>1 : 1 · mm</b><span>Parts</span><b>14 · PLA</b><span>Servos</span><b>2 · 1 sensor</b><span>Sheet</span><b>1 / 1</b></div>
     <div class="bcopy">
-      <div class="ph on" data-from="0" data-to="0.14"><div class="eyebrow mono">Sentry X1 · Capstone 01</div><h2>Every machine is a set of ideas.</h2><p>This is the real print file, not an illustration. Scroll to take it apart.</p></div>
-      <div class="ph" data-from="0.14" data-to="0.42"><div class="eyebrow mono">Fourteen printed parts · two servos · one sensor</div><h2>Take it apart and you find a brain, power, motion and senses.</h2><p>Your child learns each one on its own, then puts them back together.</p></div>
-      <div class="ph" data-from="0.42" data-to="0.6"><div class="eyebrow mono">Stage 1 · The base</div><h2>First, it learns to stand.</h2><p>The chassis and the turntable. Loads, balance and the servo that turns the whole machine.</p></div>
-      <div class="ph" data-from="0.6" data-to="0.76"><div class="eyebrow mono">Stage 2 · Motion</div><h2>Then it learns to aim.</h2><p>The yoke, the tilt servo and the shaft. They work out how a machine turns exactly as far as it's told.</p></div>
-      <div class="ph" data-from="0.76" data-to="0.9"><div class="eyebrow mono">Stage 3 · Purpose</div><h2>Then it does what they designed.</h2><p>Flywheels, barrel and magazine. Sensing, timing and the code that has to hit something moving.</p></div>
-      <div class="ph" data-from="0.9" data-to="1.01"><div class="eyebrow mono">Built by them</div><h2>It's watching you.</h2><p>Move your cursor. The finished machine tracks it, on code they wrote.</p><div class="cta"><a class="btn btn--light" href="#reserve">Reserve Series 01</a><a class="btn btn--ghost" href="#core">Meet the Core</a></div></div>
+      <div class="ph on" data-from="0" data-to="0.09"><div class="eyebrow mono">Sentry X1 · Capstone 01</div><h2>Every machine is a set of ideas.</h2><p>This is the real print file, not an illustration. Scroll to take it apart.</p></div>
+      <div class="ph" data-from="0.09" data-to="0.30"><div class="eyebrow mono">Fourteen printed parts · two servos · one sensor</div><h2>Take it apart and you find a brain, power, motion and senses.</h2><p>Your child learns each one on its own, then puts them back together.</p></div>
+      <div class="ph" data-from="0.30" data-to="0.50"><div class="eyebrow mono">The drawing</div><h2>Before it was plastic, it was a drawing.</h2><p>Every part was designed in CAD, measured in millimetres and printed. They learn to read a drawing like this, and then to make their own.</p></div>
+      <div class="ph" data-from="0.50" data-to="0.62"><div class="eyebrow mono">Stage 1 · The base</div><h2>First, it learns to stand.</h2><p>The chassis and the turntable. Loads, balance and the servo that turns the whole machine.</p></div>
+      <div class="ph" data-from="0.62" data-to="0.72"><div class="eyebrow mono">Stage 2 · Motion</div><h2>Then it learns to aim.</h2><p>The yoke, the tilt servo and the shaft. They work out how a machine turns exactly as far as it's told.</p></div>
+      <div class="ph" data-from="0.72" data-to="0.82"><div class="eyebrow mono">Stage 3 · Purpose</div><h2>Then it does what they designed.</h2><p>Flywheels, barrel and magazine. Sensing, timing and the code that has to hit something moving.</p></div>
+      <div class="ph" data-from="0.82" data-to="0.93"><div class="eyebrow mono">Built by them</div><h2>It's watching you.</h2><p>Move your cursor. The finished machine tracks it, on code they wrote.</p><div class="cta"><a class="btn btn--light" href="#reserve">Reserve Series 01</a><a class="btn btn--ghost" href="#core">Meet the Core</a></div></div>
+      <div class="ph" data-from="0.93" data-to="1.01"><div class="eyebrow mono">Under the cover</div><h2>Every machine runs on the same brain.</h2><p>Keep scrolling to meet it.</p></div>
     </div>
     <div class="cue" id="cue"><span class="mono">Scroll</span><i></i></div>
     <div class="prog" aria-hidden="true"><span class="mono" id="pnow">Assembled</span><div class="bar"><i id="pbar"></i></div></div>
+    <div id="fade"></div>
   </div>
 </section>
 
 <section class="sec" id="core" aria-labelledby="core-h">
   <div class="wrap core-grid">
     <div class="core-art rv">
-      <svg viewBox="0 0 600 560" role="img" aria-label="Illustration of the Kokoon Core board: a green circuit board in a clear case with a lime frame, an ESP32-S3 module, connectors on three sides and a colour-coded pin header.">
-        <defs>
-          <linearGradient id="gl" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#D7F04A"/><stop offset="1" stop-color="#B8D92A"/></linearGradient>
-          <linearGradient id="gp" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1A8A5F"/><stop offset="1" stop-color="#0E6B49"/></linearGradient>
-          <linearGradient id="gm" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#E9EBEE"/><stop offset="1" stop-color="#B9BEC6"/></linearGradient>
-          <filter id="sh" x="-10%" y="-10%" width="120%" height="130%"><feDropShadow dx="0" dy="10" stdDeviation="10" flood-color="#101114" flood-opacity=".16"/></filter>
-          <pattern id="dots" width="22" height="22" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r="1" fill="#D9D5CB"/></pattern>
-        </defs>
-        <rect width="600" height="560" fill="url(#dots)"/>
-        <!-- lime frame -->
-        <rect x="70" y="40" width="460" height="460" rx="34" fill="url(#gl)" filter="url(#sh)"/>
-        <rect x="88" y="58" width="424" height="424" rx="22" fill="#F4F7E0" opacity=".55"/>
-        <!-- pcb -->
-        <rect x="96" y="66" width="408" height="408" rx="16" fill="url(#gp)"/>
-        <rect x="96" y="66" width="408" height="408" rx="16" fill="none" stroke="#0A5338" stroke-width="2"/>
-        <!-- traces -->
-        <g stroke="#2FAE7D" stroke-width="1.4" fill="none" opacity=".7">
-          <path d="M130 300 h70 v-60 h60"/><path d="M130 320 h90 v40 h120"/><path d="M400 120 v60 h-40"/><path d="M460 300 h-60 v60"/><path d="M300 430 v-50 h40"/><path d="M180 150 h40 v30"/>
-        </g>
-        <!-- mounting holes -->
-        <g fill="#E8ECE4" stroke="#0A5338" stroke-width="2"><circle cx="118" cy="88" r="7"/><circle cx="482" cy="88" r="7"/><circle cx="118" cy="452" r="7"/><circle cx="482" cy="452" r="7"/></g>
-        <!-- ESP32-S3 module -->
-        <rect x="118" y="150" width="112" height="148" rx="4" fill="url(#gm)" stroke="#8E949C"/>
-        <rect x="118" y="150" width="112" height="34" rx="4" fill="#F7F8FA" stroke="#8E949C"/>
-        <g stroke="#9AA0A8" stroke-width="2"><path d="M128 166 h92"/><path d="M128 174 h92"/></g>
-        <text x="174" y="246" text-anchor="middle" font-family="DM Mono, monospace" font-size="11" fill="#3B4047" letter-spacing="1">ESP32-S3</text>
-        <text x="174" y="262" text-anchor="middle" font-family="DM Mono, monospace" font-size="8.5" fill="#6B7178">WIFI · BT · ESP-NOW</text>
-        <!-- capacitors -->
-        <g><circle cx="300" cy="128" r="26" fill="#2A2D33"/><circle cx="300" cy="128" r="22" fill="#3C4047"/><circle cx="300" cy="128" r="9" fill="#B9BEC6"/><text x="300" y="131" text-anchor="middle" font-size="7" fill="#DDE1E6" font-family="DM Mono">1000</text></g>
-        <g><circle cx="360" cy="128" r="26" fill="#2A2D33"/><circle cx="360" cy="128" r="22" fill="#3C4047"/><circle cx="360" cy="128" r="9" fill="#B9BEC6"/><text x="360" y="131" text-anchor="middle" font-size="7" fill="#DDE1E6" font-family="DM Mono">1000</text></g>
-        <!-- motor driver chips -->
-        <rect x="270" y="190" width="56" height="56" rx="3" fill="#15171B"/><rect x="340" y="190" width="56" height="56" rx="3" fill="#15171B"/>
-        <g fill="#C9CDD3"><rect x="262" y="198" width="8" height="40"/><rect x="326" y="198" width="8" height="40"/><rect x="332" y="198" width="8" height="40"/><rect x="396" y="198" width="8" height="40"/></g>
-        <!-- JST ports top -->
-        <g fill="#F2F1EA" stroke="#B9B6AA">
-          <rect x="250" y="70" width="40" height="26" rx="3"/><rect x="300" y="70" width="40" height="26" rx="3"/><rect x="350" y="70" width="40" height="26" rx="3"/><rect x="400" y="70" width="40" height="26" rx="3"/>
-        </g>
-        <g fill="#B9B6AA"><rect x="258" y="78" width="4" height="12"/><rect x="268" y="78" width="4" height="12"/><rect x="278" y="78" width="4" height="12"/><rect x="308" y="78" width="4" height="12"/><rect x="318" y="78" width="4" height="12"/><rect x="328" y="78" width="4" height="12"/><rect x="358" y="78" width="4" height="12"/><rect x="368" y="78" width="4" height="12"/><rect x="378" y="78" width="4" height="12"/><rect x="408" y="78" width="4" height="12"/><rect x="418" y="78" width="4" height="12"/><rect x="428" y="78" width="4" height="12"/></g>
-        <!-- JST ports right -->
-        <g fill="#F2F1EA" stroke="#B9B6AA"><rect x="470" y="170" width="28" height="44" rx="3"/><rect x="470" y="226" width="28" height="44" rx="3"/><rect x="470" y="282" width="28" height="44" rx="3"/><rect x="470" y="338" width="28" height="44" rx="3"/></g>
-        <!-- buttons -->
-        <rect x="150" y="330" width="26" height="26" rx="4" fill="#F0661A"/><rect x="190" y="330" width="26" height="26" rx="4" fill="#F0661A"/>
-        <rect x="150" y="376" width="22" height="12" rx="2" fill="#1C1F24"/><rect x="152" y="378" width="8" height="8" fill="#B9BEC6"/>
-        <!-- GPIO header colour coded -->
-        <g>
-          <rect x="246" y="392" width="196" height="56" rx="3" fill="#15171B"/>
-          <g id="hdr-y" fill="#F2C318"></g>
-        </g>
-        <g fill="#F2C318"><rect x="254" y="398" width="10" height="10"/><rect x="270" y="398" width="10" height="10"/><rect x="286" y="398" width="10" height="10"/><rect x="302" y="398" width="10" height="10"/><rect x="318" y="398" width="10" height="10"/><rect x="334" y="398" width="10" height="10"/><rect x="350" y="398" width="10" height="10"/><rect x="366" y="398" width="10" height="10"/><rect x="382" y="398" width="10" height="10"/><rect x="398" y="398" width="10" height="10"/><rect x="414" y="398" width="10" height="10"/><rect x="430" y="398" width="8" height="10"/></g>
-        <g fill="#2467C9"><rect x="254" y="415" width="10" height="10"/><rect x="270" y="415" width="10" height="10"/><rect x="286" y="415" width="10" height="10"/><rect x="302" y="415" width="10" height="10"/><rect x="318" y="415" width="10" height="10"/><rect x="334" y="415" width="10" height="10"/><rect x="350" y="415" width="10" height="10"/><rect x="366" y="415" width="10" height="10"/><rect x="382" y="415" width="10" height="10"/><rect x="398" y="415" width="10" height="10"/><rect x="414" y="415" width="10" height="10"/><rect x="430" y="415" width="8" height="10"/></g>
-        <g fill="#3A3D44"><rect x="254" y="432" width="10" height="10"/><rect x="270" y="432" width="10" height="10"/><rect x="286" y="432" width="10" height="10"/><rect x="302" y="432" width="10" height="10"/><rect x="318" y="432" width="10" height="10"/><rect x="334" y="432" width="10" height="10"/><rect x="350" y="432" width="10" height="10"/><rect x="366" y="432" width="10" height="10"/><rect x="382" y="432" width="10" height="10"/><rect x="398" y="432" width="10" height="10"/><rect x="414" y="432" width="10" height="10"/><rect x="430" y="432" width="8" height="10"/></g>
-        <!-- usb-c -->
-        <rect x="118" y="452" width="56" height="22" rx="8" fill="#B9BEC6" stroke="#8E949C"/><rect x="126" y="458" width="40" height="10" rx="5" fill="#2A2D33"/>
-        <!-- logo mark silkscreen -->
-        <g transform="translate(206 300) scale(.9)" fill="none" stroke="#E6F0E8" stroke-width="3"><path d="M20 0 L40 11.5 V34.5 L20 46 L0 34.5 V11.5 Z"/><circle cx="20" cy="23" r="7"/></g>
-        <text x="240" y="326" font-family="DM Mono, monospace" font-size="9" fill="#E6F0E8" letter-spacing="1">KOKOON CORE</text>
-        <!-- leader labels -->
-        <g font-family="DM Mono, monospace" font-size="10.5" fill="#5C5F67" letter-spacing=".8">
-          <path d="M174 150 V110 H40" stroke="#B4B0A5" fill="none"/><text x="20" y="104">ESP32-S3 · WIFI · BT</text>
-          <path d="M498 192 H560" stroke="#B4B0A5" fill="none"/><text x="520" y="186">SENSOR PORTS</text>
-          <path d="M344 448 V520 H420" stroke="#B4B0A5" fill="none"/><text x="340" y="536">GPIO · SIGNAL / 5V / GND</text>
-          <path d="M146 474 V520 H40" stroke="#B4B0A5" fill="none"/><text x="20" y="536">USB-C</text>
-          <path d="M330 96 V30 H420" stroke="#B4B0A5" fill="none"/><text x="330" y="24">MOTOR + SERVO PORTS</text>
-        </g>
-      </svg>
+      <figure><img src="img/p/core.jpg" alt="The Kokoon Core board in its clear case with a yellow frame, standing on a bench." loading="lazy"><figcaption class="mono">Kokoon Core · ESP32-S3</figcaption></figure>
+      <figure><img src="img/p/core2.jpg" alt="Top view of the Kokoon Core board mounted on a build plate." loading="lazy"><figcaption class="mono">Clicks onto the plate</figcaption></figure>
+      <figure><img src="img/p/cell.jpg" alt="The red protected battery pack with USB-C, on a gridded mat." loading="lazy"><figcaption class="mono">Protected power pack</figcaption></figure>
     </div>
     <div>
-      <div class="eyebrow mono rv">The brain · Designed in India</div>
-      <h2 class="rv">Our own board, <em class="s">not a teaching toy.</em></h2>
+      <div class="eyebrow mono rv">05 — The brain · Designed in India</div>
+      <h2 id="core-h" class="rv">Our own board, <em class="s">not a teaching toy.</em></h2>
       <p class="lead rv" style="margin-top:24px">The Kokoon Core runs the code and tells the rest of the machine what to do. Same chip family that sits inside real IoT products. A college student could pick up this exact board. We made it approachable for a fourteen-year-old, not simpler.</p>
       <div class="specs rv">
         <div><span class="mono">Processor</span><b>ESP32-S3, dual-core</b></div>
@@ -461,10 +493,47 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
   </div>
 </section>
 
+<section class="sec hw" aria-labelledby="hw-h">
+  <div class="wrap">
+    <div class="eyebrow mono rv">06 — The hardware</div>
+    <h2 id="hw-h" class="rv">Made to be handled. <em class="s">Not handled with care.</em></h2>
+    <p class="lead rv" style="margin-top:24px">A build plate that everything clicks onto. Modules with colour-coded ports. A case you can see through, so nothing is a black box.</p>
+    <div class="hwg">
+      <figure class="a rv"><img src="img/p/board-logo.jpg" alt="The Core board on a build plate with the Kokoon logo behind it." loading="lazy"><figcaption class="mono">Core · on the plate</figcaption></figure>
+      <figure class="b rv"><img src="img/p/cell2.jpg" alt="The Core board seen from above on the build plate." loading="lazy"><figcaption class="mono">Every port labelled</figcaption></figure>
+      <figure class="c rv"><img src="img/p/plate.jpg" alt="The build plate with the Core board mounted in the middle." loading="lazy"><figcaption class="mono">The build plate</figcaption></figure>
+      <figure class="d rv"><img src="img/p/project2.jpg" alt="A mini project: the Core wired to four modules on the plate." loading="lazy"><figcaption class="mono">Mini project · week 3</figcaption></figure>
+      <figure class="e rv"><img src="img/p/cellside.jpg" alt="The red battery pack seen from the side, showing the USB-C port." loading="lazy"><figcaption class="mono">Power pack · USB-C</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="codelab" aria-labelledby="cl-h2">
+  <div class="wrap">
+    <div class="cl-head">
+      <div><div class="eyebrow mono rv">07 — Code Lab</div><h2 id="cl-h2" class="rv">Blocks first. <em class="s">Then real code.</em></h2></div>
+      <p class="lead rv">They snap blocks together in the browser, watch the real code appear beside them, and flash it to the Core over USB. When the blocks run out of room, the code is already familiar.</p>
+    </div>
+    <div class="cl-frame rv">
+      <div class="cl-bar"><span></span><span></span><span></span><i class="mono">Kokoon Code Lab · classroom canvas</i></div>
+      <img id="labMedia" src="img/codelab.gif" alt="Screen recording of the Kokoon Code Lab: blocks being dragged onto the canvas and the generated code updating." onerror="this.hidden=true;document.getElementById('labSoon').hidden=false">
+      <div id="labSoon" class="cl-soon" hidden>
+        <div class="pal"><span class="mono" style="color:var(--ink3)">Blocks</span><div class="blk" style="background:#3324C4">when started</div><div class="blk" style="background:#1B9E77">set servo 1 to 90°</div><div class="blk" style="background:#E6652B">wait 0.5 s</div><div class="blk" style="background:#1B9E77">read distance</div><div class="blk" style="background:#8E44AD">if … then</div><div class="blk" style="background:#F5C400;color:var(--ink)">turn LED on</div></div>
+        <div class="cv"><div class="stack"><div class="blk" style="background:#3324C4">when started</div><div class="blk" style="background:#1B9E77;margin-left:16px">set servo 1 to 90°</div><div class="blk" style="background:#8E44AD;margin-left:16px">if distance &lt; 20 cm then</div><div class="blk" style="background:#F5C400;color:var(--ink);margin-left:32px">turn LED on</div><div class="blk" style="background:#E6652B;margin-left:32px">fire</div></div><div class="note">Live recording of the classroom canvas is on its way. This is a sketch of the same blocks.</div></div>
+      </div>
+    </div>
+    <div class="cl-steps">
+      <div class="rv"><span class="mono">Step 1</span><b>Drag the blocks</b><p>Sensors, motors, logic. Each block is one thing the board can do.</p></div>
+      <div class="rv"><span class="mono">Step 2</span><b>Read the code</b><p>The MicroPython appears next to the blocks, line for line. No translation later.</p></div>
+      <div class="rv"><span class="mono">Step 3</span><b>Flash the Core</b><p>One click over USB. The machine on the table does what they wrote.</p></div>
+    </div>
+  </div>
+</section>
+
 <section class="sec offer" id="offer" aria-labelledby="of-h">
   <div class="wrap ogrid">
     <div>
-      <div class="eyebrow mono rv">What's in the box</div>
+      <div class="eyebrow mono rv">08 — What's in the box</div>
       <h2 id="of-h" class="rv">Real components. <em class="s">Nothing to buy later.</em></h2>
       <p class="lead rv" style="margin-top:24px">Everything for all three machines and fifty-odd smaller builds, in one box. If a part goes missing, ask us and we will post another.</p>
       <div class="inv rv">
@@ -491,7 +560,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
 
 <section class="sec fit" aria-labelledby="fit-h">
   <div class="wrap">
-    <div class="eyebrow mono rv">Before you decide</div>
+    <div class="eyebrow mono rv">09 — Before you decide</div>
     <h2 id="fit-h" class="rv">Is this right for your child?</h2>
     <p class="lead rv" style="margin-top:24px">We would rather have an empty seat than a kit that sits in a cupboard from week three. Honest answers below.</p>
     <div class="fitg">
@@ -506,7 +575,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
 <section class="sec" id="reserve" aria-labelledby="res-h">
   <div class="wrap resg">
     <div>
-      <div class="eyebrow mono rv">Reserve · Series 01</div>
+      <div class="eyebrow mono rv">10 — Reserve · Series 01</div>
       <h2 id="res-h" class="rv">Reserve your <em class="s">Founding Builder</em> kit.</h2>
       <p class="lead rv" style="margin-top:24px">Series 01 is built in small batches. Reserve now and we'll message you on WhatsApp within two hours with payment and delivery details. Nothing is charged until you confirm.</p>
       <div class="faq rv">
@@ -544,6 +613,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
 <footer><div class="wrap"><span>© 2026 Kokoon Labs · A Sheryians company</span><span class="mono">Designed in India</span></div></footer>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js"></script>
 <script>
 (function(){
 'use strict';
@@ -552,13 +622,24 @@ var clamp=function(v,a,b){return Math.max(a,Math.min(b,v));}, seg=function(p,a,b
 var ease=function(t){return t*t*(3-2*t);}, easeIO=function(t){return t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;}, lerp=function(a,b,t){return a+(b-a)*t;};
 var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-/* reveal + nav */
+/* smooth scroll (Lenis) */
+var lenis=null;
+if(window.Lenis&&!reduce){try{lenis=new Lenis({lerp:.085,wheelMultiplier:1,smoothWheel:true,touchMultiplier:1.4});}catch(e){lenis=null;}}
+function goTo(el){ if(lenis)lenis.scrollTo(el,{offset:-64,duration:1.4}); else el.scrollIntoView({behavior:'smooth'}); }
+document.querySelectorAll('a[href^="#"]').forEach(function(a){a.addEventListener('click',function(ev){var id=a.getAttribute('href').slice(1); var el=id?document.getElementById(id):null; if(!el)return; ev.preventDefault(); goTo(el); history.replaceState(null,'','#'+id);});});
+
+/* reveal + drawn rules + nav */
 var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{rootMargin:'0px 0px -8% 0px'});
-document.querySelectorAll('.rv').forEach(function(el){io.observe(el);});
+document.querySelectorAll('.rv,.sec').forEach(function(el){io.observe(el);});
 var nav=document.getElementById('nav'), darks=[].slice.call(document.querySelectorAll('.dark,#build'));
 function navState(){nav.classList.toggle('scrolled',scrollY>24);var y=72;var on=darks.some(function(d){var r=d.getBoundingClientRect();return r.top<=y&&r.bottom>y;});nav.classList.toggle('ondark',on);}
-addEventListener('scroll',navState,{passive:true}); navState();
-document.getElementById('menuBtn').addEventListener('click',function(){document.getElementById('reserve').scrollIntoView();});
+document.getElementById('menuBtn').addEventListener('click',function(){goTo(document.getElementById('reserve'));});
+
+/* ruler */
+var ruler=document.getElementById('ruler'), rmk=document.getElementById('rmk'), rpct=document.getElementById('rpct'); var tk='';
+for(var ri=0;ri<=40;ri++){tk+='<i class="'+(ri%5?'':'M')+'" style="top:'+(ri*2.5)+'%">'+(ri%5?'':'<b>'+(ri*2.5|0)+'</b>')+'</i>';}
+ruler.innerHTML=tk;
+function rulerState(){var pr=clamp(scrollY/Math.max(1,document.documentElement.scrollHeight-innerHeight),0,1);rmk.style.top=(pr*100).toFixed(2)+'%';rpct.textContent=Math.round(pr*100);}
 
 /* form */
 var f=document.getElementById('resForm');
@@ -574,21 +655,32 @@ f.addEventListener('submit',function(ev){ev.preventDefault();var $=function(i){r
   f.hidden=true;var d=$('done');d.hidden=false;$('doneMsg').textContent='Thanks, '+name.split(' ')[0]+'. We’ll message you on WhatsApp within two hours with payment and delivery details.';d.querySelector('h3').setAttribute('tabindex','-1');d.querySelector('h3').focus();
 });
 
-if(!window.THREE){document.getElementById('ld').textContent='3D needs a newer browser.';return;}
+/* scroll-driven state */
+var target=0, build=document.getElementById('build');
+function readScroll(){var r=build.getBoundingClientRect();var tot=build.offsetHeight-innerHeight;target=clamp(-r.top/tot,0,1);}
+function onScroll(){navState();rulerState();readScroll();}
+addEventListener('scroll',onScroll,{passive:true}); onScroll();
+
+if(!window.THREE){document.getElementById('ld').textContent='3D needs a newer browser.';startLoop();return;}
 var T=THREE;
 
-/* ---------- KKM loader ---------- */
+/* ---------- KKM loader (KKM2 solids, KKM3 adds feature edges) ---------- */
 function parseKKM(buf){
-  var u8=new Uint8Array(buf); var magic=String.fromCharCode(u8[0],u8[1],u8[2],u8[3]); if(magic!=='KKM2')throw new Error('bad mesh');
+  var u8=new Uint8Array(buf); var magic=String.fromCharCode(u8[0],u8[1],u8[2],u8[3]); if(magic!=='KKM2'&&magic!=='KKM3')throw new Error('bad mesh');
   var jl=new DataView(buf,4,4).getUint32(0,true); var meta=JSON.parse(new TextDecoder().decode(u8.subarray(8,8+jl))); var off=8+jl; var parts=[];
   meta.forEach(function(m){
     var pos=new Uint16Array(buf.slice(off,off+m.v*6)); off+=m.v*6;
     var nrm=new Int8Array(buf.slice(off,off+m.v*3)); off+=m.v*3; if(m.v%2)off+=1;
     var ib=m.i32?4:2; var idx=m.i32?new Uint32Array(buf.slice(off,off+m.f*3*4)):new Uint16Array(buf.slice(off,off+m.f*3*2)); off+=m.f*3*ib;
-    var p=new Float32Array(m.v*3), n=new Float32Array(m.v*3), mn=m.min, mx=m.max;
-    for(var i=0;i<m.v;i++){for(var k=0;k<3;k++){p[i*3+k]=mn[k]+(pos[i*3+k]/65535)*(mx[k]-mn[k]);n[i*3+k]=nrm[i*3+k]/127;}}
+    var mn=m.min, mx=m.max, cx=(mn[0]+mx[0])/2, cy=(mn[1]+mx[1])/2, cz=(mn[2]+mx[2])/2, ctr=[cx,cy,cz];
+    var p=new Float32Array(m.v*3), n=new Float32Array(m.v*3);
+    for(var i=0;i<m.v;i++){for(var k=0;k<3;k++){p[i*3+k]=mn[k]+(pos[i*3+k]/65535)*(mx[k]-mn[k])-ctr[k];n[i*3+k]=nrm[i*3+k]/127;}}
     var g=new T.BufferGeometry(); g.setAttribute('position',new T.BufferAttribute(p,3)); g.setAttribute('normal',new T.BufferAttribute(n,3)); g.setIndex(new T.BufferAttribute(idx,1));
-    parts.push({geo:g,min:new T.Vector3().fromArray(mn),max:new T.Vector3().fromArray(mx),center:new T.Vector3((mn[0]+mx[0])/2,(mn[1]+mx[1])/2,(mn[2]+mx[2])/2)});
+    var lg=null; var ns=m.s||0;
+    if(ns){var sq=new Uint16Array(buf.slice(off,off+ns*12)); off+=ns*12; var lp=new Float32Array(ns*6);
+      for(var j=0;j<ns*2;j++){for(var k2=0;k2<3;k2++){lp[j*3+k2]=mn[k2]+(sq[j*3+k2]/65535)*(mx[k2]-mn[k2])-ctr[k2];}}
+      lg=new T.BufferGeometry(); lg.setAttribute('position',new T.BufferAttribute(lp,3));}
+    parts.push({geo:g,lines:lg,min:new T.Vector3().fromArray(mn),max:new T.Vector3().fromArray(mx),center:new T.Vector3().fromArray(ctr)});
   });
   return parts;
 }
@@ -601,11 +693,12 @@ function loadKKM(name){
 
 /* ---------- studio ---------- */
 var PAL={ivory:0xE9E4D6,charcoal:0x24262B,orange:0xF0661A,red:0xC8203A,sage:0x6A8C45,grey:0x8E939B,steel:0xB9BEC6};
+var INDIGO=new T.Color(0x3324C4).convertSRGBToLinear(), YELLOW=new T.Color(0xF5C400).convertSRGBToLinear();
 function mat(hex,o){var m=new T.MeshPhysicalMaterial(Object.assign({color:new T.Color(hex).convertSRGBToLinear(),roughness:.52,metalness:0,clearcoat:.18,clearcoatRoughness:.5,envMapIntensity:.9},o||{}));return m;}
 function makeEnv(renderer){
   var s=new T.Scene(); s.background=new T.Color(0x2a2c31);
   var sky=new T.Mesh(new T.SphereGeometry(50,32,16),new T.MeshBasicMaterial({color:0x3a3d44,side:T.BackSide})); s.add(sky);
-  function box(w,h,c,x,y,z,ry){var m=new T.Mesh(new T.PlaneGeometry(w,h),new T.MeshBasicMaterial({color:c,side:T.DoubleSide}));m.position.set(x,y,z);m.lookAt(0,0,0);s.add(m);}
+  function box(w,h,c,x,y,z){var m=new T.Mesh(new T.PlaneGeometry(w,h),new T.MeshBasicMaterial({color:c,side:T.DoubleSide}));m.position.set(x,y,z);m.lookAt(0,0,0);s.add(m);}
   box(18,10,0xffffff,-12,14,8); box(14,8,0xdfe6ff,14,10,-6); box(30,6,0xfff1dd,0,-8,16); box(10,10,0xffffff,6,16,-14);
   var pm=new T.PMREMGenerator(renderer); pm.compileEquirectangularShader(); var env=pm.fromScene(s,0.03).texture; pm.dispose(); return env;
 }
@@ -618,23 +711,24 @@ function Studio(canvas,o){
   scene.add(new T.HemisphereLight(0xffffff,0x33363c,.35));
   var key=new T.DirectionalLight(0xffffff,1.35); key.position.set(-1.2,2.2,1.6); key.castShadow=true; key.shadow.mapSize.set(2048,2048); key.shadow.radius=4; key.shadow.bias=-0.0004; scene.add(key);
   var fill=new T.DirectionalLight(0xdfe6ff,.35); fill.position.set(1.8,.8,-1.2); scene.add(fill);
-  var ground=new T.Mesh(new T.PlaneGeometry(40,40),new T.ShadowMaterial({opacity:o.shadow||.28})); ground.rotation.x=-Math.PI/2; ground.receiveShadow=true; scene.add(ground);
+  var ground=new T.Mesh(new T.PlaneGeometry(60,60),new T.ShadowMaterial({opacity:o.shadow||.28})); ground.rotation.x=-Math.PI/2; ground.receiveShadow=true; scene.add(ground);
   function size(){var w=canvas.clientWidth,h=canvas.clientHeight;if(!w||!h)return;r.setSize(w,h,false);cam.aspect=w/h;if(o.offset){if(w/h>1.1)cam.setViewOffset(w,h,-w*.14,0,w,h);else cam.setViewOffset(w,h,0,h*.09,w,h);}cam.updateProjectionMatrix();}
   size(); addEventListener('resize',size);
   return {r:r,scene:scene,cam:cam,key:key,ground:ground,size:size};
 }
-/* assemble parts into a normalised y-up model; returns {root, parts, radius} */
-function assemble(parts,colors,targetH){
+/* assemble parts into a normalised y-up model (each part pivots on its own centre) */
+function assemble(parts,colors,targetH,withLines){
   var mn=new T.Vector3(Infinity,Infinity,Infinity),mx=new T.Vector3(-Infinity,-Infinity,-Infinity);
   parts.forEach(function(p){mn.min(p.min);mx.max(p.max);});
   var ext=new T.Vector3().subVectors(mx,mn), s=targetH/ext.z, c=new T.Vector3().addVectors(mn,mx).multiplyScalar(.5);
   var root=new T.Group(); var inner=new T.Group(); inner.rotation.x=-Math.PI/2; inner.scale.setScalar(s); inner.position.y=-mn.z*s; root.add(inner);
   var out=[];
   parts.forEach(function(p,i){
-    var g=new T.Group(); g.position.set(-c.x,-c.y,0); // keep in model space inside inner (which is scaled)
+    var g=new T.Group(); g.position.set(p.center.x-c.x,p.center.y-c.y,p.center.z);
     var m=new T.Mesh(p.geo,mat(colors[i]!==undefined?colors[i]:PAL.grey)); m.castShadow=true; m.receiveShadow=true; g.add(m); inner.add(g);
-    var rel=new T.Vector3().subVectors(p.center,c); // model space, z up
-    out.push({g:g,mesh:m,home:g.position.clone(),center:p.center.clone(),rel:rel,ex:new T.Vector3(),stage:1,label:null});
+    var l=null; if(withLines&&p.lines){l=new T.LineSegments(p.lines,new T.LineBasicMaterial({color:INDIGO,transparent:true,opacity:0})); l.visible=false; g.add(l);}
+    var rel=new T.Vector3().subVectors(p.center,c);
+    out.push({g:g,mesh:m,line:l,home:g.position.clone(),center:p.center.clone(),ext:new T.Vector3().subVectors(p.max,p.min),rel:rel,ex:new T.Vector3(),rot:new T.Vector3(),stage:1,label:null});
   });
   return {root:root,inner:inner,parts:out,scale:s,center:c,ext:ext,radius:ext.length()*s*.5,height:ext.z*s};
 }
@@ -644,6 +738,7 @@ var SENTRY={colors:[PAL.ivory,PAL.charcoal,PAL.ivory,PAL.charcoal,PAL.ivory,PAL.
   info:{0:['Turntable','Learns: load and rotation',1],3:['Base chassis','Learns: structure and balance',1],10:['Pan servo','Learns: angles and torque',1],
         5:['Yoke','Learns: mechanism design',2],11:['Tilt servo','Learns: precise control',2],6:['Pivot shaft','Learns: axes of motion',2],7:['Support post','Learns: alignment',2],9:['Tilt cradle','Learns: linkages',2],
         2:['Receiver body','Learns: assembly',3],1:['Flywheel housing','Learns: speed and spin',3],4:['Top cover','Learns: fit and tolerance',3],8:['Magazine','Learns: feeding and timing',3],12:['Barrel','Learns: trajectory',3],13:['Side bracket','Learns: rigidity',3]},
+  dims:[3,0,5,8,2,12,9],
   pan:function(i){return i!==3&&i!==10;}, tilt:function(i){return [1,2,4,8,9,12,13].indexOf(i)>=0;}};
 var ARM={colors:[PAL.red,PAL.ivory,PAL.charcoal,PAL.red,PAL.red,PAL.charcoal,PAL.charcoal,PAL.steel,PAL.ivory,PAL.red,PAL.red,PAL.charcoal,PAL.charcoal,PAL.charcoal,PAL.charcoal,PAL.charcoal,PAL.charcoal,PAL.red,PAL.red,PAL.steel]};
 
@@ -657,7 +752,7 @@ function showViewer(k){
   img.hidden=true; cv.style.visibility='visible'; hint.textContent='Drag to rotate · built from the real print files';
   Object.keys(VR).forEach(function(n){VR[n].root.visible=n===k;VR[n].t=0;});
   if(!VR[k]&&V){document.getElementById('ld').hidden=false; loadKKM(k==='arm'?'arm':'sentry').then(function(parts){
-      var A=assemble(parts,k==='arm'?ARM.colors:SENTRY.colors,3.2); A.t=0; A.root.position.y=0; V.scene.add(A.root); VR[k]=A; A.root.visible=active===k;
+      var A=assemble(parts,k==='arm'?ARM.colors:SENTRY.colors,3.2,false); A.t=0; A.root.position.y=0; V.scene.add(A.root); VR[k]=A; A.root.visible=active===k;
       A.parts.forEach(function(p){p.ex.copy(p.rel).multiplyScalar(.9); p.ex.z=p.rel.z*1.5;});
       fit(V,A); document.getElementById('ld').hidden=true;
     }).catch(function(){document.getElementById('ld').textContent='Model could not be loaded.';});}
@@ -676,69 +771,98 @@ function frameViewer(dt){
   V.r.render(V.scene,V.cam);
 }
 
-/* ---------- the build (pinned) ---------- */
-var build=document.getElementById('build'), pin=document.getElementById('pin'), B=null, BA=null, bVisible=true, target=0, cur=0, mouse={x:0,y:0}, mx={x:0,y:0};
-try{ B=Studio(document.getElementById('c3d'),{offset:true,dpr:1.6,exposure:1.0,shadow:.42}); B.r.setClearColor(0x130C30,1); B.scene.fog=new T.Fog(0x130C30,24,70); }catch(e){}
+/* ---------- the build (pinned, 1500vh) ----------
+   0–.09 hero · .09–.30 explode · .30–.50 technical drawing · .50–.82 reassembly in three stages · .82–.93 powered on · .93–1 dive */
+var pin=document.getElementById('pin'), B=null, BA=null, bVisible=true, cur=0, mouse={x:0,y:0}, mx={x:0,y:0};
+var DARK=new T.Color(0x130C30), PAPER=new T.Color(0xF4F2FB);
+try{ B=Studio(document.getElementById('c3d'),{alpha:true,offset:true,dpr:1.6,exposure:1.0,shadow:.42}); B.r.setClearColor(0,0); B.scene.fog=new T.Fog(DARK.clone().convertSRGBToLinear(),30,80); }catch(e){}
 var labelsEl=document.getElementById('labels'), linesEl=document.getElementById('lines'), phases=[].slice.call(document.querySelectorAll('.ph'));
 var pnow=document.getElementById('pnow'), pbar=document.getElementById('pbar'), bmVal=document.getElementById('bmVal'), bmLbl=document.getElementById('bmLbl'), cue=document.getElementById('cue');
-var panG,tiltG;
+var btitle=document.getElementById('btitle'), tblock=document.getElementById('tblock'), fadeEl=document.getElementById('fade'), chapsEl=document.getElementById('chaps');
+var CH=[[0,'Assembled'],[.09,'Taking apart'],[.30,'The drawing'],[.50,'Stage 1 · Base'],[.62,'Stage 2 · Motion'],[.72,'Stage 3 · Purpose'],[.82,'Powered on'],[.93,'Inside']];
+var chapEls=CH.map(function(c,i){var b=document.createElement('button');b.className='chap';b.type='button';b.textContent=('0'+(i+1)).slice(-2)+' '+c[1];b.addEventListener('click',function(){var y=build.offsetTop+c[0]*(build.offsetHeight-innerHeight)+2;if(lenis)lenis.scrollTo(y,{duration:1.6});else scrollTo({top:y,behavior:'smooth'});});chapsEl.appendChild(b);return b;});
+var panG,tiltG,grid=null,ring=null,ringLight=null,dimEls=[];
+var WIN=[[.50,.62],[.62,.72],[.72,.82]];
+/* camera keyframes: [t, distance×, height×, angle, look-at height×, fov] */
+var KF=[[0,1.05,.16,.9,.46,30],[.09,.95,.12,1.15,.44,30],[.30,1.9,.55,1.9,.62,30],[.50,1.75,.22,2.9,.56,26],[.62,1.55,.3,3.4,.52,28],[.72,1.35,.3,3.9,.5,28],[.82,1.1,.18,4.45,.47,30],[.93,1.0,.14,4.6,.47,30],[1,.22,.1,4.62,.46,52]];
+function camAt(p){var i=0;while(i<KF.length-2&&p>KF[i+1][0])i++;var a=KF[i],b=KF[i+1],t=easeIO(seg(p,a[0],b[0]));var o=[];for(var k=1;k<6;k++)o.push(lerp(a[k],b[k],t));return o;}
+function svgEl(n,cls){var e=document.createElementNS('http://www.w3.org/2000/svg',n);if(cls)e.setAttribute('class',cls);linesEl.appendChild(e);return e;}
 if(B) loadKKM('sentry').then(function(parts){
-  BA=assemble(parts,SENTRY.colors,3.6); B.scene.add(BA.root); BA.root.rotation.y=2.3;
-  // explode vectors (model space, z up), staged
+  BA=assemble(parts,SENTRY.colors,3.6,true); B.scene.add(BA.root); BA.root.rotation.y=2.3;
+  grid=new T.GridHelper(60,60,0xB9B2E6,0xD6D1F0); grid.material.transparent=true; grid.material.opacity=0; grid.visible=false; grid.position.y=0.002; B.scene.add(grid);
   BA.parts.forEach(function(p,i){var inf=SENTRY.info[i]; p.stage=inf?inf[2]:3; if(inf){p.label=inf[0];p.learn=inf[1];}
-    var d=p.rel.clone(); var L=Math.max(1,Math.hypot(d.x,d.y)); p.ex.set(d.x/L*(60+Math.abs(d.x)*.6), d.y/L*(60+Math.abs(d.y)*.6), (p.rel.z)*1.1+ (p.stage-2)*40);
-    if(i===3)p.ex.set(0,0,-90); if(i===0)p.ex.set(0,0,-40); if(i===8)p.ex.set(0,0,170); if(i===12)p.ex.set(-150,0,30);
+    var d=p.rel.clone(); var L=Math.max(1,Math.hypot(d.x,d.y)); p.ex.set(d.x/L*(80+Math.abs(d.x)*.7), d.y/L*(80+Math.abs(d.y)*.7), (p.rel.z)*1.3+(p.stage-2)*55);
+    if(i===3)p.ex.set(0,0,-110); if(i===0)p.ex.set(0,0,-50); if(i===8)p.ex.set(0,0,210); if(i===12)p.ex.set(-190,0,40);
+    var h=Math.sin(i*12.9898)*43758.5453; h=h-Math.floor(h); var h2=Math.sin(i*78.233)*43758.5453; h2=h2-Math.floor(h2);
+    p.rot.set((h-.5)*.8,(h2-.5)*.8,(h*h2-.25)*.6); p.t0=.09+(3-p.stage)*.025+(i%5)*.006;
     var el=document.createElement('div'); el.className='lbl'; el.innerHTML='<b>'+(p.label||'')+'</b><span>'+(p.learn||'')+'</span>'; labelsEl.appendChild(el); p.el=el;
-    var path=document.createElementNS('http://www.w3.org/2000/svg','path'), dot=document.createElementNS('http://www.w3.org/2000/svg','circle'); dot.setAttribute('r','0'); linesEl.appendChild(path); linesEl.appendChild(dot); p.path=path; p.dot=dot;
+    p.path=svgEl('path'); p.dot=svgEl('circle'); p.dot.setAttribute('r','0');
   });
+  SENTRY.dims.forEach(function(i){var p=BA.parts[i]; dimEls.push({part:p,box:svgEl('rect','dim b'),br:svgEl('path','dim'),tx:svgEl('text','dimt'),txt:Math.round(p.ext.x)+' × '+Math.round(p.ext.y)+' × '+Math.round(p.ext.z)+' mm'});});
   // pan / tilt groups: re-parent for the powered-on phase
   panG=new T.Group(); tiltG=new T.Group(); BA.inner.add(panG); panG.add(tiltG);
   var r0=BA.parts[0].rel, r6=BA.parts[6].rel, c6z=BA.parts[6].center.z; // turntable axis, shaft axis
   panG.position.set(r0.x,r0.y,0); tiltG.position.set(r6.x-r0.x,r6.y-r0.y,c6z);
-  BA.parts.forEach(function(p,i){ if(!SENTRY.pan(i))return; var P=SENTRY.tilt(i)?new T.Vector3(r6.x,r6.y,c6z):new T.Vector3(r0.x,r0.y,0); (SENTRY.tilt(i)?tiltG:panG).add(p.g); p.g.position.set(-BA.center.x-P.x,-BA.center.y-P.y,-P.z); p.home.copy(p.g.position); });
+  BA.parts.forEach(function(p,i){ if(!SENTRY.pan(i))return; var P=SENTRY.tilt(i)?new T.Vector3(r6.x,r6.y,c6z):new T.Vector3(r0.x,r0.y,0); (SENTRY.tilt(i)?tiltG:panG).add(p.g); p.g.position.set(p.rel.x-P.x,p.rel.y-P.y,p.center.z-P.z); p.home.copy(p.g.position); });
+  // ring light on the barrel for the powered-on phase
+  var bar=BA.parts[12], e=bar.ext, ax=e.x>=e.y&&e.x>=e.z?0:(e.y>=e.z?1:2), rr=Math.min(ax===0?e.y:e.x,ax===2?e.y:e.z)*.5*1.05;
+  var dir=new T.Vector3(); dir.setComponent(ax,(bar.rel.getComponent(ax)>=0?1:-1)*e.getComponent(ax)*.5);
+  ring=new T.Mesh(new T.TorusGeometry(rr,1.6,10,48),new T.MeshBasicMaterial({color:YELLOW,transparent:true,opacity:0})); ring.position.copy(bar.home).add(dir);
+  if(ax===0)ring.rotation.y=Math.PI/2; if(ax===1)ring.rotation.x=Math.PI/2; ring.visible=false; tiltG.add(ring);
+  ringLight=new T.PointLight(0xF5C400,0,7,2); ringLight.position.copy(ring.position); tiltG.add(ringLight);
   fit(B,BA);
 }).catch(function(e){console.error(e);});
-function readScroll(){var r=build.getBoundingClientRect();var tot=build.offsetHeight-innerHeight;target=clamp(-r.top/tot,0,1);}
-addEventListener('scroll',readScroll,{passive:true}); readScroll();
 addEventListener('pointermove',function(e){mouse.x=e.clientX/innerWidth*2-1;mouse.y=e.clientY/innerHeight*2-1;},{passive:true});
 new IntersectionObserver(function(e){bVisible=e[0].isIntersecting;},{rootMargin:'120px'}).observe(pin);
-var WIN=[[.42,.6],[.6,.76],[.76,.9]];
-var proj=new T.Vector3();
-function partE(p,part){ if(p<WIN[0][0]) return easeIO(seg(p,.14,.4)); var w=WIN[part.stage-1]; return 1-easeIO(seg(p,w[0],w[1])); }
+function partE(p,part){ if(p<.50) return easeIO(seg(p,part.t0,part.t0+.17)); var w=WIN[part.stage-1]; return 1-easeIO(seg(p,w[0],w[1])); }
+var tmpV=new T.Vector3();
 function frameBuild(dt){
   if(!B||!BA)return;
-  cur+=(target-cur)*(reduce?1:Math.min(1,dt*6.5)); var p=cur;
-  var PW=ease(seg(p,.9,.97));
-  var sum=0, inplace=0;
-  BA.parts.forEach(function(part){var e=partE(p,part);sum+=e;if(e<.03)inplace++;part.g.position.copy(part.home).addScaledVector(part.ex,e);part._e=e;});
-  var E=sum/BA.parts.length;
-  var d=BA.radius/Math.sin(B.cam.fov*Math.PI/360)*(1.22+E*.9)*(B.cam.aspect<1?1.25:1)/Math.min(1,B.cam.aspect*1.1);
-  var ang=.78+p*1.3+(reduce?0:Math.sin(time*.2)*.05*(1-PW));
-  B.cam.position.set(Math.cos(ang)*d, BA.height*.5+d*.2, Math.sin(ang)*d); B.cam.lookAt(0,BA.height*(.5+E*.18),0);
+  cur+=(target-cur)*(reduce?1:Math.min(1,dt*10)); var p=cur;
+  var DRAW=easeIO(seg(p,.30,.36))*(1-easeIO(seg(p,.48,.54)));
+  var PW=ease(seg(p,.82,.88)), DIVE=ease(seg(p,.94,1));
+  var inplace=0;
+  BA.parts.forEach(function(part){var e=partE(p,part); if(e<.03)inplace++; part._e=e;
+    part.g.position.copy(part.home).addScaledVector(part.ex,e); part.g.rotation.set(part.rot.x*e,part.rot.y*e,part.rot.z*e);
+    var o=1-DRAW*.97; part.mesh.material.opacity=o; part.mesh.material.transparent=o<.999; part.mesh.visible=o>.03;
+    if(part.line){part.line.material.opacity=DRAW; part.line.visible=DRAW>.01;}});
+  // paper
+  var bg=DARK.clone().lerp(PAPER,DRAW); pin.style.backgroundColor='#'+bg.getHexString(); B.scene.fog.color.copy(bg).convertSRGBToLinear();
+  pin.classList.toggle('paper',DRAW>.5); B.ground.material.opacity=lerp(.42,.1,DRAW);
+  if(grid){grid.material.opacity=DRAW*.9;grid.visible=DRAW>.01;}
+  // camera
+  var c=camAt(p); if(Math.abs(B.cam.fov-c[4])>.01){B.cam.fov=c[4];B.cam.updateProjectionMatrix();}
+  var asp=B.cam.aspect||1, d0=BA.radius/Math.sin(c[4]*Math.PI/360)*(asp<1?1.3:1)/Math.min(1,asp*1.1), d=d0*c[0];
+  var ang=c[2]+(reduce?0:Math.sin(time*.25)*.06*(1-seg(p,.05,.12)));
+  B.cam.position.set(Math.cos(ang)*d, BA.height*.5+d*c[1], Math.sin(ang)*d); B.cam.lookAt(0,BA.height*c[3],0);
   B.key.position.set(Math.cos(ang-1.1)*d, d*.9, Math.sin(ang-1.1)*d);
+  // powered on
   mx.x=lerp(mx.x,mouse.x,.06); mx.y=lerp(mx.y,mouse.y,.06);
   if(panG){panG.rotation.z=PW*(-mx.x*.8); tiltG.rotation.y=PW*(mx.y*.3);}
+  if(ring){var pulse=PW*(.75+.25*Math.sin(time*5)); ring.material.opacity=pulse; ring.visible=PW>.01; ringLight.intensity=PW*2.2;}
+  // chrome
   phases.forEach(function(ph){var a=+ph.dataset.from,b=+ph.dataset.to;ph.classList.toggle('on',p>=a&&p<b);});
-  var names=[[.14,'Assembled'],[.42,'Taking apart'],[.6,'Stage 1 · Base'],[.76,'Stage 2 · Motion'],[.9,'Stage 3 · Purpose'],[1.01,'Powered on']];
-  for(var q=0;q<names.length;q++){if(p<names[q][0]){pnow.textContent=names[q][1];break;}}
-  pbar.style.width=(p*100).toFixed(1)+'%'; cue.style.opacity=p<.03?1:0;
-  bmLbl.textContent=PW>.5?'Status':'Parts in place'; bmVal.textContent=PW>.5?'Tracking':(inplace+' / '+BA.parts.length);
+  var ci=0; for(var q=0;q<CH.length;q++){if(p>=CH[q][0])ci=q;} pnow.textContent=CH[ci][1]; chapEls.forEach(function(el,i){el.classList.toggle('on',i===ci);});
+  pbar.style.width=(p*100).toFixed(1)+'%'; cue.style.opacity=p<.02?1:0; btitle.style.opacity=1-seg(p,.05,.12); tblock.style.opacity=DRAW; fadeEl.style.opacity=DIVE;
+  if(PW>.5){bmLbl.textContent='Status';bmVal.textContent=p>=.93?'Core inside':'Tracking';}
+  else if(DRAW>.5){bmLbl.textContent='Drawing';bmVal.textContent='KL-SX1-01';}
+  else{bmLbl.textContent='Parts in place';bmVal.textContent=inplace+' / '+BA.parts.length;}
   B.r.render(B.scene,B.cam);
-  drawLabels(p);
+  drawLabels(p,DRAW);
 }
-function drawLabels(p){
+function drawLabels(p,DRAW){
   var w=pin.clientWidth,h=pin.clientHeight,small=w<700; linesEl.setAttribute('viewBox','0 0 '+w+' '+h);
   var cs=-1; if(p>=WIN[0][0]&&p<WIN[2][1]+.02){cs=p<WIN[0][1]?1:p<WIN[1][1]?2:3;}
   var pts=[];
   BA.parts.forEach(function(part){ if(!part.label)return;
-    var show=p>=.3&&p<WIN[2][1] && (p<WIN[0][0] ? true : part.stage===cs);
-    var o=show?(p<WIN[0][0]?ease(seg(p,.3,.36)):1):0;
+    var show=p>=.17&&p<WIN[2][1] && (p<WIN[0][0] ? true : part.stage===cs);
+    var o=show?(p<WIN[0][0]?ease(seg(p,.17,.23)):1):0;
     if(o<.01){part.el.style.opacity=0;part.path.setAttribute('d','');part.dot.setAttribute('r','0');return;}
-    var c=part.center.clone(); part.g.localToWorld(c); c.project(B.cam);
+    var c=tmpV.set(0,0,0); part.g.localToWorld(c); c.project(B.cam);
     pts.push({part:part,x:(c.x*.5+.5)*w,y:(-c.y*.5+.5)*h,o:o});
   });
   var cx=w*(w>1100?.56:.5), L=pts.filter(function(q){return q.x<cx;}).sort(function(a,b){return a.y-b.y;}), R=pts.filter(function(q){return q.x>=cx;}).sort(function(a,b){return a.y-b.y;});
-  var lw=small?120:200, gap=small?32:48, top=small?150:150, bottomAll=h-(small?230:110);
+  var lw=small?120:200, gap=small?32:48, top=small?150:230, bottomAll=h-(small?230:110);
   var ap=document.querySelector('.ph.on'), copyTop=ap?ap.getBoundingClientRect().top-pin.getBoundingClientRect().top-28:bottomAll;
   if(!small){var room=Math.min(bottomAll,copyTop)-top; while(L.length&&L.length*gap>room){R.push(L.pop());} R.sort(function(a,b){return a.y-b.y;});}
   function place(list,side){
@@ -753,13 +877,24 @@ function drawLabels(p){
       q.part.dot.setAttribute('cx',q.x.toFixed(1)); q.part.dot.setAttribute('cy',q.y.toFixed(1)); q.part.dot.setAttribute('r','3.5'); q.part.dot.style.opacity=q.o.toFixed(2);});
   }
   place(L,'l'); place(R,'r');
+  // dimension brackets (drawing phase)
+  dimEls.forEach(function(D){
+    if(DRAW<.02||small){D.box.style.opacity=0;D.br.style.opacity=0;D.tx.style.opacity=0;return;}
+    var e=D.part.ext, x0=Infinity,x1=-Infinity,y0=Infinity,y1=-Infinity;
+    for(var k=0;k<8;k++){tmpV.set((k&1?.5:-.5)*e.x,(k&2?.5:-.5)*e.y,(k&4?.5:-.5)*e.z); D.part.g.localToWorld(tmpV); tmpV.project(B.cam); var sx=(tmpV.x*.5+.5)*w, sy=(-tmpV.y*.5+.5)*h; if(sx<x0)x0=sx;if(sx>x1)x1=sx;if(sy<y0)y0=sy;if(sy>y1)y1=sy;}
+    x0-=6;x1+=6;y0-=6;y1+=6; var o=(DRAW*.9).toFixed(2);
+    D.box.setAttribute('x',x0.toFixed(1));D.box.setAttribute('y',y0.toFixed(1));D.box.setAttribute('width',Math.max(0,x1-x0).toFixed(1));D.box.setAttribute('height',Math.max(0,y1-y0).toFixed(1));D.box.style.opacity=o;
+    var by=y1+14; D.br.setAttribute('d','M'+x0.toFixed(1)+' '+(by-5)+' v10 M'+x0.toFixed(1)+' '+by+' H'+x1.toFixed(1)+' M'+x1.toFixed(1)+' '+(by-5)+' v10'); D.br.style.opacity=o;
+    D.tx.setAttribute('x',((x0+x1)/2).toFixed(1)); D.tx.setAttribute('y',(by+16).toFixed(1)); D.tx.setAttribute('text-anchor','middle'); D.tx.textContent=D.txt; D.tx.style.opacity=o;
+  });
 }
 
 /* ---------- loop ---------- */
 var last=performance.now();
-function loop(now){var dt=Math.min(.05,(now-last)/1000);last=now;time+=dt; if(bVisible)frameBuild(dt); if(vVisible)frameViewer(dt); requestAnimationFrame(loop);}
+function loop(now){var dt=Math.min(.05,(now-last)/1000);last=now;time+=dt; if(lenis)lenis.raf(now); if(bVisible)frameBuild(dt); if(vVisible)frameViewer(dt); requestAnimationFrame(loop);}
 requestAnimationFrame(loop);
 if(document.fonts&&document.fonts.ready)document.fonts.ready.then(function(){if(V)V.size();if(B)B.size();});
+function startLoop(){function l(now){if(lenis)lenis.raf(now);requestAnimationFrame(l);}requestAnimationFrame(l);}
 })();
 </script>
 
