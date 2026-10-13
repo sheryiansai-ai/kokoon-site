@@ -184,7 +184,7 @@ em.s{font-family:var(--f-display);font-style:normal;font-weight:700;font-size:.7
 .pin.paper{--pin-ink:#120E2E;--pin-ink2:#5A567A;--pin-line:rgba(51,36,196,.55);--pin-dot:#3324C4;--pin-acc:#3324C4;--pin-grid:rgba(51,36,196,.1)}
 .pin,.pin .lbl b,.pin .lbl span,.pin .ph p,.pin .ph .eyebrow,.pin .prog,.pin .bmeta,.pin .chap,.pin .tblock{transition:color .6s}
 .btitle{position:absolute;inset:0;z-index:0;display:grid;place-items:center;padding-bottom:12vh;pointer-events:none;font-family:var(--f-display);font-weight:800;font-size:clamp(64px,17vw,250px);letter-spacing:-0.04em;line-height:.9;text-align:center;white-space:nowrap;color:transparent;-webkit-text-stroke:1.5px rgba(248,246,255,.22);transition:opacity .4s}
-.btitle small{display:block;font:500 12px/1 var(--f-mono);letter-spacing:.14em;text-transform:uppercase;color:var(--yellow);-webkit-text-stroke:0;margin-top:22px}
+.btitle small{display:block;font:500 12px/1 var(--f-mono);letter-spacing:.14em;text-transform:uppercase;color:var(--yellow);-webkit-text-stroke:0;margin-bottom:22px}
 .pin canvas{position:absolute;inset:0;width:100%;height:100%;z-index:1}
 #lines{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:2}
 #lines path{fill:none;stroke:var(--pin-line);stroke-width:1}
@@ -206,6 +206,7 @@ em.s{font-family:var(--f-display);font-style:normal;font-weight:700;font-size:.7
 .ph p{margin-top:16px;color:var(--pin-ink2);font-size:clamp(15.5px,1.3vw,18px);max-width:44ch}
 .ph .cta{display:flex;gap:10px;flex-wrap:wrap;margin-top:24px}
 .pin.paper .btn--light{background:var(--indigo);color:#fff}
+.pin .btn--ghost{color:var(--pin-ink);box-shadow:inset 0 0 0 1.5px var(--pin-line)}.pin .btn--ghost:hover{background:rgba(128,128,160,.12)}
 .prog{position:absolute;right:var(--gutter);bottom:28px;display:flex;align-items:center;gap:14px;color:var(--pin-ink2);z-index:4}
 .prog .bar{width:160px;height:2px;background:rgba(128,128,160,.35);border-radius:2px;overflow:hidden}
 .prog .bar i{display:block;height:100%;width:0;background:var(--pin-acc)}
@@ -445,7 +446,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
 
 <section id="build" aria-label="Sentry X1, taken apart, drawn, rebuilt and switched on as you scroll">
   <div class="pin" id="pin">
-    <div class="btitle" id="btitle" aria-hidden="true"><div>Sentry X1<small>Capstone 01 · the real print file</small></div></div>
+    <div class="btitle" id="btitle" aria-hidden="true"><div><small>Capstone 01 · the real print file</small>Sentry X1</div></div>
     <canvas id="c3d" aria-hidden="true"></canvas>
     <svg id="lines" aria-hidden="true"></svg>
     <div class="labels" id="labels" aria-hidden="true"></div>
@@ -739,7 +740,7 @@ var SENTRY={colors:[PAL.ivory,PAL.charcoal,PAL.ivory,PAL.charcoal,PAL.ivory,PAL.
   info:{0:['Turntable','Learns: load and rotation',1],3:['Base chassis','Learns: structure and balance',1],10:['Pan servo','Learns: angles and torque',1],
         5:['Yoke','Learns: mechanism design',2],11:['Tilt servo','Learns: precise control',2],6:['Pivot shaft','Learns: axes of motion',2],7:['Support post','Learns: alignment',2],9:['Tilt cradle','Learns: linkages',2],
         2:['Receiver body','Learns: assembly',3],1:['Flywheel housing','Learns: speed and spin',3],4:['Top cover','Learns: fit and tolerance',3],8:['Magazine','Learns: feeding and timing',3],12:['Barrel','Learns: trajectory',3],13:['Side bracket','Learns: rigidity',3]},
-  dims:[3,0,5,8,2,12,9],
+  dims:[3,8,12,2,9],
   pan:function(i){return i!==3&&i!==10;}, tilt:function(i){return [1,2,4,8,9,12,13].indexOf(i)>=0;}};
 var ARM={colors:[PAL.red,PAL.ivory,PAL.charcoal,PAL.red,PAL.red,PAL.charcoal,PAL.charcoal,PAL.steel,PAL.ivory,PAL.red,PAL.red,PAL.charcoal,PAL.charcoal,PAL.charcoal,PAL.charcoal,PAL.charcoal,PAL.charcoal,PAL.red,PAL.red,PAL.steel]};
 
@@ -785,7 +786,7 @@ var chapEls=CH.map(function(c,i){var b=document.createElement('button');b.classN
 var panG,tiltG,grid=null,ring=null,ringLight=null,dimEls=[];
 var WIN=[[.50,.62],[.62,.72],[.72,.82]];
 /* camera keyframes: [t, distance×, height×, angle, look-at height×, fov] */
-var KF=[[0,1.38,.2,.9,.5,30],[.09,1.28,.16,1.15,.48,30],[.30,1.9,.55,1.9,.62,30],[.50,1.75,.22,2.9,.56,26],[.62,1.55,.3,3.4,.52,28],[.72,1.35,.3,3.9,.5,28],[.82,1.1,.18,4.45,.47,30],[.93,1.0,.14,4.6,.47,30],[1,.22,.1,4.62,.46,52]];
+var KF=[[0,1.38,.2,.9,.5,30],[.09,1.28,.16,1.15,.48,30],[.30,2.1,.55,1.9,.62,30],[.50,1.95,.2,2.6,.56,26],[.62,1.7,.26,2.1,.52,28],[.72,1.5,.26,1.6,.5,28],[.82,1.32,.18,1.25,.48,30],[.93,1.2,.14,1.0,.48,30],[1,.3,.1,.95,.46,52]];
 function camAt(p){var i=0;while(i<KF.length-2&&p>KF[i+1][0])i++;var a=KF[i],b=KF[i+1],t=easeIO(seg(p,a[0],b[0]));var o=[];for(var k=1;k<6;k++)o.push(lerp(a[k],b[k],t));return o;}
 function svgEl(n,cls){var e=document.createElementNS('http://www.w3.org/2000/svg',n);if(cls)e.setAttribute('class',cls);linesEl.appendChild(e);return e;}
 if(B) loadKKM('sentry').then(function(parts){
@@ -825,11 +826,11 @@ function frameBuild(dt){
   var inplace=0;
   BA.parts.forEach(function(part){var e=partE(p,part); if(e<.03)inplace++; part._e=e;
     part.g.position.copy(part.home).addScaledVector(part.ex,e); part.g.rotation.set(part.rot.x*e,part.rot.y*e,part.rot.z*e);
-    var o=1-DRAW*.97; part.mesh.material.opacity=o; part.mesh.material.transparent=o<.999; part.mesh.visible=o>.03;
+    var o=1-DRAW*.97; part.mesh.material.opacity=o; part.mesh.material.transparent=o<.999; part.mesh.visible=o>.03; part.mesh.castShadow=o>.5;
     if(part.line){part.line.material.opacity=DRAW; part.line.visible=DRAW>.01;}});
   // paper
   var bg=DARK.clone().lerp(PAPER,DRAW); pin.style.backgroundColor='#'+bg.getHexString(); B.scene.fog.color.copy(bg).convertSRGBToLinear();
-  pin.classList.toggle('paper',DRAW>.5); B.ground.material.opacity=lerp(.42,.1,DRAW);
+  pin.classList.toggle('paper',DRAW>.5); B.ground.material.opacity=lerp(.42,.04,DRAW);
   if(grid){grid.material.opacity=DRAW*.9;grid.visible=DRAW>.01;}
   // camera
   var c=camAt(p); if(Math.abs(B.cam.fov-c[4])>.01){B.cam.fov=c[4];B.cam.updateProjectionMatrix();}
@@ -867,7 +868,7 @@ function drawLabels(p,DRAW){
   var ap=document.querySelector('.ph.on'), copyTop=ap?ap.getBoundingClientRect().top-pin.getBoundingClientRect().top-28:bottomAll;
   if(!small){var room=Math.min(bottomAll,copyTop)-top; while(L.length&&L.length*gap>room){R.push(L.pop());} R.sort(function(a,b){return a.y-b.y;});}
   function place(list,side){
-    var bottom=side==='l'&&!small?Math.min(bottomAll,copyTop):bottomAll;
+    var bottom=side==='l'&&!small?Math.min(bottomAll,copyTop):(side==='r'&&!small&&DRAW>.5?h-250:bottomAll);
     var ys=list.map(function(q){return clamp(q.y,top,bottom);});
     for(var i=1;i<ys.length;i++)if(ys[i]-ys[i-1]<gap)ys[i]=ys[i-1]+gap;
     var over=ys.length?ys[ys.length-1]-bottom:0; if(over>0)ys=ys.map(function(y){return y-over;});
